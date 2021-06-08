@@ -1,0 +1,2 @@
+class FollowStock < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class FollowExpert < ApplicationRecord
+end
