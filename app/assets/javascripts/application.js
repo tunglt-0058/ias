@@ -11,6 +11,8 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require activestorage
 //= require turbolinks
+//= require jquery/dist/jquery.min
+//= require bootstrap/dist/js/bootstrap.min
+//= require propellerkit/dist/js/propeller.min
 //= require_tree .
