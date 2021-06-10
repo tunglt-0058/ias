@@ -1,0 +1,48 @@
+<canvas id="stockChart"></canvas>
+<script>
+var lineChartData = {
+    labels: ['Jun 2020', 'Sep 2020', 'Dec 2020', 'Mar 2021', 'Jun 2021', 'Dec 2022', 'Jun 2022'],
+    datasets: [
+    {
+      label: "Past 12 Months",
+      data: [5, 8, 3, 4, 2, null, null],
+      backgroundColor: '#000',
+      borderColor: '#000',
+      pointBackgroundColor: "transparent"
+    }, {
+      label: "Highest Price Target",
+      data: [null, null, null, null, 2, 4, 5],
+      borderColor: '#66f',
+      borderDash: [20, 30],
+      pointBackgroundColor: "transparent"
+    },{
+      label: "Average Price Target",
+      data: [null, null, null, null, 2, 3, 4],
+      backgroundColor: 'rgba(0,255,0,1)',
+      borderColor: 'rgba(0,255,0,1)',
+      borderDash: [20, 30],
+      pointBackgroundColor: "transparent"
+    },{
+      label: "Lowest Price Target",
+      data: [null, null, null, null, 2, 2, 3],
+      backgroundColor: 'rgba(255, 99, 132, 0.6)',
+      borderColor: 'rgb(255, 99, 132)',
+      borderDash: [20, 30],
+      pointBackgroundColor: "transparent"
+    }
+    ]
+};
+
+var ctx = document.getElementById("stockChart").getContext("2d");
+var myChart = new Chart(ctx, {
+    type: "line",
+    data: lineChartData,
+    options: {
+        elements: {
+            line: {
+                fill: false
+            }
+        }
+    }
+});
+</script>
