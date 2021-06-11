@@ -6,3 +6,6 @@
 ``` sh
 npm install propellerkit
 ```
+
+##### Using lib:
+- [Chart.js](https://www.chartjs.org/docs/latest/charts/line.html)
