@@ -1,5 +1,14 @@
 en:
   layouts:
+    app:
+      title: "IAS"
+    login:
+      title: "Login"
+      with: " with "
+      remember_me: "Remember me"
+      forgot_password: "Forgot password?"
+      no_account: "Don't have an account? "
+      signup: "Sign Up"
     footer:
       about_us: "About us"
       blog: "Blog"

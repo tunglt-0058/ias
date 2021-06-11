@@ -21,6 +21,7 @@ gem "font-awesome-rails"
 gem "bootstrap-kaminari-views"
 gem "material_icons"
 gem "chart-js-rails"
+gem "devise"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
