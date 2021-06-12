@@ -5,18 +5,14 @@
       <div class="col-sm-6 col-sm-offset-3  pmd-z-depth-1">
         <div class="login-card" style="display: block;">
           <div class="pmd-card-title card-header-border text-center">
-            <h1 class="loginlogo">
-                <img src="images/logo-icon.png" alt="Logo">
-            </h1>
             <h3><%= t "layouts.login.title" %><span><%= t "layouts.login.with" %><strong><%= t "layouts.app.title" %></strong></span></h3>
           </div>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="pmd-card-body">
-              <div class="alert alert-success" role="alert"> Oh snap! Change a few things up and try submitting again. </div>
               <div class="form-group pmd-textfield pmd-textfield-floating-label">
                   <%= f.label :email, class: "control-label pmd-input-group-label" %>
                   <div class="input-group">
-                    <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i></div>
+                    <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">email</i></div>
                     <%= f.email_field :email, autofocus: true, class: "form-control" %><span class="pmd-textfield-focused"></span>
                   </div>
               </div>
@@ -47,8 +43,8 @@
               <div class="actions">
                 <%= f.submit t("layouts.login.title"), class: "btn pmd-ripple-effect btn-primary btn-block" %>
               </div>
-              <p class="redirection-link"><%= t "layouts.login.no_account" %><a href="javascript:void(0);" class="login-register">
-                <%= t "layouts.login.signup" %></a>. </p>
+              <p class="redirection-link"><%= t "layouts.login.no_account" %><a href="sign_up" class="login-register">
+                <%= t "layouts.signup.title" %></a>. </p>
             </div>
           <% end %>
         </div>
