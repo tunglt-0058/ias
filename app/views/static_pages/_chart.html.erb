@@ -6,8 +6,8 @@ var lineChartData = {
     {
       label: "Past 12 Months",
       data: [5, 8, 3, 4, 2, null, null],
-      backgroundColor: '#000',
-      borderColor: '#000',
+      backgroundColor: '#5d5d5e',
+      borderColor: '#5d5d5e',
       pointBackgroundColor: "transparent"
     }, {
       label: "Highest Price Target",
@@ -35,14 +35,19 @@ var lineChartData = {
 
 var ctx = document.getElementById("stockChart").getContext("2d");
 var myChart = new Chart(ctx, {
-    type: "line",
-    data: lineChartData,
-    options: {
-        elements: {
-            line: {
-                fill: false
-            }
-        }
+  type: "line",
+  data: lineChartData,
+  options: {
+    elements: {
+      line: {
+          fill: false
+      }
+    }, 
+    plugins: {
+      tooltip: {
+        yAlign: "bottom"
+      }
     }
+  }
 });
 </script>
