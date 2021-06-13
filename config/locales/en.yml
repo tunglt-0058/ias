@@ -1,14 +1,19 @@
 en:
   layouts:
     app:
-      title: "IAS"
+      title: "StockRanks"
     login:
       title: "Login"
       with: " with "
       remember_me: "Remember me"
       forgot_password: "Forgot password?"
       no_account: "Don't have an account? "
-      signup: "Sign Up"
+    signup:
+      title: "Sign Up"
+      with: " with "
+      already_account: "Already have an account? "
+    logout:
+      title: "Logout"
     footer:
       about_us: "About us"
       blog: "Blog"

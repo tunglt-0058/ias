@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2021_06_11_055346) do
     t.string "avatar"
     t.string "email"
     t.string "password"
-    t.integer "account_type"
+    t.integer "account_type", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "encrypted_password", default: "", null: false
