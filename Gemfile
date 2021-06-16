@@ -15,8 +15,6 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "font-awesome-sass"
 gem "ransack"
 gem "kaminari"
-gem "jquery-rails"
-gem "jquery-ui-rails"
 gem "font-awesome-rails"
 gem "bootstrap-kaminari-views"
 gem "material_icons"
