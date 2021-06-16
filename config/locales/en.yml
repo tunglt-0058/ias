@@ -2,6 +2,21 @@ en:
   layouts:
     app:
       title: "StockRanks"
+    navbar:
+      experts: 
+        title: "EXPERTS "
+        my: "My experts"
+        top: "Top experts"
+      news: 
+        title: "NEWS "
+        my: "My news"
+        trending: "Trending news"
+      categories: 
+        title: "CATEGORIES "
+        my: "My stocks"
+        list: "Categories list"
+      groups:
+        title: "GROUPS "
     login:
       title: "Login"
       with: " with "
