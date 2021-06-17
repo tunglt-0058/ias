@@ -4,47 +4,38 @@
         <div class="col-xs-12 col-sm-9">
             <div class="pmd-card pmd-card-default pmd-z-depth">
               <div class="pmd-card-body">
-                <%= render "static_pages/chart" %>
-              </div>
-            </div>
-
-            <div class="pmd-card pmd-card-default pmd-z-depth">
-              <div class="pmd-card-body">
-                <%= render "static_pages/table" %>
+                <%= render "static_pages/stock_chart" %>
               </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <!--pmd-card -->  
+                    <div class="pmd-card-title">
+                        <h2 class="pmd-card-title-text"><%= t "layouts.home.expert_chart" %></h2>
+                    </div>
                     <div class="pmd-card pmd-card-default pmd-z-depth"> 
-                        <!-- Card body -->
-                        <div class="pmd-card-title">
-                            <h2 class="pmd-card-title-text">Planning</h2>
-                        </div>
-                        <div class="pmd-card-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et erat ut nulla imperdiet convallis. Aenean ornare imperdiet quam vitae posuere. In molestie convallis ante a ornare. Donec lacus orci, rutrum eu volutpat ut, euismod in turpis.</div>
-                        <!-- Card actions -->
-                        <div class="pmd-card-actions">
-                            <button class="btn pmd-btn-raised pmd-ripple-effect btn-primary" type="button">View details</button>
-                        </div>
+                        <%= render "static_pages/expert_chart" %>
                     </div>                            
                     <!--pmd-card -->
                 </div>
                 <!--/.col-md-6 col-sm-12-->
                 <div class="col-md-6 col-sm-12">
                     <!--pmd-card -->  
-                    <div class="pmd-card pmd-card-default pmd-z-depth pmd-card-custom-view"> 
-                        <!-- Card body -->
-                        <div class="pmd-card-title">
-                            <h2 class="pmd-card-title-text">Content</h2>
-                        </div>
-                        <div class="pmd-card-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et erat ut nulla imperdiet convallis. Aenean ornare imperdiet quam vitae posuere. In molestie convallis ante a ornare. Donec lacus orci, rutrum eu volutpat ut, euismod in turpis.</div>
-                        <!-- Card actions -->
-                        <div class="pmd-card-actions">
-                            <button class="btn pmd-btn-raised pmd-ripple-effect btn-primary" type="button">View details</button>
-                        </div>
+                    <div class="pmd-card-title">
+                        <h2 class="pmd-card-title-text"><%= t "layouts.home.user_chart" %></h2>
+                    </div>
+                    <div class="pmd-card pmd-card-default pmd-z-depth"> 
+                        <%= render "static_pages/user_chart" %>
                     </div>                            
                     <!--pmd-card -->
                 </div>
+            </div>
+            <div class="pmd-card pmd-card-default pmd-z-depth">
+              <div class="pmd-card-body">
+                <%= render "static_pages/table" %>
+              </div>
+            </div>
+            <div class="row">
                 <!--/.col-md-6 col-sm-12-->
                 <div class="col-md-6 col-sm-12">
                     <!--pmd-card -->  
