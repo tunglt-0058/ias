@@ -17,12 +17,19 @@ en:
         list: "Categories list"
       groups:
         title: "GROUPS "
+    home:
+      expert_chart: "Analyst Rating Consensus"
+      user_chart: "User Rating Consensus"
     login:
       title: "Login"
       with: " with "
       remember_me: "Remember me"
-      forgot_password: "Forgot password?"
       no_account: "Don't have an account? "
+    forgot_password:
+      title: "Forgot password?"
+      description: "Submit your email address and we'll send you a link to reset your password."
+      already_account: "Already registered? "
+      submit: "SUBMIT"
     signup:
       title: "Sign Up"
       with: " with "

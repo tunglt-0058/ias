@@ -3,51 +3,54 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-6 col-sm-offset-3  pmd-z-depth-1">
-        <div class="login-card" style="display: block;">
-          <div class="pmd-card-title card-header-border text-center">
-            <h3><%= t "layouts.login.title" %><span><%= t "layouts.login.with" %><strong><%= t "layouts.app.title" %></strong></span></h3>
-          </div>
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-            <div class="pmd-card-body">
-              <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                  <%= f.label :email, class: "control-label pmd-input-group-label" %>
-                  <div class="input-group">
-                    <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">email</i></div>
-                    <%= f.email_field :email, autofocus: true, class: "form-control" %><span class="pmd-textfield-focused"></span>
-                  </div>
-              </div>
-                
-              <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                <%= f.label :password, class: "control-label pmd-input-group-label" %>
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i></div>
-                  <%= f.password_field :password, autocomplete: "off", class: "form-control" %><span class="pmd-textfield-focused"></span>
-                </div>
-              </div>
-            </div>
-            <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
-              <div class="form-group clearfix">
-                <% if devise_mapping.rememberable? %>
-                  <div class="checkbox pull-left">
-                    <label class="pmd-checkbox checkbox-pmd-ripple-effect">
-                        <input type="checkbox" checked="" value="" class="pm-ini"><span class="pmd-checkbox-label">&nbsp;</span>
-                        <%= f.check_box :remember_me %>
-                        <span class="pmd-checkbox"><%= t "layouts.login.remember_me" %></span>
-                    </label>
-                  </div>
-                <% end %>  
-                <span class="pull-right forgot-password">
-                    <a href="javascript:void(0);"><%= t "layouts.login.forgot_password" %></a>
-                </span>
-              </div>
-              <div class="actions">
-                <%= f.submit t("layouts.login.title"), class: "btn pmd-ripple-effect btn-primary btn-block" %>
-              </div>
-              <p class="redirection-link"><%= t "layouts.login.no_account" %><a href="sign_up" class="login-register">
-                <%= t "layouts.signup.title" %></a>. </p>
-            </div>
-          <% end %>
+        <div class="pmd-card-title card-header-border text-center">
+          <h3><%= t "layouts.login.title" %><span><%= t "layouts.login.with" %><strong><%= t "layouts.app.title" %></strong></span></h3>
         </div>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="pmd-card-body">
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <%= f.label :email, class: "control-label pmd-input-group-label" %>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">email</i></div>
+                  <%= f.email_field :email, autofocus: true, class: "form-control" %><span class="pmd-textfield-focused"></span>
+                </div>
+            </div>
+              
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+              <%= f.label :password, class: "control-label pmd-input-group-label" %>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i></div>
+                <%= f.password_field :password, autocomplete: "off", class: "form-control" %><span class="pmd-textfield-focused"></span>
+              </div>
+            </div>
+          </div>
+          <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+            <div class="form-group clearfix">
+              <% if devise_mapping.rememberable? %>
+                <div class="checkbox pull-left">
+                  <label class="pmd-checkbox checkbox-pmd-ripple-effect">
+                      <input type="checkbox" checked="" value="" class="pm-ini"><span class="pmd-checkbox-label">&nbsp;</span>
+                      <%= f.check_box :remember_me %>
+                      <span class="pmd-checkbox"><%= t "layouts.login.remember_me" %></span>
+                  </label>
+                </div>
+              <% end %>  
+              <span class="pull-right forgot-password">
+                <%= link_to new_password_path(resource_name), "data-turbolinks":"false" do %>
+                  <%= t "layouts.forgot_password.title" %>
+                <% end %>
+              </span>
+            </div>
+            <div class="actions">
+              <%= f.submit t("layouts.login.title"), class: "btn pmd-ripple-effect btn-primary btn-block" %>
+            </div>
+            <p class="redirection-link"><%= t "layouts.login.no_account" %>
+              <%= link_to new_user_registration_path, "data-turbolinks":"false", class: "register-login" do %>
+                <%= t "layouts.signup.title" %>
+              <% end %>
+            </p>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
