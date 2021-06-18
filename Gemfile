@@ -20,6 +20,10 @@ gem "bootstrap-kaminari-views"
 gem "material_icons"
 gem "chart-js-rails"
 gem "devise"
+gem "config"
+gem "will_paginate", "~> 3.1.0"
+gem "will_paginate-bootstrap"
+gem "faker"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

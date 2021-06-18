@@ -1,6 +1,6 @@
 <canvas id="expertChart"></canvas>
 <script>
-var lineChartData = {
+var doughnutChartData = {
   datasets: [{
     label: 'My First Dataset',
     data: [300, 50, 100],
@@ -21,7 +21,7 @@ var lineChartData = {
 var ctx = document.getElementById("expertChart").getContext("2d");
 var myChart = new Chart(ctx, {
   type: "doughnut",
-  data: lineChartData,
+  data: doughnutChartData,
   options: { 
     plugins: {
       tooltip: {

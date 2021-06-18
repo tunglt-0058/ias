@@ -36,18 +36,14 @@
                 </div>
               <% end %>  
               <span class="pull-right forgot-password">
-                <%= link_to new_password_path(resource_name), "data-turbolinks":"false" do %>
-                  <%= t "layouts.forgot_password.title" %>
-                <% end %>
+                <%= link_to t("layouts.forgot_password.title"), new_password_path(resource_name), "data-turbolinks":"false", class: "pull-right forgot-password" %>
               </span>
             </div>
             <div class="actions">
               <%= f.submit t("layouts.login.title"), class: "btn pmd-ripple-effect btn-primary btn-block" %>
             </div>
             <p class="redirection-link"><%= t "layouts.login.no_account" %>
-              <%= link_to new_user_registration_path, "data-turbolinks":"false", class: "register-login" do %>
-                <%= t "layouts.signup.title" %>
-              <% end %>
+              <%= link_to t("layouts.signup.title"), new_user_registration_path, "data-turbolinks":"false", class: "register-login" %>
             </p>
           </div>
         <% end %>

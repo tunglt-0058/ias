@@ -13,15 +13,11 @@
   <!--navbar-header -->
   <div class="pmd-navbar-right-icon pull-right">	
     <% if user_signed_in? %>
-      <%= link_to destroy_user_session_path, "data-turbolinks":"false", method: :delete,
-        class: "btn btn-sm pmd-ripple-effect btn-primary" do %>
-        <%= t "layouts.logout.title" %>
-      <% end %>
+      <%= link_to t("layouts.logout.title"), destroy_user_session_path,
+        "data-turbolinks":"false", method: :delete, class: "btn btn-sm pmd-ripple-effect btn-primary" %>
     <% else %>
-      <%= link_to new_user_session_path, "data-turbolinks":"false",
-        class: "btn btn-sm pmd-ripple-effect btn-primary" do %>
-        <%= t "layouts.login.title" %>
-      <% end %>
+      <%= link_to t("layouts.login.title"), new_user_session_path,
+        "data-turbolinks":"false", class: "btn btn-sm pmd-ripple-effect btn-primary" %>
     <% end %>
     <a class="btn pmd-btn-fab pmd-ripple-effect btn-link btn-sm btn-link" href="javascript:void(0);"><i class="material-icons pmd-xs">close</i></a>
   </div>
