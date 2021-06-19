@@ -26,10 +26,7 @@
 			                  class: "btn btn-primary center-block btn-block" %>
 			             </div>
 			            <p class="redirection-link"><%= t "layouts.forgot_password.already_account" %>
-			            	<%= link_to new_user_session_path, "data-turbolinks":"false",
-						        class: "register-login" do %>
-						        <%= t "layouts.login.title" %>
-						    <% end %>
+			            	<%= link_to t("layouts.login.title"), new_user_session_path, "data-turbolinks":"false", class: "register-login" %>
 			            </p>
 		              </div>
 	            <% end %>

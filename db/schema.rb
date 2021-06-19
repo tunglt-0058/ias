@@ -34,7 +34,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_104112) do
     t.integer "user_id", null: false
     t.string "company_name"
     t.string "sector"
-    t.float "rank"
+    t.integer "rank"
+    t.float "system_rate"
     t.float "success_rate"
     t.float "average_return"
     t.string "display_id"

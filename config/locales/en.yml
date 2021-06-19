@@ -1,4 +1,17 @@
 en:
+  experts:
+    index:
+      performance: "Analyst Performance"
+      success_rate: "Success Rate"
+      out_of: " out of "
+      success_rating: " successful ratings"
+      average_return: "Average Return"
+      average_description: "Average return per recommendation"
+      rank: "Ranked #"
+      analysts: " Analysts"
+      full_profile: "See Full Profile >"
+      follow: "Followed by "
+      investors: " Investors"
   layouts:
     app:
       title: "StockRanks"

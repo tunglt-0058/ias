@@ -1,0 +1,10 @@
+<br>
+<div class="container">
+  <div class="row">
+  	<div style="display: none;"><%= count = @experts.count %></div>
+	<% @experts.each do |expert| %>
+		<%= render "expert_card", expert: expert, count: count %>
+	<% end %>
+	<%= will_paginate @experts, renderer: BootstrapPagination::Rails %>
+  </div>
+</div>
