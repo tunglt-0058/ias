@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2021_06_14_104112) do
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "avatar"
-    t.string "display_id"
+    t.string "display_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -32,13 +32,13 @@ ActiveRecord::Schema.define(version: 2021_06_14_104112) do
 
   create_table "experts", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "company_name"
-    t.string "sector"
-    t.integer "rank"
-    t.float "system_rate"
-    t.float "success_rate"
-    t.float "average_return"
-    t.string "display_id"
+    t.string "company_name", null: false
+    t.string "sector", null: false
+    t.float "system_rate", default: 0.0, null: false
+    t.float "success_rate", default: 0.0, null: false
+    t.float "average_return", default: 0.0, null: false
+    t.float "score", default: 0.0, null: false
+    t.string "display_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -69,15 +69,16 @@ ActiveRecord::Schema.define(version: 2021_06_14_104112) do
     t.string "name", null: false
     t.string "description"
     t.string "avatar"
+    t.string "display_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
     t.integer "recipient_id", null: false
-    t.boolean "read", null: false
+    t.boolean "read", default: false, null: false
     t.integer "stock_id", null: false
-    t.string "notiable_type"
+    t.string "notiable_type", null: false
     t.integer "notiable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -88,15 +89,16 @@ ActiveRecord::Schema.define(version: 2021_06_14_104112) do
     t.integer "stock_id", null: false
     t.integer "position", null: false
     t.integer "target_price", null: false
+    t.boolean "hit", default: false, null: false
     t.text "content", null: false
-    t.string "display_id"
+    t.string "display_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "price_pasts", force: :cascade do |t|
     t.integer "stock_id", null: false
-    t.datetime "month", null: false
+    t.datetime "time", null: false
     t.integer "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -111,6 +113,7 @@ ActiveRecord::Schema.define(version: 2021_06_14_104112) do
     t.integer "price_forecast_low"
     t.integer "price_forecast_average"
     t.integer "price_forecast_high"
+    t.string "display_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -119,9 +122,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_104112) do
     t.string "name", null: false
     t.string "avatar"
     t.string "email", null: false
-    t.string "password"
     t.integer "account_type", default: 0, null: false
-    t.string "display_id"
+    t.string "display_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "encrypted_password", default: "", null: false
