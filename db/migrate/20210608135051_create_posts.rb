@@ -5,8 +5,9 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.integer :stock_id, null: false
       t.integer :position, null: false
       t.integer :target_price, null: false
-      t.text :content, null: false
-      t.string :display_id
+      t.boolean :hit, null: false, default: false
+      t.text :content, null: false, length: {maximum: 512}
+      t.string :display_id, null: false, length: {maximum: 200}
 
       t.timestamps
     end
