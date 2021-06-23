@@ -1,9 +1,18 @@
-<canvas id="userChart"></canvas>
+<div class="text-center">
+  <div class="pmd-card-title">
+    <span class="pmd-card-subtitle-text">Khuyến nghị:</span>
+    <h2 class="pmd-card-title-text">SELL</h2>
+  </div>  
+  <hr>
+  <div class="pmd-card-body">
+    <canvas id="expertChart3"></canvas>
+  </div>
+</div>
 <script>
 var doughnutChartData = {
   datasets: [{
     label: 'My First Dataset',
-    data: [300, 50, 100],
+    data: [50, 30, 300],
     backgroundColor: [
       'rgb(255, 99, 132)',
       'rgb(54, 162, 235)',
@@ -13,12 +22,12 @@ var doughnutChartData = {
   }], 
   labels: [
     'Buy',
-    'Sell',
-    'Hold'
+    'Hold',
+    'Sell'
   ]
 };
 
-var ctx = document.getElementById("userChart").getContext("2d");
+var ctx = document.getElementById("expertChart3").getContext("2d");
 var myChart = new Chart(ctx, {
   type: "doughnut",
   data: doughnutChartData,

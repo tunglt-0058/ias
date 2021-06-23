@@ -31,8 +31,18 @@ en:
       groups:
         title: "GROUPS "
     home:
-      expert_chart: "Analyst Rating Consensus"
-      user_chart: "User Rating Consensus"
+      trending_stocks: "Trending Stocks"
+      list_forecasts​: "Detailed List of Analyst Forecasts​"
+      table:
+        analyst_profile: "Analyst Profile"
+        position: "Position"
+        price_target: "Price Target"
+        up_downside: "Upside/Downside"
+        follow: "Follow Expert"
+        detail: "Detail"
+      chart_stock:
+        follow: "Follow Stock"
+        contact: "Contact Expert"
     login:
       title: "Login"
       with: " with "

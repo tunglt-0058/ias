@@ -1,0 +1,42 @@
+<div class="text-center">
+  <div class="pmd-card-title">
+    <span class="pmd-card-subtitle-text">Khuyến nghị:</span>
+    <h2 class="pmd-card-title-text">BUY</h2>
+  </div>  
+  <hr>
+  <div class="pmd-card-body">
+    <canvas id="expertChart1"></canvas>
+  </div>
+</div>
+<script>
+var doughnutChartData = {
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }], 
+  labels: [
+    'Buy',
+    'Hold',
+    'Sell'
+  ]
+};
+
+var ctx = document.getElementById("expertChart1").getContext("2d");
+var myChart = new Chart(ctx, {
+  type: "doughnut",
+  data: doughnutChartData,
+  options: { 
+    plugins: {
+      tooltip: {
+        yAlign: "bottom"
+      }
+    }
+  }
+});
+</script>

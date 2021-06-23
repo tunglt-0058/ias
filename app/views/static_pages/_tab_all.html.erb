@@ -1,0 +1,29 @@
+<!--Fixed tab example -->
+<div class="pmd-card pmd-z-depth">
+  <div class="pmd-tabs pmd-tabs-bg">
+    <ul role="tablist" class="nav nav-tabs nav-justified">
+      <li class="active" role="presentation"><a data-toggle="tab" role="tab" aria-controls="home" href="#stock1-fixed">HPG</a></li>
+      <li role="presentation"><a data-toggle="tab" role="tab" aria-controls="profile" href="#stock2-fixed">SSI</a></li>
+      <li role="presentation"><a data-toggle="tab" role="tab" aria-controls="messages" href="#stock3-fixed">VNM</a></li>
+    </ul>
+  </div>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="stock1-fixed">
+      <%= render "static_pages/tab1" %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="stock2-fixed">
+      <%= render "static_pages/tab2" %>
+    </div>
+    <div role="tabpanel" class="tab-pane " id="stock3-fixed">
+      <%= render "static_pages/tab3" %>
+    </div>
+  </div>
+</div> <!--Fixed tab example end-->
+<!-- Jquery js -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Propeller Global js --> 
+<script src="https://opensource.propeller.in/components/global/js/global.js"></script>
+
+<!-- Propeller tabs js -->
+<script type="text/javascript" language="javascript" src="https://opensource.propeller.in/components/tab/js/tab-scrollable.js"></script>

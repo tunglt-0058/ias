@@ -1,17 +1,29 @@
-<canvas id="stockChart"></canvas>
+<div class="pmd-card-title">
+  <div class="col-sm-8 text-center">
+    <span class="pmd-card-title-text">Giá dự đoán trung bình của các chuyên gia</span>
+    <h1 class="pmd-card-title-text">90,100 VND</h1>
+  </div>
+  <div class="col-sm-4 text-right">
+    <button type="button" class="btn btn-primary">Detail →</button >
+  </div>
+</div>
+<br><br>
+<div class="pmd-card-body">
+  <canvas id="stockChart1"></canvas>
+</div>
 <script>
 var lineChartData = {
     labels: ['Jun 2020', 'Sep 2020', 'Dec 2020', 'Mar 2021', 'Jun 2021', 'Dec 2022', 'Jun 2022'],
     datasets: [
     {
       label: "Past 12 Months",
-      data: [5, 8, 3, 4, 2, null, null],
+      data: [1, 4, 3, 4, 2, null, null],
       backgroundColor: '#5d5d5e',
       borderColor: '#5d5d5e',
       pointBackgroundColor: "transparent"
     }, {
       label: "Highest Price Target",
-      data: [null, null, null, null, 2, 4, 5],
+      data: [null, null, null, null, 2, 5, 6],
       borderColor: '#66f',
       borderDash: [20, 30],
       pointBackgroundColor: "transparent"
@@ -19,7 +31,7 @@ var lineChartData = {
       label: "Average Price Target",
       data: [null, null, null, null, 2, 3, 4],
       backgroundColor: 'rgba(0,255,0,1)',
-      borderColor: 'rgba(0,255,0,1)',
+      borderColor: 'rgb(0,255,0,1)',
       borderDash: [20, 30],
       pointBackgroundColor: "transparent"
     },{
@@ -33,7 +45,7 @@ var lineChartData = {
     ]
 };
 
-var ctx = document.getElementById("stockChart").getContext("2d");
+var ctx = document.getElementById("stockChart1").getContext("2d");
 var myChart = new Chart(ctx, {
   type: "line",
   data: lineChartData,
