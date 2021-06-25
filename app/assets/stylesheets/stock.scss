@@ -1,0 +1,49 @@
+.inline-block-100 {
+	display: inline-block;
+	width: 100%;
+}
+
+.inline {
+	display: inline;
+}
+
+.border-right {
+  border: 0;
+  border-right: 2px solid #eee;
+  unicode-bidi: isolate;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  overflow: hidden;
+}
+
+.border-left {
+  border: 0;
+  border-left: 2px solid #eee;
+  unicode-bidi: isolate;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  overflow: hidden;		
+}
+
+.border-top {
+  border: 0;
+  border-top: 2px solid #eee;
+  unicode-bidi: isolate;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  overflow: hidden;		
+}
+
+.border-bottom {
+  border: 0;
+  border-bottom: 2px solid #eee;
+  unicode-bidi: isolate;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  overflow: hidden;		
+}
+
+
+.vertical-align-middle {
+	vertical-align: middle;
+}

@@ -4,7 +4,7 @@
   email = "example-#{n+1}@gmail.com"
   password = "12345678"
   User.create!(name: name, email: email, account_type: 1, display_id: Digest::SHA2.hexdigest(name),
-    password: password, encrypted_password: Digest::SHA2.hexdigest(password))
+    password: password)
 end
 puts "Create account users test"
 
