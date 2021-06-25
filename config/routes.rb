@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   }
   root "static_pages#show", page: "home"
   get "/pages/:page" => "static_pages#show"
+
   resources :experts, only: :index
+  resources :stocks, only: :show
 end

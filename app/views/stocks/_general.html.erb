@@ -1,0 +1,201 @@
+<div class="pmd-card-title inline-block-100">
+  <div class="inline-block-100 border-bottom">
+    <div class="col-sm-10 border-right">
+      <div class="inline-block-100">
+        <div class="col-sm-4">
+          <h2 class="pmd-card-title-text">CTCP tập đoàn Hoà Phát</h2>
+          <span class="pmd-card-title-text">(HOSE: HPG)</span>
+        </div>
+        <div class="col-sm-4">
+          <h2 class="pmd-card-title-text">Giá hiện tại</h2>
+          <span class="pmd-card-title-text">51,400 VND</span>
+        </div>
+        <div class="col-sm-4 text-right">
+          <button class="btn btn-sm btn-primary" 
+            type="button" data-toggle="tooltip" data-placement="top"
+            title="Follow stock">
+            <span class="vertical-align-middle">Theo Dõi</span>
+            <i class="material-icons pmd-sm vertical-align-middle">add_circle</i>
+          </button>
+          <button class="btn btn-sm btn-primary" 
+            type="button" data-toggle="tooltip" data-placement="top"
+            title="Contact Expert">
+            <span class="vertical-align-middle">Tư Vấn</span>
+            <i class="material-icons pmd-sm vertical-align-middle">speaker_notes</i>
+          </button>
+        </div>
+      </div>
+      <hr>
+      <div class="inline-block-100">
+        <div class="col-sm-4 text-center">
+          <span class="pmd-card-subtitle-text">Khuyến nghị:</span>
+          <h2 class="pmd-card-title-text">BUY</h2>
+          <hr>
+          <div class="pmd-card-body">
+            <canvas id="expertChart1"></canvas>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <span class="pmd-card-title-text">Giá dự đoán trung bình của các chuyên gia</span>
+          <h1 class="pmd-card-title-text">90,100 VND</h1>
+          <hr>
+          <div class="pmd-card-body">
+            <canvas id="stockChart1"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <h3 class="pmd-card-title-text"><b>Chỉ số cơ bản</b></h3>
+      <ul style="padding: 0 20px;">
+        <li style="list-style: decimal;">EPS</li>
+        <li style="list-style: decimal;">EPS</li>
+        <li style="list-style: decimal;">EPS</li>
+        <li style="list-style: decimal;">EPS</li>
+        <li style="list-style: decimal;">EPS</li>
+        <li style="list-style: decimal;">EPS</li>
+        <li style="list-style: decimal;">EPS</li>
+        <li style="list-style: decimal;">EPS</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="inline-block-100">
+    <div class="col-sm-4">
+      <div class="inline-block-100" style="padding-bottom: 10px;">
+        <div class="inline">Phân tích MUA</div>
+        <select>
+          <option>Hàng đầu</option>
+          <option>Hot</option>
+          <option>Mới nhất</option>
+        </select>
+      </div>
+      <div class="inline-block-100 border-top">
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="inline-block-100" style="padding-bottom: 10px;">
+        <div class="inline">Phân tích GIỮ</div>
+        <select>
+          <option>Hàng đầu</option>
+          <option>Hot</option>
+          <option>Mới nhất</option>
+        </select>
+      </div>
+      <div class="inline-block border-top">
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+      </div>      
+    </div>
+    <div class="col-sm-4">
+      <div class="inline-block" style="padding-bottom: 10px;">
+        <div class="inline">Phân tích BÁN</div>
+        <select>
+          <option>Hàng đầu</option>
+          <option>Hot</option>
+          <option>Mới nhất</option>
+        </select>
+      </div>
+      <div class="inline-block border-top">
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+        <div>Phân tích 1</div>
+      </div>      
+    </div>        
+  </div>
+</div>
+
+<script>
+  var lineChartData = {
+      labels: ['Jun 2020', 'Sep 2020', 'Dec 2020', 'Mar 2021', 'Jun 2021', 'Dec 2022', 'Jun 2022'],
+      datasets: [
+      {
+        label: "Past 12 Months",
+        data: [1, 4, 3, 4, 2, null, null],
+        backgroundColor: '#5d5d5e',
+        borderColor: '#5d5d5e',
+        pointBackgroundColor: "transparent"
+      }, {
+        label: "Highest Price Target",
+        data: [null, null, null, null, 2, 5, 6],
+        borderColor: '#66f',
+        borderDash: [20, 30],
+        pointBackgroundColor: "transparent"
+      },{
+        label: "Average Price Target",
+        data: [null, null, null, null, 2, 3, 4],
+        backgroundColor: 'rgba(0,255,0,1)',
+        borderColor: 'rgb(0,255,0,1)',
+        borderDash: [20, 30],
+        pointBackgroundColor: "transparent"
+      },{
+        label: "Lowest Price Target",
+        data: [null, null, null, null, 2, 2, 3],
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderDash: [20, 30],
+        pointBackgroundColor: "transparent"
+      }
+      ]
+  };
+
+  var ctx = document.getElementById("stockChart1").getContext("2d");
+  var myChart = new Chart(ctx, {
+    type: "line",
+    data: lineChartData,
+    options: {
+      elements: {
+        line: {
+            fill: false
+        }
+      }, 
+      plugins: {
+        tooltip: {
+          yAlign: "bottom"
+        }
+      }
+    }
+  });
+
+  var doughnutChartData = {
+    datasets: [{
+      label: 'My First Dataset',
+      data: [300, 50, 100],
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)'
+      ],
+      hoverOffset: 4
+    }], 
+    labels: [
+      'Buy',
+      'Hold',
+      'Sell'
+    ]
+  };
+
+  var ctx = document.getElementById("expertChart1").getContext("2d");
+  var myChart = new Chart(ctx, {
+    type: "doughnut",
+    data: doughnutChartData,
+    options: { 
+      plugins: {
+        tooltip: {
+          yAlign: "bottom"
+        }
+      }
+    }
+  });
+</script>
