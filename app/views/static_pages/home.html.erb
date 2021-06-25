@@ -4,39 +4,26 @@
         <div class="pmd-card-title">
             <h2 class="pmd-card-title-text"><%= t "layouts.home.trending_stocks" %></h2>
         </div>
-        <%= render "static_pages/tab_all" %>
+        <%= render "static_pages/trending_stocks" %>
+
+        <div class="pmd-card-title">
+            <h2 class="pmd-card-title-text"><%= t "layouts.home.top_experts" %></h2>
+        </div>
+        <%= render "static_pages/top_experts", top_experts: @top_experts, count: @experts_count %>
         <div class="row">
             <!--/.col-md-6 col-sm-12-->
             <div class="col-md-6 col-sm-12">
-                <!--pmd-card -->  
-                <div class="pmd-card pmd-card-default pmd-z-depth pmd-card-custom-view"> 
-                    <!-- Card body -->
-                    <div class="pmd-card-title">
-                        <h2 class="pmd-card-title-text">UI Design</h2>
-                    </div>
-                    <div class="pmd-card-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et erat ut nulla imperdiet convallis. Aenean ornare imperdiet quam vitae posuere. In molestie convallis ante a ornare. Donec lacus orci, rutrum eu volutpat ut, euismod in turpis.</div>
-                    <!-- Card actions -->
-                    <div class="pmd-card-actions">
-                        <button class="btn pmd-btn-raised pmd-ripple-effect btn-primary" type="button">View details</button>
-                    </div>
-                </div>                            
-                <!--pmd-card -->
+                <div class="pmd-card-title">
+                    <h2 class="pmd-card-title-text"><%= t "layouts.home.trending_analysis" %></h2>
+                </div>
+                <%= render "static_pages/trending_analysis" %>
             </div>
             <!--/.col-md-6 col-sm-12-->
             <div class="col-md-6 col-sm-12">
-                <!--pmd-card -->  
-                <div class="pmd-card pmd-card-default pmd-z-depth pmd-card-custom-view"> 
-                    <!-- Card body -->
-                    <div class="pmd-card-title">
-                        <h2 class="pmd-card-title-text">Development</h2>
-                    </div>
-                    <div class="pmd-card-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et erat ut nulla imperdiet convallis. Aenean ornare imperdiet quam vitae posuere. In molestie convallis ante a ornare. Donec lacus orci, rutrum eu volutpat ut, euismod in turpis.</div>
-                    <!-- Card actions -->
-                    <div class="pmd-card-actions">
-                        <button class="btn pmd-btn-raised pmd-ripple-effect btn-primary" type="button">View details</button>
-                    </div>
-                </div>                            
-                <!--pmd-card -->
+                <div class="pmd-card-title">
+                    <h2 class="pmd-card-title-text"><%= t "layouts.home.trending_news" %></h2>
+                </div>
+                <%= render "static_pages/trending_news" %>
             </div>
             <!--/.col-md-6 col-sm-12-->
         </div>

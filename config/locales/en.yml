@@ -32,6 +32,9 @@ en:
         title: "GROUPS "
     home:
       trending_stocks: "Trending Stocks"
+      top_experts: "Top Experts"
+      trending_analysis: "Trending Analysis"
+      trending_news: "Trending News"
       list_forecasts​: "Detailed List of Analyst Forecasts​"
       table:
         analyst_profile: "Analyst Profile"

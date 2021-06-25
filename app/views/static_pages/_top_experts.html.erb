@@ -1,0 +1,10 @@
+<div class="pmd-card pmd-card-default pmd-z-depth">
+  <div class="container">
+    <div class="row">
+      <br>
+      <% top_experts.each do |expert| %>
+        <%= render "experts/expert_card", expert: expert, count: count %>
+      <% end %>
+    </div>
+  </div>
+</div>
