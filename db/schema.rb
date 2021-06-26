@@ -10,15 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_104112) do
-
-  create_table "categories", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "avatar"
-    t.string "display_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2021_06_26_095857) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "post_id", null: false
@@ -74,6 +66,14 @@ ActiveRecord::Schema.define(version: 2021_06_14_104112) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "industries", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "avatar"
+    t.string "display_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "recipient_id", null: false
     t.boolean "read", default: false, null: false
@@ -104,8 +104,17 @@ ActiveRecord::Schema.define(version: 2021_06_14_104112) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sectors", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "avatar"
+    t.string "display_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "stocks", force: :cascade do |t|
-    t.integer "category_id", null: false
+    t.integer "sector_id", null: false
+    t.integer "industry_id", null: false
     t.string "code", null: false
     t.string "company_name", null: false
     t.string "exchange_name", null: false

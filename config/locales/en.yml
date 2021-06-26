@@ -24,10 +24,10 @@ en:
         title: "NEWS "
         my: "My news"
         trending: "Trending news"
-      categories: 
-        title: "CATEGORIES "
+      industries: 
+        title: "INDUSTRIES "
         my: "My stocks"
-        list: "Categories list"
+        list: "Industries list"
       groups:
         title: "GROUPS "
     home:
