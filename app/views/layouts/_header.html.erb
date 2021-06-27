@@ -1,19 +1,81 @@
-<div class="propeller-topbar">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <!--propeller logo-->
-    <a target="_blank" href="#" class="navbar-brand">
+<div class="navbar-fixed-top">
+  <div class="container-fluid header-top">
+    <div class="header-top-logo">
+      <a class="header-top-logo-a" href="/">StockRanks</a>
+    </div>
+    <div class="header-top-item header-top-search">
+      <form class="search-form">
+        <input class="search-input" type="text" name="search" 
+          placeholder="Nhập mã cổ phiếu hoặc tên chuyên gia">
+        <button class="search-button" type="button" data-toggle="tooltip" data-placement="top">
+          <i class="material-icons pmd-sm search-icon">search</i>
+        </button>
+      </form>
+    </div>
+    <div class="header-top-item header-top-language">
+    </div>
+    <div class="header-top-item header-top-session">  
+      <% if user_signed_in? %>
+        <%= link_to t("layouts.logout.title"), destroy_user_session_path,
+          "data-turbolinks":"false", method: :delete, 
+          class: "btn btn-sm pmd-ripple-effect btn-primary" %>
+      <% else %>
+        <%= link_to "Đăng nhập", new_user_session_path,
+          "data-turbolinks":"false", class: "btn pmd-ripple-effect btn-primary login-btn" %>
+        <%= link_to "Đăng ký", new_user_registration_path,
+          "data-turbolinks":"false", class: "btn pmd-ripple-effect btn-primary register-btn" %>          
+      <% end %>
+    </div>
+    <a href="javascript:void(0);" class="nav-bar-icon" onclick="onOffMenu()">
+      <i class="fa fa-bars"></i>
     </a>
   </div>
-  <!--navbar-header -->
-  <div class="pmd-navbar-right-icon pull-right">	
-    <% if user_signed_in? %>
-      <%= link_to t("layouts.logout.title"), destroy_user_session_path,
-        "data-turbolinks":"false", method: :delete, class: "btn btn-sm pmd-ripple-effect btn-primary" %>
-    <% else %>
-      <%= link_to t("layouts.login.title"), new_user_session_path,
-        "data-turbolinks":"false", class: "btn btn-sm pmd-ripple-effect btn-primary" %>
-    <% end %>
-    <a class="btn pmd-btn-fab pmd-ripple-effect btn-link btn-sm btn-link" href="javascript:void(0);"><i class="material-icons pmd-xs">close</i></a>
+
+  <div class="container-fluid header-down">
+    <div class="header-down-item">
+      <a class="header-down-item-a" href="/">Cổ Phiếu</a>
+    </div>
+    <div class="header-down-item">
+      <%= link_to "Chuyên Gia", experts_path, "data-turbolinks":"false", 
+        class: "header-down-item-a" %>
+    </div>
+    <div class="header-down-item">
+      <a class="header-down-item-a" href="/">Phân Tích</a>
+    </div>
+    <div class="header-down-item">
+      <a class="header-down-item-a" href="/">Tin Tức</a>
+    </div>
+    <div class="header-down-item">
+      <a class="header-down-item-a" href="/">Công Cụ Đầu Tư</a>
+    </div>
+    <div class="header-down-item">
+      <a class="header-down-item-a" href="/">Liên Hệ</a>
+    </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function onOffMenu() {
+    var headerTops = document.getElementsByClassName("header-top-item")
+    if (headerTops[0].style.display == "") {
+      for(headerTop of headerTops) {
+        headerTop.style.display = "flex";
+      }
+    } else {
+      for(headerTop of headerTops) {
+        headerTop.style.display = "";
+      }    
+    }
+
+    var headerDowns = document.getElementsByClassName("header-down-item")
+    if (headerDowns[0].style.display == "") {
+      for(headerDown of headerDowns) {
+        headerDown.style.display = "flex";
+      }
+    } else {
+      for(headerDown of headerDowns) {
+        headerDown.style.display = "";
+      }    
+    }    
+  }
+</script>

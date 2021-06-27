@@ -5,14 +5,22 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
     <%= favicon_link_tag asset_path("logo.jpg"), :rel => "icon", :type =>  "image/png" %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://themes.propeller.in/bootstrap3/html/propeller-bootstrap-starter-templates/assets/js/starter-templates-compress.min.js" data-turbolinks-track="reload"></script>
+    <!-- Jquery js -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Propeller Global js --> 
+    <script src="https://opensource.propeller.in/components/global/js/global.js"></script>
+    <!-- Propeller tabs js -->
+    <script type="text/javascript" language="javascript" src="https://opensource.propeller.in/components/tab/js/tab-scrollable.js"></script>
+    <link rel="stylesheet" media="all" href="/assets/header.scss" data-turbolinks-track="reload">
   </head>
 
   <body>
     <%= render "layouts/header" %>
-    <%= render "layouts/navbar" %>
     <div class="wrapper">
       <%= yield %>
     </div>
