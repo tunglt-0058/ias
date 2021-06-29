@@ -1,0 +1,39 @@
+<% provide :title, t("not_found.title") %>
+<div class="not-found">
+  <div class="container">
+    <div class="text-center">
+      <h1><%= t "not_found.title" %></h1>
+      <span class="media-body"><%= t "not_found.description" %></span>
+      <hr>
+      <h1><%= t "not_found.suggestions" %></h1>
+    </div>
+    <div class="col-sm-6 col-sm-offset-3">
+      <ul class="list-group pmd-list pmd-list-icon">
+        <li class="list-group-item"> 
+          <i class="material-icons media-left pmd-sm">done</i> 
+          <span class="media-body"><%= t "not_found.suggest_mess1" %></span>
+        </li>
+        <li class="list-group-item">
+          <i class="material-icons media-left media-middle">done</i>
+          <div class="media-body"><%= t "not_found.suggest_mess2" %></div>
+        </li>
+        <li class="list-group-item"> <i class="material-icons media-left">done</i>
+          <div class="media-body"><%= t "not_found.suggest_mess3" %></div>
+        </li>
+      </ul>
+      <br>
+    </div>
+    <div class="text-center">
+      <div class="col-sm-4">
+        <%= link_to t("not_found.top_experts"), experts_path, class: "btn btn-primary center-block", "data-turbolinks": false %>
+      </div>
+      <div class="col-sm-4">
+        <%= link_to t("not_found.trending_stocks"), root_path, class: "btn btn-primary center-block", "data-turbolinks": false %>
+      </div>
+      <div class="col-sm-4">
+        <%= link_to t("not_found.back_to_home"), root_path, class: "btn btn-primary center-block", "data-turbolinks": false %>
+      </div>
+    </div>
+  </div>
+</div>
+<br>

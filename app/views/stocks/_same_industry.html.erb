@@ -1,0 +1,32 @@
+<!-- Striped table -->
+<div class="table-responsive">
+  <div class="pmd-card pmd-z-depth">
+      <!-- Table -->
+    <table class="table pmd-table table-striped table-mc-red">
+      <thead>
+        <tr>
+          <th><%= t "stock.show.code" %></th>
+          <th><%= t "stock.show.exchange_name" %></th>
+          <th><%= t "stock.show.company_name" %></th>
+          <th><%= t "stock.show.current_price" %></th>
+          <th><%= t "stock.show.price_forecast_low" %></th>
+          <th><%= t "stock.show.price_forecast_average" %></th>
+          <th><%= t "stock.show.price_forecast_high" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% stocks.each do |stock| %>
+          <tr>
+            <td data-title="code"><%= link_to stock.code, stock, "data-turbolinks":"false"%></td>
+            <td data-title="company_name"><%= stock.exchange_name %></td>
+            <td data-title="company_name"><%= stock.company_name %></td>
+            <td data-title="current_price"><%= stock.current_price %> VND</td>
+            <td data-title="price_forecast_low"><%= stock.price_forecast_low %></td>
+            <td data-title="price_forecast_average"><%= stock.price_forecast_average %></td>
+            <td data-title="price_forecast_high"><%= stock.price_forecast_high %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
