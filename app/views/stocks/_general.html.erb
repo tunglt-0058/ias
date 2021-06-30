@@ -3,12 +3,12 @@
     <div class="col-sm-10 border-right">
       <div class="inline-block-100">
         <div class="col-sm-4">
-          <h2 class="pmd-card-title-text">CTCP tập đoàn Hoà Phát</h2>
-          <span class="pmd-card-title-text">(HOSE: HPG)</span>
+          <h2 class="pmd-card-title-text"><%= stock.company_name %></h2>
+          <span class="pmd-card-title-text">(<%= stock.exchange_name %>: <%= stock.code %>)</span>
         </div>
         <div class="col-sm-4">
           <h2 class="pmd-card-title-text">Giá hiện tại</h2>
-          <span class="pmd-card-title-text">51,400 VND</span>
+          <span class="pmd-card-title-text"><%= stock.current_price %> VND</span>
         </div>
         <div class="col-sm-4 text-right">
           <button class="btn btn-sm btn-primary" 

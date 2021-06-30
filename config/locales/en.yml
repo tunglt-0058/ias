@@ -1,4 +1,15 @@
 en:
+  not_found:
+    title: "No Results"
+    description: "We couldn't find anything"
+    suggestions: "Suggestions:"
+    suggest_mess1: "Make sure that the expert / stock is spelled correctly."
+    suggest_mess2: "Start typing and then select from the auto complete."
+    suggest_mess3: "Visit one of the suggested pages below to explore the latest stock ratings."
+    top_experts: "Top Experts"
+    trending_stocks: "Trending Stocks"
+    back_to_home: "Home Page"
+    stock: "Stock not found!"
   experts:
     index:
       performance: "Analyst Performance"
@@ -12,6 +23,15 @@ en:
       full_profile: "See Full Profile >"
       follow: "Followed by "
       investors: " Investors"
+  stock:
+    show:
+      code: "Code"
+      exchange_name:  "Exchange Name"
+      company_name: "Company Name"
+      current_price: "Current Price"
+      price_forecast_low: "Forecast Low"
+      price_forecast_average: "Forecast Average"
+      price_forecast_high: "Forecast High"
   layouts:
     app:
       title: "StockRanks"

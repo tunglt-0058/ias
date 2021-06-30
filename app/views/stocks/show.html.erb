@@ -33,15 +33,17 @@
         </div>
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="tab1">
-            <%= render "general" %>
+            <%= render "general", stock: @stock %>
           </div>
           <div role="tabpanel" class="tab-pane" id="tab2">
           </div>
           <div role="tabpanel" class="tab-pane" id="tab3">
+            <%= render "tradingview_widget", stock: @stock %>
           </div>
           <div role="tabpanel" class="tab-pane" id="tab4">
           </div>
           <div role="tabpanel" class="tab-pane" id="tab5">
+            <%= render "same_industry", stocks: @same_industry_stocks %>
           </div>
         </div>
       </div> 
