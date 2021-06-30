@@ -1,0 +1,29 @@
+<!--Title, Media, and Action area -->
+<div class="pmd-card pmd-card-media-inline pmd-z-depth">
+  <!-- Card media -->
+  <div class="pmd-card-media">
+    <!-- Card media heading -->
+    <div class="media-body">
+      <h2 class="pmd-card-title-text">
+        <div style="display:none;">
+          <% if post.position == 0 %>
+            <% position = "Buy " %>
+          <% elsif post.position == 1 %>
+            <% position = "Hold " %>
+          <% else %>
+            <% position = "Sell " %>
+          <% end %>
+          <% title = position + post.stock.code + "'s Stock with " + post.target_price.to_s + " VND Price Target" %>
+        </div>
+        <%= link_to(title, "#") %>
+      </h2><br>
+      <ul class="ias-tags">
+        <li><a href="/stocks/<%= post.stock.display_id %>" class="ias-tag"><%= post.stock.code %></a></li>
+      </ul>
+      <span class="pmd-card-subtitle-text">
+        <p><%= post.content.truncate(300) %></p>
+      </span>
+      <p class="post-meta">Posted by <a href="#"><%= User.find(post.expert_id).name %></a> on <%= post.created_at.strftime("%B %d %Y") %></p>
+    </div>
+  </div>
+</div>
