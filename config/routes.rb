@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   resources :experts, only: :index
   resources :stocks, only: :show, param: :display_id
+  resources :posts, only: [:index, :show], param: :display_id
+
+  # Not edit
   resources :not_found, only: :index
   get "*path", controller: "application", action: "render_404"
 end
