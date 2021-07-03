@@ -9,7 +9,7 @@ namespace :stock_data do
     filename = File.join Rails.root, "data_csv/stocks.csv"
 
     CSV.foreach(filename, headers: true).each do |row|
-      puts row["RIC"]
+      # puts row["RIC"]
 
       # find sector
       if row["Sector"] == "-" or row["Sector"].blank?

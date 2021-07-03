@@ -13,6 +13,6 @@ npm install propellerkit
 ##### Fake data:
 ``` sh
 rails db:migrate:reset
-rails db:seed
 bundle exec rake stock_data:import
+rails db:seed
 ```

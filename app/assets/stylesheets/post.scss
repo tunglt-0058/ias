@@ -95,6 +95,7 @@
 .posts .post-statistics {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 @media (max-width: 800px) {
@@ -102,7 +103,6 @@
     flex-direction: column;
   }
 }
-
 
 .post-detail {
   display: flex;
@@ -260,6 +260,18 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.stock-code-href {
+  color: #333;
+}
+
+.price-pasts {
+  display: none;
+}
+
+#targetPrice {
+  display: none;
 }
 
 @media (max-width: 800px) {
