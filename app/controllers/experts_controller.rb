@@ -8,4 +8,5 @@ class ExpertsController < ApplicationController
   def show
   	@expert = Expert.find(params[:display_id])
   end
+
 end

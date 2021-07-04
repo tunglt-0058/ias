@@ -1,50 +1,49 @@
 <br>
 <div class="container-ed">
-  	<div class="info-ed">
-  		<div class="info-basic-ed">
-  			<img style="border: 2px solid #757575" 
-        src=asset_path("logo.jpg") width="125px" height="100%">
-  			<div class="info-basic-1-ed">
-  				<p style="font-weight: bold;font-size: 22px;">Jose Asumendi</p>
-  				<p style="font-weight: bold;font-size: 16px;"><%=@expert.company_name%></p>
-  				<p style="font-weight: normal;font-size: 16px; color: #9fa0a0">Ranked #971 out of 7,580 Analysts on IAS</p>
-  			</div>
-  		</div>
-      <div style="margin: 20px 0px 0px 20px;font-size: 19px; font-weight: bold">Jose Asumendi's Performance</div>
-  		<div class="performance-ed">
-  			<div class="success-rate-ed">
-          <div style="text-align: center; font-size: 19px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center;">Success Rate</div>   
-          <div style="text-align: center; font-size: 40px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center; color: lightgreen;"><%=@expert.success_rate%>%</div>
-        </div>
-  			<div class="average-return-ed">
-          <div style="text-align: center; font-size: 19px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center;">Average Return</div>   
-          <div style="text-align: center; font-size: 40px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center; color: lightgreen;"><%=@expert.average_return%>%</div>
-        </div>
-  		</div>
-  	</div>
-    <div style="display: inline-block; flex-grow: 1;">
-      <div style="display: flex;  margin-bottom: 10px">
-        <div style="flex-grow: 1; font-size: 26px;">Danh Sách Bài Viết</div>
-        <div style="flex-grow: 10"></div>
-        <button class="btn-follow-ed" style="flex-grow: 1">Theo Dõi</button>
-      </div>
-    	<div class="achievements-ed">
-       <div class="achievements-title-ed">
-         <p>Mã cổ phiếu</p>
-         <p>Khuyến nghị</p>
-         <p>Gía dự đoán</p>
-         <p>Ngày</p>
-       </div>
-       <div style="padding: 10px;">
-         
-         <%= render "expert_post"%>
-         <%= render "expert_post"%>
-         <%= render "expert_post"%>
-         <%= render "expert_post"%>
-         <%= render "expert_post"%>
-         <%= render "expert_post"%>
-
-       </div> 
-      </div>
+  <div class="info-ed">
+    <div class="info-basic-ed">
+			<img style="border: 2px solid #757575" 
+      src=asset_path("logo.jpg") width="125px" height="100%">
+			<div class="info-basic-1-ed">
+				<p style="font-weight: bold;font-size: 22px;">Jose Asumendi</p>
+				<p style="font-weight: bold;font-size: 16px;"><%=@expert.company_name%></p>
+				<p style="font-weight: normal;font-size: 16px; color: #9fa0a0">Ranked #971 out of 7,580 Analysts on IAS</p>
+			</div>
+		</div>
+    <div style="margin: 20px 0px 0px 20px;font-size: 19px; font-weight: bold">Jose Asumendi's Performance
     </div>
+		<div class="performance-ed">
+			<div class="success-rate-ed">
+        <div style="text-align: center; font-size: 19px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center;">Success Rate</div>   
+        <div style="text-align: center; font-size: 40px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center; color: lightgreen;"><%=@expert.success_rate%>%</div>
+      </div>
+			<div class="average-return-ed">
+        <div style="text-align: center; font-size: 19px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center;">Average Return</div>   
+        <div style="text-align: center; font-size: 40px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center; color: lightgreen;"><%=@expert.average_return%>%</div>
+      </div>
+		</div>
+  </div>
+  <div style="display: inline-block; flex-grow: 1;">
+    <div style="display: flex;  margin-bottom: 10px">
+      <div style="flex-grow: 1; font-size: 26px;">Danh Sách Bài Viết</div>
+      <div style="flex-grow: 10"></div>
+      <button class="btn-follow-ed" style="flex-grow: 1">Theo Dõi</button>
+    </div>
+  	<div class="achievements-ed">
+      <div class="achievements-title-ed">
+        <p>Mã cổ phiếu</p>
+        <p>Khuyến nghị</p>
+        <p>Gía dự đoán</p>
+        <p>Ngày</p>
+      </div>
+      <div style="padding: 10px;">
+        <%= render "expert_post"%>
+        <%= render "expert_post"%>
+        <%= render "expert_post"%>
+        <%= render "expert_post"%>
+        <%= render "expert_post"%>
+        <%= render "expert_post"%>
+      </div> 
+    </div>
+  </div>
 </div>
