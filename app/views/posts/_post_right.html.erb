@@ -1,16 +1,102 @@
 <div class="pmd-card pmd-z-depth post-item post-right">
   <div class="post-stock-title">Thông tin về cổ phiếu</div>
+  <hr>
   <div class="post-stock-item stock-code">
     <div>Mã cổ phiếu</div>
-    <div><b>AAA</b></div>
+    <div>
+      <a class="stock-code-href" href="<%= stock_path post.stock_code %>">
+        <b><%= post.stock_code %></b>
+      </a>
+    </div>
   </div>
   <hr>
+  <div class="post-stock-item">
+    <div>Công ty</div>
+    <div><b><%= post.stock_company_name %></b></div>
+  </div>
+  <hr>
+  <div class="post-stock-item">
+    <div>Sàn giao dịch</div>
+    <div><b><%= post.stock_exchange_name %></b></div>
+  </div>
+  <hr>
+  <div class="post-stock-item">
+    <div>Nhóm ngành</div>
+    <div><b><%= post.stock_sector %></b></div>
+  </div>
+  <hr>
+  <div class="post-stock-item">
+    <div>Ngành</div>
+    <div><b><%= post.stock_industry %></b></div>
+  </div>
+  <hr>  
+  <div class="post-stock-item">
+    <div>Giá dự đoán</div>
+    <div id="targetPrice"><%= post.target_price %></div>
+    <div><b><%= number_to_currency(post.target_price, locale: :vn) %></b></div>
+  </div>  
+  <hr>  
   <div class="post-stock-item stock-position">
     <div>Lời khuyên</div>
-    <div><b>BÁN</b></div>
+    <div><b><%= post.position %></b></div>
   </div>
   <hr>
+  <div class="price-pasts" id="pricePasts">
+    <%= post.price_pasts.to_json %>
+  </div>
   <div class="post-stock-item stock-forecast">
-    <canvas id="stockChart1"></canvas>
+    <canvas id="stockChart"></canvas>
   </div>
 </div>
+
+<script type="text/javascript">
+  var pricePasts = JSON.parse($("#pricePasts").text())
+  var labels = []
+  var pastPrices = []
+  var targePrices = []
+  for(pricePast of pricePasts) {
+    labels.push(pricePast["time"])
+    pastPrices.push(pricePast["price"])
+    targePrices.push(null)
+  }
+  pastPrices[pastPrices.length - 1] = null
+  targePrices[targePrices.length - 2] = pastPrices[pastPrices.length - 2]
+  targePrices[targePrices.length - 1] = parseInt($("#targetPrice").text())
+  var lineChartData = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Past Price",
+        data: pastPrices,
+        backgroundColor: '#5d5d5e',
+        borderColor: '#5d5d5e',
+        pointBackgroundColor: "transparent"
+      },
+      {
+        label: "Target Price",
+        data: targePrices,
+        backgroundColor: 'rgba(0,255,0,1)',
+        borderColor: 'rgb(0,255,0,1)',
+        pointBackgroundColor: "transparent"
+      }
+    ]
+  };
+
+  var ctx = document.getElementById("stockChart").getContext("2d");
+  var myChart = new Chart(ctx, {
+    type: "line",
+    data: lineChartData,
+    options: {
+      elements: {
+        line: {
+          fill: false
+        }
+      }, 
+      plugins: {
+        tooltip: {
+          yAlign: "bottom"
+        }
+      }
+    }
+  });  
+</script>

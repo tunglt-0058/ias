@@ -1,13 +1,14 @@
 <div class="container posts">
   <div class="pmd-card pmd-z-depth posts-left">
     <p class="posts-title">Bài đăng nổi bật</p>
-    <%= render "popular_post" %>
-    <%= render "popular_post" %>
-    <%= render "popular_post" %>
+    <% @popular_posts.each do |popular_post| %>
+      <%= render "popular_post", popular_post: popular_post %>
+    <% end %>
   </div>
   <div class="pmd-card pmd-z-depth posts-right">
     <p class="posts-title">Bài đăng mới nhất</p>
-    <%= render "newest_post" %>
-    <%= render "newest_post" %>
+    <% @newest_posts.each do |newest_post| %>
+      <%= render "newest_post", newest_post: newest_post %>
+    <% end %>    
   </div>
 </div>

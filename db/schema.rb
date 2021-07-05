@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_26_095857) do
+ActiveRecord::Schema.define(version: 2021_07_03_144321) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "post_id", null: false
@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(version: 2021_06_26_095857) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "recipient_id", null: false
     t.boolean "read", default: false, null: false
@@ -89,7 +96,9 @@ ActiveRecord::Schema.define(version: 2021_06_26_095857) do
     t.integer "stock_id", null: false
     t.integer "position", null: false
     t.integer "target_price", null: false
+    t.datetime "target_time", null: false
     t.boolean "hit", default: false, null: false
+    t.text "title", null: false
     t.text "content", null: false
     t.string "display_id", null: false
     t.datetime "created_at", null: false
@@ -99,7 +108,7 @@ ActiveRecord::Schema.define(version: 2021_06_26_095857) do
   create_table "price_pasts", force: :cascade do |t|
     t.integer "stock_id", null: false
     t.datetime "time", null: false
-    t.integer "price", null: false
+    t.integer "price", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -18,12 +18,12 @@
       <% if user_signed_in? %>
         <%= link_to t("layouts.logout.title"), destroy_user_session_path,
           "data-turbolinks":"false", method: :delete, 
-          class: "btn btn-sm pmd-ripple-effect btn-primary" %>
+          class: "btn pmd-ripple-effect btn-primary logout-btn" %>
       <% else %>
         <%= link_to "Đăng nhập", new_user_session_path,
           "data-turbolinks":"false", class: "btn pmd-ripple-effect btn-primary login-btn" %>
         <%= link_to "Đăng ký", new_user_registration_path,
-          "data-turbolinks":"false", class: "btn pmd-ripple-effect btn-primary register-btn" %>          
+          "data-turbolinks":"false", class: "btn pmd-ripple-effect btn-primary register-btn" %>   
       <% end %>
     </div>
     <a href="javascript:void(0);" class="nav-bar-icon" onclick="onOffMenu()">

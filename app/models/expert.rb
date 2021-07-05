@@ -1,16 +1,15 @@
-require 'securerandom'
 class Expert < ApplicationRecord
   has_many :posts, dependent: :destroy
-  has_many :users, :through => :follow_experts
+  has_many :follow_experts, dependent: :destroy
+  has_many :users, through: :follow_experts
+  belongs_to :user
+
+  validates :user, presence: true
 
   before_save :to_display_id
-  def to_param
-    display_id
-  end
 
   private
   def to_display_id
-    user = User.find self.user_id
-    self.display_id = user.name.parameterize.truncate(50, omission: "")+ "-" + SecureRandom.uuid
-  end
+    self.display_id = self.user.name.gsub(" ", "-") + "-" + Digest::SHA2.hexdigest(self.user_id.to_s)
+  end    
 end
