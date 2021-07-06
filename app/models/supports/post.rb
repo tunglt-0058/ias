@@ -18,8 +18,10 @@ class Supports::Post
   attr_reader :updated_at
   attr_reader :comments
   attr_reader :price_pasts
+  attr_reader :error_messages
+  attr_reader :positions
 
-  STR_POSITION = ["MUA", "GIỮ", "BÁN"]
+  STR_POSITION = {buy: "MUA", hold: "GIỮ", sell: "BÁN"}
 
   def initialize attributes
     @stock_display_id    = attributes[:stock_display_id]
@@ -40,7 +42,9 @@ class Supports::Post
     @updated_at          = attributes[:updated_at]
     @comments            = attributes[:comments]
     @price_pasts         = attributes[:price_pasts]
-    @position            = STR_POSITION[attributes[:position] || 0]
+    @position            = (attributes[:position] || "buy").to_sym
+    @positions           = STR_POSITION
+    @error_messages      = attributes[:error_messages] || []
   end
 
   class << self
@@ -77,7 +81,9 @@ class Supports::Post
         comment_attr[:updated_at]      = comment.updated_at
         attributes[:comments].push(Supports::Comment.new(comment_attr))
       end
-      stock.price_pasts.order(time: :asc).last(Settings.post_price_pasts_size).each do |price_past|
+      stock.price_pasts
+        .order(time: :asc)
+        .last(Settings.post_price_pasts_size).each do |price_past|
         price_past_attr = {}
         price_past_attr[:time]  = price_past.time.to_s(:month_and_year)
         price_past_attr[:price] = price_past.price
@@ -90,10 +96,31 @@ class Supports::Post
       Supports::Post.new(attributes)
     end
 
+    def create_post post_params
+      stock = Stock.find_by(code: post_params[:stock_code]) || Stock.new
+      post  = Post.create({
+        stock_id:     stock.id,
+        expert_id:    post_params[:expert_id],
+        title:        post_params[:title],
+        content:      post_params[:content],
+        position:     post_params[:position],
+        target_price: post_params[:target_price]
+      })
+      Supports::Post.new({
+        stock_code:     stock.code,
+        position:       post.position,
+        title:          post.title,
+        content:        post.content,
+        target_price:   post.target_price,
+        display_id:     post.display_id,
+        error_messages: post.errors.full_messages
+      })
+    end
+
     def list_newest_posts
       posts = Post.includes(:stock, [expert: :user], :comments, :likes)
         .limit(Settings.newest_posts_size)
-        .order(updated_at: :asc)
+        .order(updated_at: :desc)
       newest_posts = []
       posts.each do |post|
         stock  = post.stock

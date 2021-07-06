@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :votes, dependent: :destroy
   has_one :expert
 
+  enum account_type: [:user, :expert, :admin]
+
   validates :email, presence: true, length: {maximum: 255},
     format: {with: Devise.email_regexp}, uniqueness: {case_sensitive: false}
   validates :password, presence: true,

@@ -4,6 +4,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
+  enum position: [:buy, :hold, :sell]
+
   validates :expert, presence: true
   validates :stock, presence: true
   validates :position, presence: true
