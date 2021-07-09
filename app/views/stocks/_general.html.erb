@@ -8,7 +8,7 @@
         </div>
         <div class="col-sm-4">
           <h2 class="pmd-card-title-text">Giá hiện tại</h2>
-          <span class="pmd-card-title-text"><%= stock.current_price %> VND</span>
+          <span class="pmd-card-title-text"><%= number_to_currency(stock.current_price, locale: :vn) %></span>
         </div>
         <div class="col-sm-4 text-right">
           <button class="btn btn-sm btn-primary" 
@@ -29,7 +29,7 @@
       <div class="inline-block-100">
         <div class="col-sm-4 text-center">
           <span class="pmd-card-subtitle-text">Khuyến nghị:</span>
-          <h2 class="pmd-card-title-text">BUY</h2>
+          <h2 class="pmd-card-title-text"><%= stock.analyst_consensus %></h2>
           <hr>
           <div class="pmd-card-body">
             <canvas id="expertChart1"></canvas>

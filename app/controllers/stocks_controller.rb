@@ -2,6 +2,10 @@ class StocksController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :find_stock, only: :show
 
+  def index
+    @stocks = Stock.paginate(page: params[:page], per_page: Settings.page_stocks_size).order(id: :asc)
+  end
+
   def show
     @same_industry_stocks = Stock.where(sector_id: @stock.sector_id, industry_id: @stock.industry_id)
   end

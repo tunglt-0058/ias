@@ -5,22 +5,22 @@
     <table class="table pmd-table table-striped table-mc-red">
       <thead>
         <tr>
-          <th><%= t "stock.show.code" %></th>
-          <th><%= t "stock.show.exchange_name" %></th>
-          <th><%= t "stock.show.company_name" %></th>
-          <th><%= t "stock.show.current_price" %></th>
-          <th><%= t "stock.show.price_forecast_low" %></th>
-          <th><%= t "stock.show.price_forecast_average" %></th>
-          <th><%= t "stock.show.price_forecast_high" %></th>
+          <th><%= t "stocks.show.code" %></th>
+          <th><%= t "stocks.show.exchange_name" %></th>
+          <th><%= t "stocks.show.company_name" %></th>
+          <th><%= t "stocks.show.current_price" %></th>
+          <th><%= t "stocks.show.price_forecast_low" %></th>
+          <th><%= t "stocks.show.price_forecast_average" %></th>
+          <th><%= t "stocks.show.price_forecast_high" %></th>
         </tr>
       </thead>
       <tbody>
         <% stocks.each do |stock| %>
           <tr>
             <td data-title="code"><%= link_to stock.code, stock, "data-turbolinks":"false"%></td>
-            <td data-title="company_name"><%= stock.exchange_name %></td>
+            <td data-title="exchange_name"><%= stock.exchange_name %></td>
             <td data-title="company_name"><%= stock.company_name %></td>
-            <td data-title="current_price"><%= stock.current_price %> VND</td>
+            <td data-title="current_price"><%= number_to_currency(stock.current_price, locale: :vn) %></td>
             <td data-title="price_forecast_low"><%= stock.price_forecast_low %></td>
             <td data-title="price_forecast_average"><%= stock.price_forecast_average %></td>
             <td data-title="price_forecast_high"><%= stock.price_forecast_high %></td>
