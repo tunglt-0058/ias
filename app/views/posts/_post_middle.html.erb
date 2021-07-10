@@ -2,7 +2,7 @@
   <div>
     <div class="post-middle-header">
       <span class="post-title"><%= post.title %></span>
-      <% if current_user && current_user.expert? and current_user.expert.id == post.expert_id %>
+      <% if current_user and current_user.expert? and current_user.expert.id == post.expert_id %>
         <div class="post-setting">
           <i class="fa fa-ellipsis-h post-setting-icon" aria-hidden="true"
             onclick="onOffSetting()"></i>
@@ -26,10 +26,11 @@
   <div class="post-footer">
     <div class="post-footer-action">
       <div class="post-like-btn">
-        <button class="btn pmd-ripple-effect">
-          <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-          <span><%= post.like_number %> lượt thích</span>
-        </button>
+        <% if like.liked %>
+          <%= render "likes/delete", post: post, like: like %>
+        <% else %>
+          <%= render "likes/new", post: post, like: like %>
+        <% end %>
       </div>
       <div class="post-comment-btn">
         <button class="btn pmd-ripple-effect">

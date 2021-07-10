@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :experts, only: [:index, :show], param: :display_id
   resources :stocks, only: [:index, :show], param: :display_id
   resources :posts, except: :destroy, param: :display_id
+  resources :likes, only: [:create, :destroy]
 
   # Not edit
   resources :not_found, only: :index
