@@ -23,10 +23,19 @@ en:
       full_profile: "See Full Profile >"
       follow: "Followed by "
       investors: " Investors"
-  stock:
+  stocks:
+    index:
+      code: "Code"
+      exchange_name: "Exchange Name"
+      company_name: "Company Name"
+      current_price: "Price"
+      sector: "Sector"
+      industry: "Industry"
+      analyst_consensus: "Analyst Consensus"
+      article: "Article"
     show:
       code: "Code"
-      exchange_name:  "Exchange Name"
+      exchange_name: "Exchange Name"
       company_name: "Company Name"
       current_price: "Current Price"
       price_forecast_low: "Forecast Low"

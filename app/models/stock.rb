@@ -10,6 +10,16 @@ class Stock < ApplicationRecord
 
   before_save :to_display_id
 
+  def analyst_consensus
+    positions = ["MUA", "GIỮ", "BÁN"]
+    analysts = []
+    buy  = self.posts.where(position: 0).size
+    hold = self.posts.where(position: 1).size
+    sell = self.posts.where(position: 2).size
+    analysts.push(buy, hold, sell)
+    return positions[analysts.index(analysts.max) || 0]
+  end
+
   private
   def to_display_id
     self.display_id = self.code

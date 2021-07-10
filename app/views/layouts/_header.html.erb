@@ -33,7 +33,8 @@
 
   <div class="container-fluid header-down">
     <div class="header-down-item">
-      <a class="header-down-item-a" href="/">Cổ Phiếu</a>
+      <%= link_to "Cổ phiếu", stocks_path, "data-turbolinks":"false", 
+        class: "header-down-item-a" %>
     </div>
     <div class="header-down-item">
       <%= link_to "Chuyên Gia", experts_path, "data-turbolinks":"false", 

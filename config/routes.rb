@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "/pages/:page" => "static_pages#show"
 
   resources :experts, only: [:index, :show], param: :display_id
-  resources :stocks, only: :show, param: :display_id
+  resources :stocks, only: [:index, :show], param: :display_id
   resources :posts, only: [:index, :show], param: :display_id
 
   # Not edit
