@@ -1,0 +1,46 @@
+<div class="pmd-card pmd-z-depth container new-post">
+  <% if @post.error_messages.size > 0 %>
+    <div class="error-message">
+      <ul>
+        <% @post.error_messages.each do |error_message| %>
+          <li class="error-message-content"><%= error_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form_with url: posts_path, local: true, method: :post, class: "new-post-form" do |f| %>
+    <div class="new-post-left-form">
+      <div class="new-post-field-tag">
+        <%= f.label :stock_code, "Cổ phiếu", class: "new-post-field-label" %>
+        <%= f.select :stock_code, 
+          options_for_select(@stocks.collect {|s| [s.option_display_id, s.code]}, 
+          selected: @post.stock_code), {}, {class: "new-post-field-select"} %>
+      </div>
+      <div class="new-post-field-tag">
+        <%= f.label :position, "Lời khuyên", class: "new-post-field-label" %>
+        <%= f.select :position, 
+          options_for_select(@post.positions.map {|key, value| [value, key]}, 
+          selected: @post.position), {}, {class: "new-post-field-select"} %>
+      </div>
+      <div class="new-post-field-tag">
+        <%= f.label :target_price, "Giá dự đoán", class: "new-post-field-label" %>
+        <%= f.number_field :target_price, min: 0, value: @post.target_price || 0, 
+          class: "form-control new-post-field" %> 
+      </div>
+    </div>
+    <div class="new-post-right-form">
+      <div class="new-post-field-tag">
+        <%= f.label :title, "Tiêu đề", class: "new-post-field-label" %>
+        <%= f.text_field :title, value: @post.title, class: "form-control new-post-field" %> 
+      </div>
+      <div class="new-post-field-tag">
+        <%= f.label :content, "Nội dung", class: "new-post-field-label" %>
+        <%= f.text_area :content, value: @post.content, 
+          class: "form-control new-post-field new-post-field-content" %> 
+      </div>
+      <div class="new-post-submit-tag">
+        <%= f.submit "Tạo bài đăng", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>  
+</div>
