@@ -1,0 +1,50 @@
+<div class="pmd-card pmd-z-depth container edit-post">
+  <% if @post.error_messages.size > 0 %>
+    <div class="error-message">
+      <ul>
+        <% @post.error_messages.each do |error_message| %>
+          <li class="error-message-content"><%= error_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form_with url: post_path(@post.display_id), local: true, method: :PUT, 
+    class: "edit-post-form" do |f| %>
+    <div class="edit-post-left-form">
+      <div class="edit-post-field-tag">
+        <%= f.label :stock_code, "Cổ phiếu", class: "edit-post-field-label" %>
+        <%= f.select :stock_code, 
+          options_for_select(@stocks.collect {|s| [s.option_display_id, s.code]}, 
+          selected: @post.stock_code), {}, {class: "edit-post-field-select"} %>
+      </div>
+      <div class="edit-post-field-tag">
+        <%= f.label :position, "Lời khuyên", class: "edit-post-field-label" %>
+        <%= f.select :position, 
+          options_for_select(@post.positions.map {|key, value| [value, key]}, 
+          selected: @post.position), {}, {class: "edit-post-field-select"} %>
+      </div>
+      <div class="edit-post-field-tag">
+        <%= f.label :target_price, "Giá dự đoán", class: "edit-post-field-label" %>
+        <%= f.number_field :target_price, min: 0, value: @post.target_price || 0, 
+          class: "form-control edit-post-field" %> 
+      </div>
+    </div>
+    <div class="edit-post-right-form">
+      <div class="edit-post-field-tag">
+        <%= f.label :title, "Tiêu đề", class: "edit-post-field-label" %>
+        <%= f.text_field :title, value: @post.title, class: "form-control edit-post-field" %> 
+      </div>
+      <div class="edit-post-field-tag">
+        <%= f.label :content, "Nội dung", class: "edit-post-field-label" %>
+        <%= f.text_area :content, value: @post.content, 
+          class: "form-control edit-post-field edit-post-field-content" %> 
+      </div>
+      <div class="new-post-submit-tag">
+        <button class="btn pmd-ripple-effect">
+          <%= link_to "Hủy cập nhật", post_path(@post.display_id), class: "btn-new-post-cancel" %>
+        </button>      
+        <%= f.submit "Cập nhật bài đăng", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>  
+</div>

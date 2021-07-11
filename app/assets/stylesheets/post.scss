@@ -146,6 +146,48 @@
   margin-left: 20px;
 }
 
+.post-middle-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-setting {
+  position: relative
+}
+
+.post-setting-icon {
+  cursor: pointer;
+}
+
+.post-setting-options {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  display: none;
+  flex-direction: column;
+  min-width: 125px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  padding: 5px;
+  background: white;
+  text-align: center;
+}
+
+.post-setting-option {
+  color: rgb(51, 51, 51);
+  padding: 5px 0;
+}
+
+.post-setting-option:hover {
+  background-color: #eee;
+  color: rgb(51, 51, 51);
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .post-title {
   font-weight: bold;
   font-size: 24px;
@@ -343,6 +385,80 @@
   }
 }
 
+//Edit post page
+.edit-post {
+  padding: 10px;
+
+  .edit-post-form {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .edit-post-left-form {
+    flex: 2;
+
+    .edit-post-field-tag {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 10px;
+    }
+
+    .edit-post-field-label {
+      flex: 1;
+    }
+
+    .edit-post-field {
+      flex: 3;
+      font-size: 16px;
+      padding: 0 10px;
+    }
+
+    .edit-post-field-select {
+      flex: 3;
+      font-size: 16px;
+      padding: 0 10px;
+      width: 100%;
+    }
+  }
+
+  .edit-post-right-form {
+    flex: 3;
+    padding: 0 0 0 10px;
+
+    .edit-post-field-tag {
+      margin-bottom: 10px;
+    }
+
+    .edit-post-field {
+      font-size: 16px;
+    }
+    
+    .edit-post-field-content {
+      font-size: 16px;
+      min-height: 250px;
+      max-height: 400px;
+      height: auto;
+    }
+
+    .btn-new-post-cancel {
+      color: rgb(51, 51, 51);
+    }
+
+    .btn-new-post-cancel:hover {
+      text-decoration: none;
+      outline: 0;
+      color: rgb(51, 51, 51);
+    }
+  }
+
+  .error-message {
+    display: flex;
+    justify-content: center;
+    background-color: antiquewhite;
+    margin-bottom: 10px;
+  }
+}
+
 @media (max-width: 800px) {
   .post-detail {
     flex-direction: column;
@@ -379,5 +495,15 @@
     .new-post-right-form {
       padding: 0;
     }
+  }
+
+  .edit-post {
+    .edit-post-form {
+      flex-direction: column;
+    }
+
+    .edit-post-right-form {
+      padding: 0;
+    }    
   }
 }

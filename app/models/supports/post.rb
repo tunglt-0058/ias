@@ -5,6 +5,7 @@ class Supports::Post
   attr_reader :stock_exchange_name
   attr_reader :stock_sector
   attr_reader :stock_industry
+  attr_reader :expert_id
   attr_reader :expert_name
   attr_reader :expert_avatar
   attr_reader :expert_follow_num
@@ -30,6 +31,7 @@ class Supports::Post
     @stock_exchange_name = attributes[:stock_exchange_name]
     @stock_sector        = attributes[:stock_sector]
     @stock_industry      = attributes[:stock_industry]
+    @expert_id           = attributes[:expert_id]
     @expert_name         = attributes[:expert_name]
     @expert_avatar       = attributes[:expert_avatar]
     @expert_follow_num   = attributes[:expert_follow_num]
@@ -59,6 +61,7 @@ class Supports::Post
       attributes[:stock_exchange_name] = stock.exchange_name
       attributes[:stock_sector]        = stock.sector.name
       attributes[:stock_industry]      = stock.industry.name
+      attributes[:expert_id]           = expert.id
       attributes[:expert_name]         = expert.user.name
       attributes[:expert_avatar]       = expert.user.avatar
       attributes[:expert_follow_num]   = expert.users.size
@@ -115,6 +118,32 @@ class Supports::Post
         display_id:     post.display_id,
         error_messages: post.errors.full_messages
       })
+    end
+
+    def update_post post_params
+      stock = Stock.find_by(code: post_params[:stock_code]) || Stock.new
+      post  = Post.find_by(display_id: post_params[:display_id])
+      if post.title != post_params[:title]
+        post.title = post_params[:title]
+        post.caculate_display_id
+      end
+      post.stock_id     = stock.id
+      post.expert_id    = post_params[:expert_id]
+      post.title        = post_params[:title]
+      post.title        = post_params[:title]
+      post.content      = post_params[:content]
+      post.position     = post_params[:position]
+      post.target_price = post_params[:target_price]
+      post.save
+      Supports::Post.new({
+        stock_code:     stock.code,
+        position:       post.position,
+        title:          post.title,
+        content:        post.content,
+        target_price:   post.target_price,
+        display_id:     post.display_id,
+        error_messages: post.errors.full_messages
+      })      
     end
 
     def list_newest_posts

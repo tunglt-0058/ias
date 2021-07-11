@@ -13,15 +13,15 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
 
-  before_save :to_display_id
+  before_create :caculate_display_id
   before_create :caculate_target_time
 
-  private
-  def to_display_id
+  def caculate_display_id
     display_str = self.expert_id.to_s + self.stock_id.to_s + Time.now.strftime("%d/%m/%Y %H:%M:%S")
     self.display_id = self.title.gsub(" ", "-") + "-" + Digest::SHA2.hexdigest(display_str)
   end
 
+  private
   def caculate_target_time
     self.target_time = Time.now.next_year
   end
