@@ -1,6 +1,20 @@
 <div class="pmd-card pmd-z-depth post-item post-middle">
   <div>
-    <span class="post-title"><%= post.title %></span>
+    <div class="post-middle-header">
+      <span class="post-title"><%= post.title %></span>
+      <% if current_user && current_user.expert? and current_user.expert.id == post.expert_id %>
+        <div class="post-setting">
+          <i class="fa fa-ellipsis-h post-setting-icon" aria-hidden="true"
+            onclick="onOffSetting()"></i>
+          <div class="post-setting-options" id="post-setting-options">
+            <%= link_to "Sửa bài viết", edit_post_path(post.display_id),
+              class: "post-setting-option" %>  
+            <%= link_to "Xóa bài viết", edit_post_path(post.display_id),
+              class: "post-setting-option" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
     <div class="post-metadata">
       <span class="post-time"><%= post.updated_at %></span>
       <span class="post-stock-name"><%= post.stock_company_name %></span>
@@ -46,3 +60,14 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function onOffSetting() {
+    var postOptions = document.getElementById("post-setting-options")
+    if(postOptions.style.display == "") {
+      postOptions.style.display = "flex"
+    } else {
+      postOptions.style.display = ""
+    }
+  }
+</script>
