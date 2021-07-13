@@ -32,6 +32,7 @@ class PostsController < ApplicationController
   def show
     @post = Supports::Post.get_post post_params[:display_id]
     @like = Supports::Like.get_like like_params
+    @follow_expert = Supports::FollowExpert.get_follow_expert follow_expert_params
   end
 
   def edit
@@ -68,6 +69,11 @@ class PostsController < ApplicationController
   def like_params
     {user_display_id: (current_user or User.new).display_id, 
       post_display_id: post_params[:display_id]}
+  end
+
+  def follow_expert_params
+    {user_display_id: (current_user or User.new).display_id, 
+      expert_display_id: @post.expert_display_id}
   end
 
   def is_post_owner?

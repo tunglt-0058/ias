@@ -1,13 +1,13 @@
 class LikesController < ApplicationController
   def create
     if Supports::Like.create_like(like_params)
-      redirect_to post_path like_params[:post_display_id]
+      redirect_back(fallback_location: root_path)
     end
   end
 
   def destroy
     if Supports::Like.delete_like(like_params)
-      redirect_to post_path like_params[:post_display_id]
+      redirect_back(fallback_location: root_path)
     end    
   end
 

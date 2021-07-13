@@ -6,10 +6,11 @@ class Expert < ApplicationRecord
 
   validates :user, presence: true
 
-  before_save :to_display_id
+  before_create :caculate_display_id
 
   private
-  def to_display_id
-    self.display_id = self.user.name.gsub(" ", "-") + "-" + Digest::SHA2.hexdigest(self.user_id.to_s)
+  def caculate_display_id
+    self.display_id = self.user.name.gsub(" ", "-") + "-" + 
+      Digest::SHA2.hexdigest(self.user_id.to_s)
   end    
 end
