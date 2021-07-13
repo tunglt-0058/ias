@@ -31,6 +31,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Supports::Post.get_post post_params[:display_id]
+    @like = Supports::Like.get_like like_params
   end
 
   def edit
@@ -59,9 +60,14 @@ class PostsController < ApplicationController
   private
   def post_params
     params[:target_price] = params[:target_price].to_i
-    params[:expert_id] = current_user.expert.id if current_user.expert?
+    params[:expert_id] = current_user.expert.id if current_user && current_user.expert?
     params.permit :stock_code, :title, :content, :target_price, :position, 
       :expert_id, :display_id
+  end
+
+  def like_params
+    {user_display_id: (current_user or User.new).display_id, 
+      post_display_id: post_params[:display_id]}
   end
 
   def is_post_owner?

@@ -5,6 +5,7 @@ class Supports::Post
   attr_reader :stock_exchange_name
   attr_reader :stock_sector
   attr_reader :stock_industry
+  attr_reader :expert_display_id
   attr_reader :expert_id
   attr_reader :expert_name
   attr_reader :expert_avatar
@@ -31,6 +32,7 @@ class Supports::Post
     @stock_exchange_name = attributes[:stock_exchange_name]
     @stock_sector        = attributes[:stock_sector]
     @stock_industry      = attributes[:stock_industry]
+    @expert_display_id   = attributes[:expert_display_id]
     @expert_id           = attributes[:expert_id]
     @expert_name         = attributes[:expert_name]
     @expert_avatar       = attributes[:expert_avatar]
@@ -61,6 +63,7 @@ class Supports::Post
       attributes[:stock_exchange_name] = stock.exchange_name
       attributes[:stock_sector]        = stock.sector.name
       attributes[:stock_industry]      = stock.industry.name
+      attributes[:expert_display_id]   = expert.display_id
       attributes[:expert_id]           = expert.id
       attributes[:expert_name]         = expert.user.name
       attributes[:expert_avatar]       = expert.user.avatar

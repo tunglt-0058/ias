@@ -1,0 +1,8 @@
+<%= form_with url: like_path(0), local: true, method: :delete do |f| %>
+  <%= f.hidden_field :post_display_id, value: like.post_display_id %>
+  <%= f.hidden_field :user_display_id, value: like.user_display_id %>
+  <button class="btn pmd-ripple-effect btn-primary">
+    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+    <span><%= post.like_number %> lượt thích</span>
+  </button>
+<% end %>
