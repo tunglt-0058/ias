@@ -14,7 +14,7 @@
         <%= f.label :stock_code, "Cổ phiếu", class: "new-post-field-label" %>
         <%= f.select :stock_code, 
           options_for_select(@stocks.collect {|s| [s.option_display_id, s.code]}, 
-          selected: @post.stock_code), {}, {class: "new-post-field-select"} %>
+          selected: @post.stock.code), {}, {class: "new-post-field-select"} %>
       </div>
       <div class="new-post-field-tag">
         <%= f.label :position, "Lời khuyên", class: "new-post-field-label" %>

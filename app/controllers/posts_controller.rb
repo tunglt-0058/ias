@@ -30,14 +30,11 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Supports::Post.get_post post_params[:display_id]
-    @like = Supports::Like.get_like like_params
-    @follow_expert = Supports::FollowExpert.get_follow_expert follow_expert_params
+    @post = Supports::Post.get_post post_params
   end
 
   def edit
     if is_post_owner?
-      @post = Supports::Post.get_post post_params[:display_id]
       @stocks = Supports::Stock.get_stocks
     else
       redirect_to root_path
@@ -60,25 +57,16 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params[:target_price] = params[:target_price].to_i
-    params[:expert_id] = current_user.expert.id if current_user && current_user.expert?
+    params[:target_price]      = params[:target_price].to_i
+    params[:user_display_id]   = current_user.display_id if current_user
+    params[:expert_display_id] = current_user.expert.display_id if current_user && current_user.expert?
     params.permit :stock_code, :title, :content, :target_price, :position, 
-      :expert_id, :display_id
-  end
-
-  def like_params
-    {user_display_id: (current_user or User.new).display_id, 
-      post_display_id: post_params[:display_id]}
-  end
-
-  def follow_expert_params
-    {user_display_id: (current_user or User.new).display_id, 
-      expert_display_id: @post.expert_display_id}
+      :display_id, :user_display_id, :expert_display_id
   end
 
   def is_post_owner?
-    post = Supports::Post.get_post post_params[:display_id]
-    return current_user.expert? && post &&
-      current_user.expert.id == post.expert_id
+    @post = Supports::Post.get_post post_params
+    return current_user.expert? && @post &&
+      current_user.expert.display_id == @post.expert.display_id
   end
 end

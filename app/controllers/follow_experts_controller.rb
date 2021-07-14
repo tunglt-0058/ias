@@ -13,6 +13,7 @@ class FollowExpertsController < ApplicationController
 
   private
   def follow_expert_params
+    params[:user_display_id] = current_user.display_id    
     params.permit :user_display_id, :expert_display_id
   end
 

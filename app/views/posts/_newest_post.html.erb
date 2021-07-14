@@ -6,16 +6,16 @@
           src="https://opensource.propeller.in/assets/images/avatar-icon-40x40.png">
       </div>
       <div class="post-header-middle">
-        <div class="post-header-username"><%= newest_post.expert_name %></div>
+        <div class="post-header-username"><%= newest_post.expert.expert_name %></div>
         <div class="post-metadata">
           <span class="post-time"><%= newest_post.updated_at %></span>
-          <span class="post-stock-name"><%= newest_post.stock_company_name %></span>
+          <span class="post-stock-name"><%= newest_post.stock.company_name %></span>
         </div>
         <div class="post-header-title"><%= newest_post.title %></div>
         <div class="post-statistics">
-          <div class="post-like-number"><%= newest_post.like_number %> lượt thích</div>
+          <div class="post-like-number"><%= newest_post.likes.size %> lượt thích</div>
           <div>・</div>
-          <div class="post-comment-number"><%= newest_post.comment_number %> bình luận</div>
+          <div class="post-comment-number"><%= newest_post.comments.size %> bình luận</div>
         </div>
       </div>
     </div>

@@ -32,14 +32,23 @@ class Supports::FollowExpert
       end
     end
 
-    def get_follow_expert follow_expert_params
-      user   = User.find_by(display_id: follow_expert_params[:user_display_id]) || User.new
-      expert = Expert.find_by(display_id: follow_expert_params[:expert_display_id]) || Expert.new
-      attributes = {}
-      attributes[:user_display_id]   = user.display_id
-      attributes[:expert_display_id] = expert.display_id
-      attributes[:followed]          = !FollowExpert.find_by(user_id: user.id, expert_id: expert.id).nil?
-      Supports::FollowExpert.new(attributes)  
+    def convert_follow_experts follow_experts
+      sp_follow_experts = []
+      follow_experts.each do |follow_expert|
+        attributes = {}
+        attributes[:user_display_id]   = follow_expert.user.display_id
+        attributes[:expert_display_id] = follow_expert.expert.display_id
+        sp_follow_experts.push(Supports::FollowExpert.new(attributes))
+      end
+      sp_follow_experts
     end
-  end  
+
+    def convert_follow_expert current_user_id=nil, follow_expert
+      attributes = {}
+      attributes[:user_display_id]   = (follow_expert.user || User.new).display_id
+      attributes[:expert_display_id] = (follow_expert.expert || Expert.new).display_id
+      attributes[:followed]          = (follow_expert.user_id == current_user_id) && !follow_expert.user_id.nil?
+      Supports::FollowExpert.new(attributes)
+    end
+  end
 end

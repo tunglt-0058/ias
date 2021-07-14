@@ -1,0 +1,6 @@
+<%= form_with url: comment_path(0), local: true, method: :PUT, 
+  class: "comment-form" do |f| %>
+  <%= f.text_area :content, value: comment.content, class: "comment-input" %>
+  <%= f.hidden_field :post_display_id, value: post.display_id %>            
+  <%= f.submit "Lưu", class: "btn pmd-ripple-effect" %>         
+<% end %>
