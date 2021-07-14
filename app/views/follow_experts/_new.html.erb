@@ -1,0 +1,7 @@
+<%= form_with url: follow_experts_path, local: true, method: :post do |f| %>
+  <%= f.hidden_field :user_display_id, value: follow_expert.user_display_id %>
+  <%= f.hidden_field :expert_display_id, value: follow_expert.expert_display_id %>
+  <button class="post-left-item btn pmd-ripple-effect follow-btn">
+    Theo dõi
+  </button>
+<% end %>
