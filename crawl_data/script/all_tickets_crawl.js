@@ -45,8 +45,8 @@ const login = async (page) => {
   // close popup
   await page.waitForTimeout(1000);
   await page.evaluate( function(){
-      overlay.overlayLogin();
-    });
+    overlay.overlayLogin();
+  });
   await page.type("#loginFormUser_email", ENV.EMAIL);
   await page.type("#loginForm_password", ENV.PASSWORD);
   await page.evaluate(() => {
@@ -80,7 +80,7 @@ const getDataPagination = async (page) => {
     var data = await page.$eval(RESULTS_TABLE, e => e.tBodies.item(0).innerHTML);
     datas.push(data);
   }
-  return datas.join('');;
+  return datas.join('');
 };
 
 

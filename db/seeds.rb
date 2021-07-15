@@ -28,27 +28,14 @@ puts "Create account experts test"
 10.times do |n|
   stock = Stock.find(n + 1)
   binary_flag = -binary_flag
-  post = Post.new(expert_id: n + 1, stock_id: n + 1, position: n % 3, 
-    target_price: stock.current_price + (n + 1) * 1000 * binary_flag, 
-    title: "Dự đoán giá cổ phiếu tháng #{n + 1}", content: "Giá cổ phiếu test. Giá cổ phiếu test. 
-    Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. 
-    Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. 
-    Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. 
+  post = Post.new(expert_id: n + 1, stock_id: n + 1, position: n % 3,
+    target_price: stock.current_price + (n + 1) * 1000 * binary_flag,
+    title: "Dự đoán giá cổ phiếu tháng #{n + 1}", content: "Giá cổ phiếu test. Giá cổ phiếu test.
+    Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test.
+    Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test.
+    Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test.
     Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test.")
   post.save!
-end
-puts "Create posts test"
-
-#Create price pasts
-10.times do |n|
-  stock = Stock.find(n + 1)
-  prev_time = Time.now
-  12.times do |month|
-    prev_time = prev_time.prev_month
-    binary_flag = -binary_flag
-    PricePast.create!(stock_id: n + 1, time: prev_time, 
-      price: stock.current_price + binary_flag * month * 1000)
-  end
 end
 puts "Create posts test"
 
