@@ -4,30 +4,30 @@
   <div class="post-stock-item stock-code">
     <div>Mã cổ phiếu</div>
     <div>
-      <a class="stock-code-href" href="<%= stock_path post.stock_code %>">
-        <b><%= post.stock_code %></b>
+      <a class="stock-code-href" href="<%= stock_path post.stock.code %>">
+        <b><%= post.stock.code %></b>
       </a>
     </div>
   </div>
   <hr>
   <div class="post-stock-item">
     <div>Công ty</div>
-    <div><b><%= post.stock_company_name %></b></div>
+    <div><b><%= post.stock.company_name %></b></div>
   </div>
   <hr>
   <div class="post-stock-item">
     <div>Sàn giao dịch</div>
-    <div><b><%= post.stock_exchange_name %></b></div>
+    <div><b><%= post.stock.exchange_name %></b></div>
   </div>
   <hr>
   <div class="post-stock-item">
     <div>Nhóm ngành</div>
-    <div><b><%= post.stock_sector %></b></div>
+    <div><b><%= post.stock.sector %></b></div>
   </div>
   <hr>
   <div class="post-stock-item">
     <div>Ngành</div>
-    <div><b><%= post.stock_industry %></b></div>
+    <div><b><%= post.stock.industry %></b></div>
   </div>
   <hr>  
   <div class="post-stock-item">
@@ -42,7 +42,7 @@
   </div>
   <hr>
   <div class="price-pasts" id="pricePasts">
-    <%= post.price_pasts.to_json %>
+    <%= post.stock.price_pasts.to_json %>
   </div>
   <div class="post-stock-item stock-forecast">
     <canvas id="stockChart"></canvas>

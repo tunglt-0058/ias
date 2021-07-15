@@ -1,0 +1,35 @@
+<div class="post-comment">
+  <div class="comment-body" >
+    <div class="comment-header">
+      <div class="comment-header-avatar">
+        <img width="40" height="40" 
+          src="https://opensource.propeller.in/assets/images/avatar-icon-40x40.png">
+      </div>
+      <div class="comment-header-middle">
+        <div class="comment-header-username"><%= comment.user_name %></div>
+        <div class="comment-header-time"><%= comment.updated_at %></div>
+      </div>
+      <% if comment.commented %>
+        <div class="comment-header-setting">
+          <i class="fa fa-ellipsis-h comment-setting-icon" aria-hidden="true"
+            onclick="onOffCommentSetting(event)"></i>
+          <div class="comment-setting-options">
+            <%= link_to "Sửa bình luận", "", id: comment.id, onclick: "onOffEditCommentForm(event)",
+              class: "comment-setting-option" %>
+            <%= link_to "Xóa bình luận", "", class: "comment-setting-option", 
+              onclick: "submitDeleteComment(event)" %>
+            <%= form_with url: comment_path(0), local: true, method: :delete do |f| %>
+              <%= f.hidden_field :post_display_id, value: post.display_id %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="comment-content" id="comment-body-<%= comment.id %>">
+      <%= comment.content %>
+    </div>
+    <div class="edit-comment-form" id="edit-comment-form-<%= comment.id %>">
+      <%= render "comments/form", comment: comment, post: post %>
+    </div>
+  </div>
+</div>

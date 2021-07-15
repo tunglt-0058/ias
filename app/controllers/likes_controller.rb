@@ -13,6 +13,7 @@ class LikesController < ApplicationController
 
   private
   def like_params
+    params[:user_display_id] = current_user.display_id
     params.permit :post_display_id, :user_display_id    
   end
 end

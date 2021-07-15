@@ -4,11 +4,13 @@
     <img width="50" height="50" 
       src="https://opensource.propeller.in/assets/images/avatar-icon-40x40.png">
   </div>
-  <div class="post-left-item expert-name"><b><%= post.expert_name %></b></div>
-  <% if follow_expert.followed %>
-    <%= render "follow_experts/delete", follow_expert: follow_expert %>
-  <% elsif current_user.nil? or (current_user and current_user.user?) %>
-    <%= render "follow_experts/new", follow_expert: follow_expert %>
+  <div class="post-left-item expert-name"><b><%= post.expert.expert_name %></b></div>
+  <% if post.expert.follow_expert.followed %>
+    <%= render "follow_experts/delete", follow_expert: post.expert.follow_expert %>
+  <% elsif post.user.display_id.nil? or post.user.account_type == "user" %>
+    <%= render "follow_experts/new", expert_display_id: post.expert.display_id %>
   <% end %>
-  <span class="post-left-item follow-number"><%= post.expert_follow_num %> lượt theo dõi</span>
+  <span class="post-left-item follow-number">
+    <%= post.expert.follow_experts.size %> lượt theo dõi
+  </span>
 </div>

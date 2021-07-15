@@ -2,7 +2,7 @@
   <div>
     <div class="post-middle-header">
       <span class="post-title"><%= post.title %></span>
-      <% if current_user and current_user.expert? and current_user.expert.id == post.expert_id %>
+      <% if post.user.expert and (post.user.expert.display_id == post.expert.display_id) %>
         <div class="post-setting">
           <i class="fa fa-ellipsis-h post-setting-icon" aria-hidden="true"
             onclick="onOffSetting()"></i>
@@ -17,7 +17,7 @@
     </div>
     <div class="post-metadata">
       <span class="post-time"><%= post.updated_at %></span>
-      <span class="post-stock-name"><%= post.stock_company_name %></span>
+      <span class="post-stock-name"><%= post.stock.company_name %></span>
     </div>
   </div>
   <div class="post-body">
@@ -26,16 +26,16 @@
   <div class="post-footer">
     <div class="post-footer-action">
       <div class="post-like-btn">
-        <% if like.liked %>
-          <%= render "likes/delete", post: post, like: like %>
+        <% if post.like.liked %>
+          <%= render "likes/delete", likes: post.likes, like: post.like %>
         <% else %>
-          <%= render "likes/new", post: post, like: like %>
+          <%= render "likes/new", likes: post.likes, post_display_id: post.display_id %>
         <% end %>
       </div>
       <div class="post-comment-btn">
         <button class="btn pmd-ripple-effect">
           <i class="fa fa-comments" aria-hidden="true"></i>
-          <span><%= post.comment_number %> bình luận</span>
+          <span><%= post.comments.size %> bình luận</span>
         </button>
       </div>
     </div>
@@ -48,14 +48,16 @@
             <option value="1">Cũ nhất</option>
           </select>
         </div>
-        <form class="comment-form">
-          <textarea name="content" class="comment-input"></textarea>
-          <button class="btn pmd-ripple-effect">Bình luận</button>
-        </form>
+        <%= form_with url: comments_path, local: true, method: :post, 
+          class: "comment-form" do |f| %>
+          <%= f.text_area :content, class: "comment-input" %>
+          <%= f.hidden_field :post_display_id, value: post.display_id %>            
+          <%= f.submit "Bình luận", class: "btn pmd-ripple-effect" %>         
+        <% end %>
       </div>
       <div>
         <% post.comments.each do |comment| %>
-          <%= render "post_comment", comment: comment %>
+          <%= render "comments/comment", comment: comment, post: post %>
         <% end %>        
       </div>
     </div>
@@ -70,5 +72,34 @@
     } else {
       postOptions.style.display = ""
     }
+  }
+</script>
+<script type="text/javascript">
+  function onOffCommentSetting(event) {
+    var commentOptions = event.srcElement.nextElementSibling
+    if(commentOptions.style.display == "") {
+      commentOptions.style.display = "flex"
+    } else {
+      commentOptions.style.display = ""
+    }
+  }
+
+  function submitDeleteComment(event) {
+    event.preventDefault();
+    var deleteCommentForm = event.srcElement.nextElementSibling
+    deleteCommentForm.submit()
+  }
+
+  function onOffEditCommentForm(event) {
+    event.preventDefault();
+    var commentOptions = event.srcElement.parentElement
+    if(commentOptions.style.display == "") {
+      commentOptions.style.display = "flex"
+    } else {
+      commentOptions.style.display = ""
+    }
+    var id = event.srcElement.id
+    document.getElementById("comment-body-" + id).style.display = "none"
+    document.getElementById("edit-comment-form-" + id).style.display = "block"
   }
 </script>

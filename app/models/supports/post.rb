@@ -1,119 +1,96 @@
 class Supports::Post
-  attr_reader :stock_display_id
-  attr_reader :stock_company_name
-  attr_reader :stock_code
-  attr_reader :stock_exchange_name
-  attr_reader :stock_sector
-  attr_reader :stock_industry
-  attr_reader :expert_display_id
-  attr_reader :expert_id
-  attr_reader :expert_name
-  attr_reader :expert_avatar
-  attr_reader :expert_follow_num
+  attr_reader :stock
+  attr_reader :expert
+  attr_reader :comments
+  attr_reader :likes
   attr_reader :display_id
   attr_reader :title
   attr_reader :content
   attr_reader :target_price
   attr_reader :position
-  attr_reader :like_number
-  attr_reader :comment_number
   attr_reader :updated_at
-  attr_reader :comments
-  attr_reader :price_pasts
+  attr_reader :user
+  attr_reader :like
   attr_reader :error_messages
   attr_reader :positions
 
   STR_POSITION = {buy: "MUA", hold: "GIỮ", sell: "BÁN"}
 
   def initialize attributes
-    @stock_display_id    = attributes[:stock_display_id]
-    @stock_company_name  = attributes[:stock_company_name]
-    @stock_code          = attributes[:stock_code]
-    @stock_exchange_name = attributes[:stock_exchange_name]
-    @stock_sector        = attributes[:stock_sector]
-    @stock_industry      = attributes[:stock_industry]
-    @expert_display_id   = attributes[:expert_display_id]
-    @expert_id           = attributes[:expert_id]
-    @expert_name         = attributes[:expert_name]
-    @expert_avatar       = attributes[:expert_avatar]
-    @expert_follow_num   = attributes[:expert_follow_num]
-    @display_id          = attributes[:display_id]
-    @title               = attributes[:title]
-    @content             = attributes[:content]
-    @target_price        = attributes[:target_price]
-    @like_number         = attributes[:like_number]
-    @comment_number      = attributes[:comment_number]
-    @updated_at          = attributes[:updated_at]
-    @comments            = attributes[:comments]
-    @price_pasts         = attributes[:price_pasts]
-    @position            = (attributes[:position] || "buy").to_sym
-    @positions           = STR_POSITION
-    @error_messages      = attributes[:error_messages] || []
+    @stock          = attributes[:stock] || Supports::Stock.new({})
+    @expert         = attributes[:expert]
+    @comments       = attributes[:comments]
+    @likes          = attributes[:likes]
+    @display_id     = attributes[:display_id]
+    @title          = attributes[:title]
+    @content        = attributes[:content]
+    @target_price   = attributes[:target_price]
+    @position       = (attributes[:position] || "buy").to_sym
+    @updated_at     = attributes[:updated_at].to_s(:no_zone)
+    @user           = attributes[:user]
+    @like           = attributes[:like]
+    @error_messages = attributes[:error_messages] || []
+    @positions      = STR_POSITION
   end
 
   class << self
-    def get_post display_id
-      post   = Post.includes(:comments).find_by(display_id: display_id)
-      stock  = post.stock
-      expert = post.expert
-      attributes = {}
-      attributes[:stock_display_id]    = stock.display_id
-      attributes[:stock_company_name]  = stock.company_name
-      attributes[:stock_code]          = stock.code
-      attributes[:stock_exchange_name] = stock.exchange_name
-      attributes[:stock_sector]        = stock.sector.name
-      attributes[:stock_industry]      = stock.industry.name
-      attributes[:expert_display_id]   = expert.display_id
-      attributes[:expert_id]           = expert.id
-      attributes[:expert_name]         = expert.user.name
-      attributes[:expert_avatar]       = expert.user.avatar
-      attributes[:expert_follow_num]   = expert.users.size
-      attributes[:display_id]          = post.display_id
-      attributes[:title]               = post.title
-      attributes[:content]             = post.content
-      attributes[:target_price]        = post.target_price
-      attributes[:position]            = post.position
-      attributes[:like_number]         = post.likes.size
-      attributes[:comment_number]      = post.comments.size
-      attributes[:updated_at]          = post.updated_at
-      attributes[:comments]            = []
-      attributes[:price_pasts]         = []
-      post.comments.each do |comment|
-        comment_attr = {}
-        comment_attr[:user_name]       = comment.user.name
-        comment_attr[:user_avatar]     = comment.user.avatar
-        comment_attr[:user_display_id] = comment.user.display_id
-        comment_attr[:content]         = comment.content
-        comment_attr[:updated_at]      = comment.updated_at
-        attributes[:comments].push(Supports::Comment.new(comment_attr))
+    def get_post post_params
+      attributes   = {}
+      stock_attrs  = {}
+      expert_attrs = {}
+      post = Post.includes(:comments).find_by(display_id: post_params[:display_id])
+      if !post.nil?
+        current_user   = User.find_by(display_id: post_params[:user_display_id]) || User.new
+        stock          = post.stock
+        expert         = post.expert
+        comments       = post.comments.includes(:user).order(updated_at: :desc)
+        likes          = post.likes.includes(:user, :post)
+        like           = post.likes.find_by(user_id: current_user.id) || Like.new
+        follow_experts = expert.follow_experts.includes(:user, :expert)
+        follow_expert  = expert.follow_experts.find_by(user_id: current_user.id) || FollowExpert.new
+        price_pasts    = stock.price_pasts.order(time: :asc).last(Settings.post_price_pasts_size)
+        price_pasts    = price_pasts.push(PricePast.new({time: post.target_time, price: post.target_price}))
+        stock_attrs[:display_id]    = stock.display_id
+        stock_attrs[:company_name]  = stock.company_name
+        stock_attrs[:code]          = stock.code
+        stock_attrs[:exchange_name] = stock.exchange_name
+        stock_attrs[:sector]        = stock.sector.name
+        stock_attrs[:industry]      = stock.industry.name
+        stock_attrs[:price_pasts]   = Supports::PricePast.convert_price_past(price_pasts)
+        expert_attrs[:display_id]     = expert.display_id
+        expert_attrs[:expert_name]    = expert.user.name
+        expert_attrs[:expert_avatar]  = expert.user.avatar
+        expert_attrs[:follow_experts] = Supports::FollowExpert.convert_follow_experts(follow_experts)
+        expert_attrs[:follow_expert]  = Supports::FollowExpert.convert_follow_expert(current_user.id, follow_expert)
+        attributes[:stock]        = Supports::Stock.new(stock_attrs)
+        attributes[:expert]       = Supports::Expert.new(expert_attrs)
+        attributes[:comments]     = Supports::Comment.convert_comments(current_user.id, comments)
+        attributes[:likes]        = Supports::Like.convert_likes(likes)
+        attributes[:display_id]   = post.display_id
+        attributes[:title]        = post.title
+        attributes[:content]      = post.content
+        attributes[:target_price] = post.target_price
+        attributes[:position]     = post.position
+        attributes[:updated_at]   = post.updated_at
+        attributes[:user]         = Supports::User.convert_user(current_user)
+        attributes[:like]         = Supports::Like.convert_like(current_user.id, like)
       end
-      stock.price_pasts
-        .order(time: :asc)
-        .last(Settings.post_price_pasts_size).each do |price_past|
-        price_past_attr = {}
-        price_past_attr[:time]  = price_past.time.to_s(:month_and_year)
-        price_past_attr[:price] = price_past.price
-        attributes[:price_pasts].push(Supports::PricePast.new(price_past_attr))
-      end
-      attributes[:price_pasts].push(Supports::PricePast.new({
-        time: post.target_time.to_s(:month_and_year),
-        price: post.target_price
-      }))
       Supports::Post.new(attributes)
     end
 
     def create_post post_params
-      stock = Stock.find_by(code: post_params[:stock_code]) || Stock.new
+      stock  = Stock.find_by(code: post_params[:stock_code]) || Stock.new
+      expert = Expert.find_by(display_id: post_params[:expert_display_id]) || Expert.new
       post  = Post.create({
         stock_id:     stock.id,
-        expert_id:    post_params[:expert_id],
+        expert_id:    expert.id,
         title:        post_params[:title],
         content:      post_params[:content],
         position:     post_params[:position],
         target_price: post_params[:target_price]
       })
       Supports::Post.new({
-        stock_code:     stock.code,
+        stock:          Supports::Stock.convert_stock(stock),
         position:       post.position,
         title:          post.title,
         content:        post.content,
@@ -124,22 +101,22 @@ class Supports::Post
     end
 
     def update_post post_params
-      stock = Stock.find_by(code: post_params[:stock_code]) || Stock.new
-      post  = Post.find_by(display_id: post_params[:display_id])
-      if post.title != post_params[:title]
+      stock  = Stock.find_by(code: post_params[:stock_code]) || Stock.new
+      expert = Expert.find_by(display_id: post_params[:expert_display_id]) || Expert.new
+      post   = Post.find_by(display_id: post_params[:display_id])
+      if post.title != post_params[:title] && !post_params[:title].nil? && !post_params[:title].empty?
         post.title = post_params[:title]
         post.caculate_display_id
       end
       post.stock_id     = stock.id
-      post.expert_id    = post_params[:expert_id]
-      post.title        = post_params[:title]
+      post.expert_id    = expert.id
       post.title        = post_params[:title]
       post.content      = post_params[:content]
       post.position     = post_params[:position]
       post.target_price = post_params[:target_price]
       post.save
       Supports::Post.new({
-        stock_code:     stock.code,
+        stock:          Supports::Stock.convert_stock(stock),
         position:       post.position,
         title:          post.title,
         content:        post.content,
@@ -152,21 +129,27 @@ class Supports::Post
     def list_newest_posts
       posts = Post.includes(:stock, [expert: :user], :comments, :likes)
         .limit(Settings.newest_posts_size)
-        .order(updated_at: :desc)
+        .order(created_at: :desc)
       newest_posts = []
       posts.each do |post|
-        stock  = post.stock
-        expert = post.expert.user
-        attributes = {}
-        attributes[:stock_display_id]   = stock.display_id
-        attributes[:stock_company_name] = stock.company_name
-        attributes[:expert_name]        = expert.name
-        attributes[:expert_avatar]      = expert.avatar
-        attributes[:display_id]         = post.display_id
-        attributes[:title]              = post.title
-        attributes[:like_number]        = post.likes.size
-        attributes[:comment_number]     = post.comments.size
-        attributes[:updated_at]         = post.updated_at
+        stock    = post.stock
+        expert   = post.expert.user
+        comments = post.comments.includes(:user)
+        likes    = post.likes.includes(:user, :post)
+        attributes   = {}
+        stock_attrs  = {}
+        expert_attrs = {}
+        stock_attrs[:display_id]   = stock.display_id
+        stock_attrs[:company_name] = stock.company_name
+        expert_attrs[:expert_name]   = expert.name
+        expert_attrs[:expert_avatar] = expert.avatar
+        attributes[:stock]      = Supports::Stock.new(stock_attrs)
+        attributes[:expert]     = Supports::Expert.new(expert_attrs)
+        attributes[:comments]   = Supports::Comment.convert_comments(comments)
+        attributes[:likes]      = Supports::Like.convert_likes(likes)
+        attributes[:display_id] = post.display_id
+        attributes[:title]      = post.title
+        attributes[:updated_at] = post.updated_at
         newest_posts.push(Supports::Post.new(attributes))
       end
       newest_posts
@@ -174,27 +157,33 @@ class Supports::Post
 
     def list_popular_posts
       posts = Post.includes(:stock, [expert: :user], :comments, :likes)
-        .left_joins(:comments, :likes)
+        .left_joins(:comments)
         .group(:id)
-        .order("COUNT(comments.id) DESC").order("COUNT(likes.id) DESC")
+        .order("COUNT(comments.id) DESC")
         .limit(Settings.popular_posts_size)
       popular_posts = []
       posts.each do |post|
-        stock  = post.stock
-        expert = post.expert.user
-        attributes = {}
-        attributes[:stock_display_id]   = stock.display_id
-        attributes[:stock_company_name] = stock.company_name
-        attributes[:expert_name]        = expert.name
-        attributes[:expert_avatar]      = expert.avatar
-        attributes[:display_id]         = post.display_id
-        attributes[:title]              = post.title
-        attributes[:like_number]        = post.likes.size
-        attributes[:comment_number]     = post.comments.size
-        attributes[:updated_at]         = post.updated_at
+        stock    = post.stock
+        expert   = post.expert.user
+        comments = post.comments.includes(:user)
+        likes    = post.likes.includes(:user, :post)        
+        attributes   = {}
+        stock_attrs  = {}
+        expert_attrs = {}
+        stock_attrs[:display_id]   = stock.display_id
+        stock_attrs[:company_name] = stock.company_name
+        expert_attrs[:expert_name]   = expert.name
+        expert_attrs[:expert_avatar] = expert.avatar
+        attributes[:stock]      = Supports::Stock.new(stock_attrs)
+        attributes[:expert]     = Supports::Expert.new(expert_attrs)
+        attributes[:comments]   = Supports::Comment.convert_comments(comments)
+        attributes[:likes]      = Supports::Like.convert_likes(likes)
+        attributes[:display_id] = post.display_id
+        attributes[:title]      = post.title
+        attributes[:updated_at] = post.updated_at
         popular_posts.push(Supports::Post.new(attributes))
       end
-      popular_posts
+      popular_posts.sort_by{|p| [p.comments.size, p.likes.size]}.reverse
     end
   end
 end
