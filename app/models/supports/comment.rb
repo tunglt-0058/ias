@@ -16,7 +16,7 @@ class Supports::Comment
     @id              = attributes[:id]
     @content         = attributes[:content]
     @commented       = attributes[:commented]
-    @updated_at      = attributes[:updated_at].to_s(:no_zone)
+    @updated_at      = attributes[:updated_at].to_s(:no_zone) if attributes[:updated_at]
   end
 
   class << self
@@ -49,6 +49,21 @@ class Supports::Comment
       end
     end
 
+    def get_comment comment_params
+      user = User.find_by(display_id: comment_params[:user_display_id]) || User.new
+      post = Post.find_by(display_id: comment_params[:post_display_id]) || Post.new
+      comment = Comment.find_by(user_id: user.id, post_id: post.id) || Comment.new
+      Supports::Comment.new({
+        user_id:         user.id, 
+        user_name:       user.name,
+        user_avatar:     user.avatar,
+        user_display_id: user.display_id,
+        id:              comment.id,
+        content:         comment.content,
+        updated_at:      comment.updated_at
+      })
+    end
+
     def convert_comments current_user_id=nil, comments
       sp_comments = []
       comments.each do |comment|
@@ -63,21 +78,6 @@ class Supports::Comment
         sp_comments.push(Supports::Comment.new(comment_attr))
       end
       sp_comments     
-    end
-
-    def get_comment comment_params
-      user = User.find_by(display_id: comment_params[:user_display_id]) || User.new
-      post = Post.find_by(display_id: comment_params[:post_display_id]) || Post.new
-      comment = Comment.find_by(user_id: user.id, post_id: post.id) || Comment.new
-      Supports::Comment.new({
-        user_id:         user.id, 
-        user_name:       user.name,
-        user_avatar:     user.avatar,
-        user_display_id: user.display_id,
-        id:              comment.id,
-        content:         comment.content,
-        updated_at:      comment.updated_at
-      })
     end
   end
 end

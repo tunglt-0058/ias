@@ -1,0 +1,23 @@
+<a class="posts-href" href="<%= post_path post.display_id %>">
+  <div class="posts-body">
+    <div class="posts-header">
+      <div class="posts-header-avatar">
+        <img width="50" height="50" 
+          src="https://opensource.propeller.in/assets/images/avatar-icon-40x40.png">
+      </div>
+      <div class="posts-header-middle">
+        <div class="posts-header-username"><%= post.expert.expert_name %></div>
+        <div class="posts-metadata">
+          <span class="posts-time"><%= post.updated_at %></span>
+          <span class="posts-stock-name"><%= post.stock.company_name %></span>
+        </div>
+        <div class="posts-header-title"><%= post.title %></div>
+        <div class="posts-statistics">
+          <div class="posts-like-number"><%= post.likes.size %> lượt thích</div>
+          <div>・</div>
+          <div class="posts-comment-number"><%= post.comments.size %> bình luận</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>

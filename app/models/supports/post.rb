@@ -26,7 +26,7 @@ class Supports::Post
     @content        = attributes[:content]
     @target_price   = attributes[:target_price]
     @position       = (attributes[:position] || "buy").to_sym
-    @updated_at     = attributes[:updated_at].to_s(:no_zone)
+    @updated_at     = attributes[:updated_at].to_s(:no_zone) if attributes[:updated_at]
     @user           = attributes[:user]
     @like           = attributes[:like]
     @error_messages = attributes[:error_messages] || []
@@ -56,7 +56,7 @@ class Supports::Post
         stock_attrs[:exchange_name] = stock.exchange_name
         stock_attrs[:sector]        = stock.sector.name
         stock_attrs[:industry]      = stock.industry.name
-        stock_attrs[:price_pasts]   = Supports::PricePast.convert_price_past(price_pasts)
+        stock_attrs[:price_pasts]   = Supports::PricePast.convert_price_pasts(price_pasts)
         expert_attrs[:display_id]     = expert.display_id
         expert_attrs[:expert_name]    = expert.user.name
         expert_attrs[:expert_avatar]  = expert.user.avatar
@@ -132,25 +132,7 @@ class Supports::Post
         .order(created_at: :desc)
       newest_posts = []
       posts.each do |post|
-        stock    = post.stock
-        expert   = post.expert.user
-        comments = post.comments.includes(:user)
-        likes    = post.likes.includes(:user, :post)
-        attributes   = {}
-        stock_attrs  = {}
-        expert_attrs = {}
-        stock_attrs[:display_id]   = stock.display_id
-        stock_attrs[:company_name] = stock.company_name
-        expert_attrs[:expert_name]   = expert.name
-        expert_attrs[:expert_avatar] = expert.avatar
-        attributes[:stock]      = Supports::Stock.new(stock_attrs)
-        attributes[:expert]     = Supports::Expert.new(expert_attrs)
-        attributes[:comments]   = Supports::Comment.convert_comments(comments)
-        attributes[:likes]      = Supports::Like.convert_likes(likes)
-        attributes[:display_id] = post.display_id
-        attributes[:title]      = post.title
-        attributes[:updated_at] = post.updated_at
-        newest_posts.push(Supports::Post.new(attributes))
+        newest_posts.push(self.convert_post(post))
       end
       newest_posts
     end
@@ -163,27 +145,40 @@ class Supports::Post
         .limit(Settings.popular_posts_size)
       popular_posts = []
       posts.each do |post|
-        stock    = post.stock
-        expert   = post.expert.user
-        comments = post.comments.includes(:user)
-        likes    = post.likes.includes(:user, :post)        
-        attributes   = {}
-        stock_attrs  = {}
-        expert_attrs = {}
-        stock_attrs[:display_id]   = stock.display_id
-        stock_attrs[:company_name] = stock.company_name
-        expert_attrs[:expert_name]   = expert.name
-        expert_attrs[:expert_avatar] = expert.avatar
-        attributes[:stock]      = Supports::Stock.new(stock_attrs)
-        attributes[:expert]     = Supports::Expert.new(expert_attrs)
-        attributes[:comments]   = Supports::Comment.convert_comments(comments)
-        attributes[:likes]      = Supports::Like.convert_likes(likes)
-        attributes[:display_id] = post.display_id
-        attributes[:title]      = post.title
-        attributes[:updated_at] = post.updated_at
-        popular_posts.push(Supports::Post.new(attributes))
+        popular_posts.push(self.convert_post(post))
       end
       popular_posts.sort_by{|p| [p.comments.size, p.likes.size]}.reverse
+    end
+
+    def convert_posts posts
+      sp_posts = []
+      posts.each do |post|
+        sp_posts.push(self.convert_post(post))
+      end
+      sp_posts      
+    end
+
+    def convert_post post
+      stock    = post.stock
+      expert   = post.expert.user
+      comments = post.comments.includes(:user)
+      likes    = post.likes.includes(:user, :post)        
+      attributes   = {}
+      stock_attrs  = {}
+      expert_attrs = {}
+      stock_attrs[:display_id]   = stock.display_id
+      stock_attrs[:code]         = stock.code
+      stock_attrs[:company_name] = stock.company_name
+      expert_attrs[:expert_name]   = expert.name
+      expert_attrs[:expert_avatar] = expert.avatar
+      attributes[:stock]      = Supports::Stock.new(stock_attrs)
+      attributes[:expert]     = Supports::Expert.new(expert_attrs)
+      attributes[:comments]   = Supports::Comment.convert_comments(comments)
+      attributes[:likes]      = Supports::Like.convert_likes(likes)
+      attributes[:display_id] = post.display_id
+      attributes[:title]      = post.title
+      attributes[:updated_at] = post.updated_at
+      Supports::Post.new(attributes)
     end
   end
 end

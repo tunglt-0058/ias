@@ -35,10 +35,7 @@ class Supports::Like
     def convert_likes current_user_id=nil, likes
       sp_likes = []
       likes.each do |like|
-        attributes = {}
-        attributes[:user_display_id] = like.user.display_id
-        attributes[:post_display_id] = like.post.display_id
-        sp_likes.push(Supports::Like.new(attributes))
+        sp_likes.push(self.convert_like(like))
       end
       sp_likes
     end

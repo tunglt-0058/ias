@@ -33,9 +33,22 @@ class Supports::Stock
       stocks
     end
 
+    def convert_stocks stocks
+      sp_stocks = []
+      stocks.each do |stock|
+        sp_stocks.push(self.convert_stock(stock))
+      end
+      sp_stocks
+    end
+
     def convert_stock stock
       attributes = {}
-      attributes[:code] = stock.code
+      attributes[:display_id]    = stock.display_id
+      attributes[:company_name]  = stock.company_name
+      attributes[:code]          = stock.code
+      attributes[:exchange_name] = stock.exchange_name
+      attributes[:sector]        = stock.sector.name
+      attributes[:industry]      = stock.industry.name
       Supports::Stock.new(attributes)
     end
   end

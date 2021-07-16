@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :likes, only: [:create, :destroy]
   resources :comments, only: [:create, :update, :destroy]
   resources :follow_experts, only: [:create, :destroy]
+  resources :searches, only: :index
 
   # Not edit
   resources :not_found, only: :index

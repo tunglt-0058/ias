@@ -35,10 +35,7 @@ class Supports::FollowExpert
     def convert_follow_experts follow_experts
       sp_follow_experts = []
       follow_experts.each do |follow_expert|
-        attributes = {}
-        attributes[:user_display_id]   = follow_expert.user.display_id
-        attributes[:expert_display_id] = follow_expert.expert.display_id
-        sp_follow_experts.push(Supports::FollowExpert.new(attributes))
+        sp_follow_experts.push(self.convert_follow_expert(follow_expert))
       end
       sp_follow_experts
     end

@@ -8,7 +8,7 @@ class Supports::PricePast
   end
 
   class << self
-    def convert_price_past price_pasts
+    def convert_price_pasts price_pasts
       sp_price_pasts = []
       price_pasts.each do |price_past|
         price_past_attr = {}
