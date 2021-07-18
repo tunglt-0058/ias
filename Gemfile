@@ -25,7 +25,7 @@ gem "will_paginate", "~> 3.1.0"
 gem "will_paginate-bootstrap"
 gem "faker"
 gem "pry-byebug"
-
+gem "json", "~> 2.5", ">= 2.5.1"
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 end

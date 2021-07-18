@@ -17,8 +17,13 @@ npm i puppeteer-core
 ``` sh
 npm install node-table-to-csv
 ```
+- JSON.stringify with fixed maximum character width:
+``` sh
+npm i json-beautify
+```
 
 #### Run crawl:
+(Before running, you must replace 2 variables ENV.EMAIL and ENV.PASSWORD with your account information on Investing.com)
 - Run all tickets crawl:
 ``` sh
 node all_tickets_crawl.js 
@@ -26,4 +31,8 @@ node all_tickets_crawl.js
 - Run top tickets crawl:
 ``` sh
 node top_tickets_crawl.js 
+```
+- Run history data of all tickets crawl (output json file):
+``` sh
+node history_data_crawl.js 
 ```

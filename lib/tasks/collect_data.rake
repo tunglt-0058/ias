@@ -5,9 +5,9 @@ require "csv"
 namespace :stock_data do
   desc "Collect stocks data from CSV"
   task export_csv: :environment do
-    file_exchange = File.join Rails.root, "data_csv/stock-exchange.csv"
-    file_sector = File.join Rails.root, "data_csv/stock-sector.csv"
-    file_path = "data_csv/stocks.csv"
+    file_exchange = File.join Rails.root, "crawl_data/data/stock-exchange.csv"
+    file_sector = File.join Rails.root, "crawl_data/data/stock-sector.csv"
+    file_path = "crawl_data/data/stocks.csv"
 
     CSV.open(file_path, 'w') do |csv|
       column_names = %w(RIC Symbol Exchange CompanyName Sector Industry Last)

@@ -6,7 +6,7 @@ namespace :stock_data do
 
   desc "Import stocks data from CSV"
   task import: :environment do
-    filename = File.join Rails.root, "data_csv/stocks.csv"
+    filename = File.join Rails.root, "crawl_data/data/stocks.csv"
 
     CSV.foreach(filename, headers: true).each do |row|
       # puts row["RIC"]

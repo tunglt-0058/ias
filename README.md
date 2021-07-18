@@ -15,4 +15,5 @@ npm install propellerkit
 rails db:migrate:reset
 bundle exec rake stock_data:import
 rails db:seed
+bundle exec rake history_data:import
 ```
