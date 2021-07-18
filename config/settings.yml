@@ -4,3 +4,6 @@ newest_posts_size: 10
 popular_posts_size: 10
 post_price_pasts_size: 4
 page_stocks_size: 20
+search_stock_size: 10
+search_post_size: 10
+search_expert_size: 10

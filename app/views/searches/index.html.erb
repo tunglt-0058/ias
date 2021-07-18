@@ -1,0 +1,70 @@
+<div class="searches">
+  <div class="pmd-card pmd-z-depth search-item stock-search">
+    <p class="search-title">Chứng khoán(<%= @search.stocks.total_entries %>)</p>
+    <table class="table pmd-table table-striped table-mc-red">
+      <thead>
+        <tr>
+          <th>Mã cổ phiếu</th>
+          <th>Tên công ty</th>
+          <th>Sàn giao dịch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @search.stocks.each do |stock| %>
+          <tr>
+            <td><%= link_to stock.code, stock_path(stock.display_id) %></td>
+            <td><%= stock.company_name %></td>
+            <td><%= stock.exchange_name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>    
+    <%= will_paginate @search.stocks, param_name: "stock_page", renderer: BootstrapPagination::Rails %>
+  </div>
+  <div class="pmd-card pmd-z-depth search-item post-search">
+    <p class="search-title">Bài đăng(<%= @search.posts.total_entries %>)</p>
+    <table class="table pmd-table table-striped table-mc-red">
+      <thead>
+        <tr>
+          <th>Tiêu đề</th>
+          <th>Mã cổ phiếu</th>
+          <th>Tác giả</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @search.posts.each do |post| %>
+          <tr>
+            <td><%= post.title %></td>
+            <td><%= post.stock.code %></td>
+            <td><%= post.expert.expert_name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>    
+    <%= will_paginate @search.posts, param_name: "post_page", renderer: BootstrapPagination::Rails %>
+  </div>
+  <div class="pmd-card pmd-z-depth search-item expert-search">
+    <p class="search-title">Chuyên gia(<%= @search.experts.total_entries %>)</p>
+    <table class="table pmd-table table-striped table-mc-red">
+      <thead>
+        <tr>
+          <th>Tên chuyên gia</th>
+          <th>Lượng theo dõi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @search.experts.each do |expert| %>
+          <% expert = expert.expert %>
+          <tr>
+            <td>
+              <%= link_to expert.expert_name, expert_path(expert.display_id) %>
+            </td>
+            <td><%= expert.follow_experts.size %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @search.experts, param_name: "expert_page", 
+      renderer: BootstrapPagination::Rails %>
+  </div>
+</div>

@@ -4,13 +4,13 @@
       <a class="header-top-logo-a" href="/">StockRanks</a>
     </div>
     <div class="header-top-item header-top-search">
-      <form class="search-form">
+      <%= form_with url: searches_path, local: true, method: :GET, class: "search-form" do |f| %>
         <input class="search-input" type="text" name="search" 
-          placeholder="Nhập mã cổ phiếu hoặc tên chuyên gia">
-        <button class="search-button" type="button" data-toggle="tooltip" data-placement="top">
+          placeholder="Nhập mã cổ phiếu hoặc tên chuyên gia v.v" value="<%= params[:search] %>">
+        <button class="search-button" type="submit" data-toggle="tooltip" data-placement="top">
           <i class="material-icons pmd-sm search-icon">search</i>
         </button>
-      </form>
+      <% end %>
     </div>
     <div class="header-top-item header-top-language">
     </div>

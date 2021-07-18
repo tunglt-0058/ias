@@ -30,7 +30,9 @@ class Supports::Expert
 
     def convert_expert expert
       attributes = {}
-      attributes[:display_id] = expert.display_id
+      attributes[:display_id]     = expert.display_id
+      attributes[:expert_name]    = expert.user.name
+      attributes[:follow_experts] = Supports::FollowExpert.convert_follow_experts(expert.follow_experts)
       Supports::Expert.new(attributes)
     end
   end
