@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_03_144321) do
+ActiveRecord::Schema.define(version: 2021_07_19_100312) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "post_id", null: false
@@ -117,6 +117,24 @@ ActiveRecord::Schema.define(version: 2021_07_03_144321) do
     t.string "name", null: false
     t.string "avatar"
     t.string "display_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "stock_overviews", force: :cascade do |t|
+    t.integer "stock_id", null: false
+    t.string "revenue"
+    t.string "year_range"
+    t.float "eps"
+    t.integer "volume"
+    t.string "market_cap"
+    t.string "dividend_yield"
+    t.float "average_vol_3m"
+    t.float "pe_ratio"
+    t.float "beta"
+    t.float "year_change"
+    t.integer "shares_outstanding"
+    t.datetime "next_earnings_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

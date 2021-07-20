@@ -90,7 +90,7 @@ const crawlData = async () => {
     page = await login(page);    
     console.log("login success");
     const datas = await getDataPagination(page);
-    writeFile("all_tickets.csv", tableToCsv("<table>".concat(datas).concat("</table>")));     
+    writeFile("../data/all_tickets.csv", tableToCsv("<table>".concat(datas).concat("</table>")));     
     console.log("get data success");
   } catch (err) {
     let errorHTML = await page.evaluate(() => document.body.innerHTML);

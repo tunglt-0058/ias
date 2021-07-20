@@ -7,6 +7,7 @@ class Stock < ApplicationRecord
   has_many :notifications, dependent: :destroy, as: :notiable
   has_many :price_pasts, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_one :stock_overview
 
   before_save :to_display_id
 

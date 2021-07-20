@@ -36,3 +36,7 @@ node top_tickets_crawl.js
 ``` sh
 node history_data_crawl.js 
 ```
+- Run overview data(P/E Ratio, Beta ...) of all tickets crawl (output json file):
+``` sh
+node overview_data_crawl.js 
+```

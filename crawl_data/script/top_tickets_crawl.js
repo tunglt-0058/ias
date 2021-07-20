@@ -50,7 +50,7 @@ const load_page = async (page) => {
   // await page.waitForSelector(MARKETS_STOCKS, {visible: true});
   let table = await page.$eval(MARKETS_STOCKS, e => e.innerHTML);
   // writeFile("table.html", table);
-  writeFile("table.csv", tableToCsv(table)); 
+  writeFile("../data/table.csv", tableToCsv(table)); 
 };
 
 const crawlData = async () => {
