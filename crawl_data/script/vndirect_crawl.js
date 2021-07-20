@@ -91,7 +91,7 @@ const generateHtml = async (page) => {
   let dataStockPrice = "<table>".concat(table).concat("</table>");
   // console.log(dataStockPrice);
   // writeFile("page.html", dataStockPrice);
-  writeFile("table.csv", tableToCsv(dataStockPrice)); 
+  writeFile("../data/table.csv", tableToCsv(dataStockPrice)); 
 };
 
 

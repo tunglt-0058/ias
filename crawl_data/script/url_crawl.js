@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 // writefile.js
 const fs = require('fs');
-const tableToCsv = require('node-table-to-csv');
+const beautify = require("json-beautify");
 const crawlUrl = 'https://www.investing.com/stock-screener/?sp=country::178|sector::a|industry::a|equityType::a%3EviewData.symbol;';
 
 function writeFile(fileName, content){
@@ -41,7 +41,7 @@ const closeConnection = async (page, browser) => {
 const login = async (page) => {
   // go to link
   await page.goto(crawlUrl.concat(1));
-  
+
   // close popup
   await page.waitForTimeout(2000);
   await page.evaluate( function(){
@@ -52,43 +52,44 @@ const login = async (page) => {
   await page.evaluate(() => {
     loginFunctions.submitLogin();
   });
+  await page.waitForTimeout(3000);
   return page;
 };
 
 const loadUrl = async (page) => {
   // const RESULTS_TABLE = "#resultsTable";
+  const element = await page.$("span.js-total-results");
+  const tickets = await (await element.getProperty('textContent')).jsonValue();
+  let page_number;
+  if (tickets % 50 > 0){
+    page_number = tickets/50 + 1;
+  }else {
+    page_number = tickets/50;
+  }
+  let hrefArray = [];
   const RESULTS_TABLE = await page.$('#resultsTable');
-  const hrefs1 = await RESULTS_TABLE.evaluate(
+  let hrefPage1 = await RESULTS_TABLE.evaluate(
       () => Array.from(
         document.querySelectorAll('table tbody tr td a[href]'),
         a => a.getAttribute('href')
       )
     );
-  console.log(hrefs1);
-  // console.log(await page.$eval(RESULTS_TABLE, e => e.tBodies.item(0).rows[0].cells[1].innerHTML));
-  // console.log(await page.$eval(RESULTS_TABLE, e => e.tBodies.item(0).rows[0].cells[1].href.innerHTML));
-  // var datas = [];
-  // for (let i = 0; i < list.length; i++) {
-  //   // var data = {
-  //   //   href: await (await list[i].getProperty('href')).jsonValue(),
-  //   //   textContent: await (await list[i].getProperty('textContent')).jsonValue(),
-  //   //   innerHTML: await (await list[i].getProperty('innerHTML')).jsonValue()
-  //   // };
-  //   // datas.push(data);
-  //   console.log(data);
-  // }
-  // console.log("some items one attribute using $$");
-  // console.log(datas);
-};
-
-const loadDataHistory = async (page) => {
-  // await page.screenshot({ path: 'example.png' });
-  let datas = [];
-  const RESULTS_BOX = '#results_box #curr_table';
-  datas.push(await page.$eval(RESULTS_BOX, e => e.tHead.innerHTML));
-  datas.push(await page.$eval(RESULTS_BOX, e => e.tBodies.item(0).innerHTML));
-  // console.log(datas)
-  return datas;
+  hrefArray.push(...hrefPage1);
+  // console.log(hrefArray);
+  for (let i = 2; i <= page_number ; i++) {
+    await page.goto(crawlUrl.concat(i));
+    await page.waitForTimeout(5000);
+    console.log('go to page: ', i);
+    const hrefPagei = await page.evaluate(
+      () => Array.from(
+        document.querySelectorAll('table tbody tr td a[href]'),
+        a => a.getAttribute('href')
+      )
+    );
+    // console.log(hrefs1);
+    hrefArray.push(...hrefPagei);
+  }
+  return hrefArray;
 };
 
 const crawlData = async () => {
@@ -96,11 +97,11 @@ const crawlData = async () => {
   try {
     page = await login(page);    
     console.log("login success");
-    let datas = await loadDataHistory(page);
-    writeFile("test.csv", tableToCsv("<table>".concat(datas).concat("</table>")));  
+    arrUrl = await loadUrl(page);
+    writeFile("../data/all_tickets_url.json", beautify(arrUrl, null, 2, 100));  
   } catch (err) {
-    let errorHTML = await page.evaluate(() => document.body.innerHTML);
-    writeFile("error.html", errorHTML);
+    // let errorHTML = await page.evaluate(() => document.body.innerHTML);
+    // writeFile("error.html", errorHTML);
     console.log("fail");
   } finally {
     await closeConnection(page, browser);
