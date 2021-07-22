@@ -8,6 +8,7 @@ class StocksController < ApplicationController
 
   def show
     @same_industry_stocks = Stock.where(sector_id: @stock.sector_id, industry_id: @stock.industry_id)
+    @stock_overview = Supports::StockOverview.load_overview_info @stock
   end
 
   private
