@@ -41,6 +41,19 @@ en:
       price_forecast_low: "Forecast Low"
       price_forecast_average: "Forecast Average"
       price_forecast_high: "Forecast High"
+      overview:
+        revenue: "Revenue"
+        year_range: "52 wk Range"
+        eps: "EPS"
+        volume: "Volume"
+        market_cap: "Market Cap"
+        dividend_yield: "Dividend (Yield)"
+        average_vol_3m: "Average Vol. (3m)"
+        pe_ratio: "P/E Ratio"
+        beta: "Beta"
+        year_change: "1-Year Change"
+        shares_outstanding: "Shares Outstanding"
+        next_earnings_date: "Next Earnings Date"
   layouts:
     app:
       title: "StockRanks"

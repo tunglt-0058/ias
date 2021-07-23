@@ -16,7 +16,7 @@ namespace :history_data do
       unless stock.nil?
         # update data for stock
         stock.company_name = data['companyName']
-        stock.current_price = data['lastPrice']
+        stock.current_price = data['lastPrice'].gsub(",", "").to_i
         stock.save
         # create data price_past
         if data['data0'].nil?
@@ -32,7 +32,7 @@ namespace :history_data do
             time = DateTime.parse(date.to_s + " 17:00:00 +0900")
 
             #handle price
-            price = data[data_i]['price'].to_i
+            price = data[data_i]['price'].gsub(",", "").to_i
 
             PricePast.create!(stock_id: stock.id, time: time, price: price)
           }

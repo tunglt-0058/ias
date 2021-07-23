@@ -22,7 +22,7 @@
             <h4><%= t "experts.index.rank" %><%= expert.score %><%= t "experts.index.out_of" %><%= count %><%= t "experts.index.analysts" %></h4>
         </div>
         <div class="col-md-6 col-sm-12">
-            <figure class="success-rate animate">
+            <figure data-percentage=<%= expert.success_rate %> class="success-rate animate">
                 <svg role="img" xmlns="http://www.w3.org/2000/svg">
                     <circle class="circle-background"/>
                     <circle class="circle-foreground"/>

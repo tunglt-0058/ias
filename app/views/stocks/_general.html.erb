@@ -47,17 +47,42 @@
     </div>
 
     <div class="col-sm-2">
-      <h3 class="pmd-card-title-text"><b>Chỉ số cơ bản</b></h3>
-      <ul style="padding: 0 20px;">
-        <li style="list-style: decimal;">EPS</li>
-        <li style="list-style: decimal;">EPS</li>
-        <li style="list-style: decimal;">EPS</li>
-        <li style="list-style: decimal;">EPS</li>
-        <li style="list-style: decimal;">EPS</li>
-        <li style="list-style: decimal;">EPS</li>
-        <li style="list-style: decimal;">EPS</li>
-        <li style="list-style: decimal;">EPS</li>
-      </ul>
+      <h3 class="pmd-card-title-text text-center"><b>Chỉ số cơ bản</b></h3>
+      <hr>
+      <div class="post-stock-item">
+        <div><%= t "stocks.show.overview.revenue" %></div>
+        <div class="text-left"><b><%= stock_overview.revenue %></b></div>
+      </div>
+      <hr>
+      <div class="post-stock-item">
+        <div><%= t "stocks.show.overview.eps" %></div>
+        <div><b><%= stock_overview.eps %></b></div>
+      </div>
+      <hr>
+      <div class="post-stock-item">
+        <div><%= t "stocks.show.overview.volume" %></div>
+        <div><b><%= stock_overview.volume %></b></div>
+      </div>
+      <hr>
+      <div class="post-stock-item">
+        <div><%= t "stocks.show.overview.dividend_yield" %></div>
+        <div><b><%= stock_overview.dividend_yield %></b></div>
+      </div>
+      <hr>
+      <div class="post-stock-item">
+        <div><%= t "stocks.show.overview.pe_ratio" %></div>
+        <div><b><%= stock_overview.pe_ratio %></b></div>
+      </div>
+      <hr>
+      <div class="post-stock-item">
+        <div><%= t "stocks.show.overview.beta" %></div>
+        <div><b><%= stock_overview.beta %></b></div>
+      </div>
+      <hr>
+      <div class="post-stock-item">
+        <div><%= t "stocks.show.overview.year_change" %></div>
+        <div><b><%= stock_overview.year_change %>%</b></div>
+      </div>
     </div>
   </div>
 
