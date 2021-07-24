@@ -1,4 +1,4 @@
-class Supports::Post
+class Supports::Post < Supports::Application
   attr_reader :stock
   attr_reader :expert
   attr_reader :comments
@@ -14,8 +14,6 @@ class Supports::Post
   attr_reader :error_messages
   attr_reader :positions
 
-  STR_POSITION = {buy: "MUA", hold: "GIỮ", sell: "BÁN"}
-
   def initialize attributes
     @stock          = attributes[:stock] || Supports::Stock.new({})
     @expert         = attributes[:expert]
@@ -30,16 +28,16 @@ class Supports::Post
     @user           = attributes[:user]
     @like           = attributes[:like]
     @error_messages = attributes[:error_messages] || []
-    @positions      = STR_POSITION
+    @positions      = POSITIONS
   end
 
   class << self
     def get_post post_params
-      attributes   = {}
-      stock_attrs  = {}
-      expert_attrs = {}
       post = Post.includes(:comments).find_by(display_id: post_params[:display_id])
       if !post.nil?
+        attributes   = {}
+        stock_attrs  = {}
+        expert_attrs = {}
         current_user   = User.find_by(display_id: post_params[:user_display_id]) || User.new
         stock          = post.stock
         expert         = post.expert
@@ -74,14 +72,16 @@ class Supports::Post
         attributes[:updated_at]   = post.updated_at
         attributes[:user]         = Supports::User.convert_user(current_user)
         attributes[:like]         = Supports::Like.convert_like(current_user.id, like)
+        self.new(attributes)
+      else
+        nil
       end
-      Supports::Post.new(attributes)
     end
 
     def create_post post_params
       stock  = Stock.find_by(code: post_params[:stock_code]) || Stock.new
       expert = Expert.find_by(display_id: post_params[:expert_display_id]) || Expert.new
-      post  = Post.create({
+      post   = Post.create({
         stock_id:     stock.id,
         expert_id:    expert.id,
         title:        post_params[:title],
@@ -89,7 +89,14 @@ class Supports::Post
         position:     post_params[:position],
         target_price: post_params[:target_price]
       })
-      Supports::Post.new({
+      if post.errors.empty?
+        forecast_prices = Supports::Stock.caculate_forecast_price(stock)
+        stock.lowest_forecast_price  = forecast_prices[:lowest_price]
+        stock.average_forecast_price = forecast_prices[:average_price]
+        stock.highest_forecast_price = forecast_prices[:highest_price]
+        stock.save
+      end
+      self.new({
         stock:          Supports::Stock.convert_stock(stock),
         position:       post.position,
         title:          post.title,
@@ -115,7 +122,14 @@ class Supports::Post
       post.position     = post_params[:position]
       post.target_price = post_params[:target_price]
       post.save
-      Supports::Post.new({
+      if post.errors.empty?
+        forecast_prices = Supports::Stock.caculate_forecast_price(stock)
+        stock.lowest_forecast_price  = forecast_prices[:lowest_price]
+        stock.average_forecast_price = forecast_prices[:average_price]
+        stock.highest_forecast_price = forecast_prices[:highest_price]
+        stock.save
+      end      
+      self.new({
         stock:          Supports::Stock.convert_stock(stock),
         position:       post.position,
         title:          post.title,
@@ -130,11 +144,7 @@ class Supports::Post
       posts = Post.includes(:stock, [expert: :user], :comments, :likes)
         .limit(Settings.newest_posts_size)
         .order(created_at: :desc)
-      newest_posts = []
-      posts.each do |post|
-        newest_posts.push(self.convert_post(post))
-      end
-      newest_posts
+      self.convert_posts(posts)
     end
 
     def list_popular_posts
@@ -143,10 +153,7 @@ class Supports::Post
         .group(:id)
         .order("COUNT(comments.id) DESC")
         .limit(Settings.popular_posts_size)
-      popular_posts = []
-      posts.each do |post|
-        popular_posts.push(self.convert_post(post))
-      end
+      popular_posts = self.convert_posts(posts)
       popular_posts.sort_by{|p| [p.comments.size, p.likes.size]}.reverse
     end
 
@@ -178,7 +185,7 @@ class Supports::Post
       attributes[:display_id] = post.display_id
       attributes[:title]      = post.title
       attributes[:updated_at] = post.updated_at
-      Supports::Post.new(attributes)
+      self.new(attributes)
     end
   end
 end

@@ -1,4 +1,4 @@
-class Supports::User
+class Supports::User < Supports::Application
   attr_reader :id
   attr_reader :display_id
   attr_reader :account_type
@@ -31,7 +31,7 @@ class Supports::User
       if user.expert
         attributes[:expert] = Supports::Expert.convert_expert(user.expert)
       end
-      Supports::User.new(attributes)
+      self.new(attributes)
     end
   end
 end

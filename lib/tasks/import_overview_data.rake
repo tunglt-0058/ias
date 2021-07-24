@@ -42,8 +42,8 @@ namespace :overview_data do
           year_change: year_change, shares_outstanding: shares_outstanding,
           next_earnings_date: next_earnings_date)
       end
-      puts "Import overview data for stock code #{data['code']} done!!!"
+      # puts "Import overview data for stock code #{data['code']} done!!!"
     end
-    puts "Mission done!!!"
+    # puts "Mission done!!!"
   end
 end

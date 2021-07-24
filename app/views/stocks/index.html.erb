@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="table-responsive">
-    	<div class="pmd-card pmd-z-depth">
+      <div class="pmd-card pmd-z-depth">
         <table class="table pmd-table table-striped table-mc-red">
           <thead>
             <tr>
@@ -17,19 +17,27 @@
           </thead>
           <tbody>
             <% @stocks.each do |stock| %>
-    					<tr>
-    	          <td data-title="code"><%= link_to stock.code, stock_path(stock.display_id), "data-turbolinks":"false"%></td>
-    	          <td data-title="company_name"><%= stock.company_name %></td>
-    	          <td data-title="exchange_name"><%= stock.exchange_name %></td>
-    	          <td data-title="current_price"><%= number_to_currency(stock.current_price, locale: :vn) %></td>
-    	          <td data-title="sector"><%= stock.sector.name %></td>
-    	          <td data-title="industry"><%= stock.industry.name %></td>
-    	          <td data-title="analyst_consensus"><%= stock.analyst_consensus %></td>
-    	          <td data-title="article">
-                  <div data-badge="<%= stock.posts.size %>" class="material-icons pmd-md pmd-badge pmd-badge-overlap">description</div>
+              <tr>
+                <td data-title="code">
+                  <%= link_to stock.code, stock_path(stock.display_id), 
+                    "data-turbolinks": "false" %>
                 </td>
-    	        </tr>
-    				<% end %>
+                <td data-title="company_name"><%= stock.company_name %></td>
+                <td data-title="exchange_name"><%= stock.exchange_name %></td>
+                <td data-title="current_price">
+                  <%= number_to_currency(stock.current_price, locale: :vn) %>
+                </td>
+                <td data-title="sector"><%= stock.sector %></td>
+                <td data-title="industry"><%= stock.industry %></td>
+                <td data-title="analyst_consensus"><%= stock.analyst_consensus %></td>
+                <td data-title="article">
+                  <div data-badge="<%= stock.number_of_posts %>" 
+                    class="material-icons pmd-md pmd-badge pmd-badge-overlap">
+                    description
+                  </div>
+                </td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
         <%= will_paginate @stocks, renderer: BootstrapPagination::Rails %>

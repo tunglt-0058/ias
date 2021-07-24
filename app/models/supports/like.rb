@@ -1,4 +1,4 @@
-class Supports::Like
+class Supports::Like < Supports::Application
   attr_reader :user_display_id
   attr_reader :post_display_id
   attr_reader :liked
@@ -45,7 +45,7 @@ class Supports::Like
       attributes[:user_display_id] = (like.user || User.new).display_id
       attributes[:post_display_id] = (like.post || Post.new).display_id
       attributes[:liked]           = (like.user_id == current_user_id) && !like.user_id.nil?
-      Supports::Like.new(attributes)
+      self.new(attributes)
     end
   end
 end

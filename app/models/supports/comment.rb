@@ -1,4 +1,4 @@
-class Supports::Comment
+class Supports::Comment < Supports::Application
   attr_reader :user_id
   attr_reader :user_name
   attr_reader :user_avatar
@@ -53,7 +53,7 @@ class Supports::Comment
       user = User.find_by(display_id: comment_params[:user_display_id]) || User.new
       post = Post.find_by(display_id: comment_params[:post_display_id]) || Post.new
       comment = Comment.find_by(user_id: user.id, post_id: post.id) || Comment.new
-      Supports::Comment.new({
+      self.new({
         user_id:         user.id, 
         user_name:       user.name,
         user_avatar:     user.avatar,
@@ -75,7 +75,7 @@ class Supports::Comment
         comment_attr[:content]         = comment.content
         comment_attr[:commented]       = comment.user_id == current_user_id
         comment_attr[:updated_at]      = comment.updated_at
-        sp_comments.push(Supports::Comment.new(comment_attr))
+        sp_comments.push(self.new(comment_attr))
       end
       sp_comments     
     end

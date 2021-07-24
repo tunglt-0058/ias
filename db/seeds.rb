@@ -36,6 +36,11 @@ puts "Create account experts test"
     Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test.
     Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test. Giá cổ phiếu test.")
   post.save!
+  forecast_prices = Supports::Stock.caculate_forecast_price(stock)
+  stock.lowest_forecast_price  = forecast_prices[:lowest_price]
+  stock.average_forecast_price = forecast_prices[:average_price]
+  stock.highest_forecast_price = forecast_prices[:highest_price]
+  stock.save!
 end
 puts "Create posts test"
 

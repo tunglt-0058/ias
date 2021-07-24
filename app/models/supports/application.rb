@@ -1,4 +1,6 @@
 class Supports::Application
+  POSITIONS = {buy: "MUA", hold: "GIỮ", sell: "BÁN"}
+
   class << self
     def object_paginate convert_method=nil, objects
       if objects == []

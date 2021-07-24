@@ -146,9 +146,9 @@ ActiveRecord::Schema.define(version: 2021_07_19_100312) do
     t.string "company_name", null: false
     t.string "exchange_name", null: false
     t.integer "current_price", null: false
-    t.integer "price_forecast_low"
-    t.integer "price_forecast_average"
-    t.integer "price_forecast_high"
+    t.integer "lowest_forecast_price"
+    t.integer "average_forecast_price"
+    t.integer "highest_forecast_price"
     t.string "display_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

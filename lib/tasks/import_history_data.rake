@@ -20,7 +20,7 @@ namespace :history_data do
         stock.save
         # create data price_past
         if data['data0'].nil?
-          puts "No history data for #{data['companyName']}!!!"
+          # puts "No history data for #{data['companyName']}!!!"
         else
           (1..11).each{ |i|
             # handle time
@@ -37,9 +37,9 @@ namespace :history_data do
             PricePast.create!(stock_id: stock.id, time: time, price: price)
           }
         end
-        puts "Import history data for #{data['companyName']} done!!!"
+        # puts "Import history data for #{data['companyName']} done!!!"
       end
     end
-    puts "Mission done!!!"
+    # puts "Mission done!!!"
   end
 end
