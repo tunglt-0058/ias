@@ -31,6 +31,9 @@ class PostsController < ApplicationController
 
   def show
     @post = Supports::Post.get_post post_params
+    if @post.nil?
+      redirect_to not_found_index_path      
+    end
   end
 
   def edit

@@ -50,38 +50,37 @@
 </div>
 
 <script type="text/javascript">
-  var pricePasts = JSON.parse($("#pricePasts").text())
-  var labels = []
-  var pastPrices = []
-  var targePrices = []
+  var pricePasts   = JSON.parse($("#pricePasts").text())
+  var labels       = []
+  var pastPrices   = []
+  var targetPrices = []
   for(pricePast of pricePasts) {
     labels.push(pricePast["time"])
     pastPrices.push(pricePast["price"])
-    targePrices.push(null)
+    targetPrices.push(null)
   }
-  pastPrices[pastPrices.length - 1] = null
-  targePrices[targePrices.length - 2] = pastPrices[pastPrices.length - 2]
-  targePrices[targePrices.length - 1] = parseInt($("#targetPrice").text())
+  pastPrices[pastPrices.length - 1]     = null
+  targetPrices[targetPrices.length - 2] = pastPrices[pastPrices.length - 2]
+  targetPrices[targetPrices.length - 1] = parseInt($("#targetPrice").text())
   var lineChartData = {
     labels: labels,
     datasets: [
       {
         label: "Past Price",
         data: pastPrices,
-        backgroundColor: '#5d5d5e',
-        borderColor: '#5d5d5e',
+        backgroundColor: "#5d5d5e",
+        borderColor: "#5d5d5e",
         pointBackgroundColor: "transparent"
       },
       {
         label: "Target Price",
-        data: targePrices,
-        backgroundColor: 'rgba(0,255,0,1)',
-        borderColor: 'rgb(0,255,0,1)',
+        data: targetPrices,
+        backgroundColor: "rgba(0,255,0,1)",
+        borderColor: "rgb(0,255,0,1)",
         pointBackgroundColor: "transparent"
       }
     ]
   };
-
   var ctx = document.getElementById("stockChart").getContext("2d");
   var myChart = new Chart(ctx, {
     type: "line",

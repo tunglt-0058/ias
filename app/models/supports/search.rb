@@ -28,13 +28,13 @@ class Supports::Search < Supports::Application
         sp_stocks  = object_paginate(stocks)
         sp_posts   = object_paginate(posts)
         sp_experts = object_paginate(experts)
-        Supports::Search.new({
+        self.new({
           stocks:  sp_stocks,
           posts:   sp_posts,
           experts: sp_experts,
         })
       else
-        Supports::Search.new({
+        self.new({
           stocks:  object_paginate([]),
           posts:   object_paginate([]),
           experts: object_paginate([]),

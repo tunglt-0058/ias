@@ -8,7 +8,9 @@
         </div>
         <div class="col-sm-4">
           <h2 class="pmd-card-title-text">Giá hiện tại</h2>
-          <span class="pmd-card-title-text"><%= number_to_currency(stock.current_price, locale: :vn) %></span>
+          <span class="pmd-card-title-text">
+            <%= number_to_currency(stock.current_price, locale: :vn) %>
+          </span>
         </div>
         <div class="col-sm-4 text-right">
           <button class="btn btn-sm btn-primary" 
@@ -32,15 +34,22 @@
           <h2 class="pmd-card-title-text"><%= stock.analyst_consensus %></h2>
           <hr>
           <div class="pmd-card-body">
-            <canvas id="expertChart1"></canvas>
+            <%= hidden_field_tag "positions", stock.positions.to_json  %>
+            <canvas id="position-chart"></canvas>
           </div>
         </div>
         <div class="col-sm-8">
           <span class="pmd-card-title-text">Giá dự đoán trung bình của các chuyên gia</span>
-          <h1 class="pmd-card-title-text">90,100 VND</h1>
+          <h1 class="pmd-card-title-text">
+            <%= number_to_currency(stock.average_price, locale: :vn) %>
+          </h1>
           <hr>
           <div class="pmd-card-body">
-            <canvas id="stockChart1"></canvas>
+            <%= hidden_field_tag "pricePasts", stock.price_pasts.to_json %>
+            <%= hidden_field_tag "lowestPrice", stock.lowest_price.to_json %>
+            <%= hidden_field_tag "averagePrice", stock.average_price.to_json %>
+            <%= hidden_field_tag "highestPrice", stock.highest_price.to_json %>
+            <canvas id="stock-chart"></canvas>
           </div>
         </div>
       </div>
@@ -51,37 +60,37 @@
       <hr>
       <div class="post-stock-item">
         <div><%= t "stocks.show.overview.revenue" %></div>
-        <div class="text-left"><b><%= stock_overview.revenue %></b></div>
+        <div class="text-left"><b><%= stock.stock_overview.revenue %></b></div>
       </div>
       <hr>
       <div class="post-stock-item">
         <div><%= t "stocks.show.overview.eps" %></div>
-        <div><b><%= stock_overview.eps %></b></div>
+        <div><b><%= stock.stock_overview.eps %></b></div>
       </div>
       <hr>
       <div class="post-stock-item">
         <div><%= t "stocks.show.overview.volume" %></div>
-        <div><b><%= stock_overview.volume %></b></div>
+        <div><b><%= stock.stock_overview.volume %></b></div>
       </div>
       <hr>
       <div class="post-stock-item">
         <div><%= t "stocks.show.overview.dividend_yield" %></div>
-        <div><b><%= stock_overview.dividend_yield %></b></div>
+        <div><b><%= stock.stock_overview.dividend_yield %></b></div>
       </div>
       <hr>
       <div class="post-stock-item">
         <div><%= t "stocks.show.overview.pe_ratio" %></div>
-        <div><b><%= stock_overview.pe_ratio %></b></div>
+        <div><b><%= stock.stock_overview.pe_ratio %></b></div>
       </div>
       <hr>
       <div class="post-stock-item">
         <div><%= t "stocks.show.overview.beta" %></div>
-        <div><b><%= stock_overview.beta %></b></div>
+        <div><b><%= stock.stock_overview.beta %></b></div>
       </div>
       <hr>
       <div class="post-stock-item">
         <div><%= t "stocks.show.overview.year_change" %></div>
-        <div><b><%= stock_overview.year_change %>%</b></div>
+        <div><b><%= stock.stock_overview.year_change %>%</b></div>
       </div>
     </div>
   </div>
@@ -142,47 +151,67 @@
 </div>
 
 <script>
-  var lineChartData = {
-      labels: ['Jun 2020', 'Sep 2020', 'Dec 2020', 'Mar 2021', 'Jun 2021', 'Dec 2022', 'Jun 2022'],
-      datasets: [
+  var pricePasts    = JSON.parse($("#pricePasts").val())
+  var labels        = []
+  var pastPrices    = []
+  var lowestPrices  = []
+  var averagePrices = []
+  var highestPrices = []
+  for(pricePast of pricePasts) {
+    labels.push(pricePast["time"])
+    pastPrices.push(pricePast["price"])
+    lowestPrices.push(null)
+    averagePrices.push(null)
+    highestPrices.push(null)
+  }
+  pastPrices[pastPrices.length - 1]       = null
+  lowestPrices[lowestPrices.length - 2]   = pastPrices[pastPrices.length - 2]
+  averagePrices[averagePrices.length - 2] = pastPrices[pastPrices.length - 2]
+  highestPrices[highestPrices.length - 2] = pastPrices[pastPrices.length - 2]
+  lowestPrices[lowestPrices.length - 1]   = parseInt($("#lowestPrice").val())
+  averagePrices[averagePrices.length - 1] = parseInt($("#averagePrice").val())
+  highestPrices[highestPrices.length - 1] = parseInt($("#highestPrice").val())
+  var stockChartData = {
+    labels: labels,
+    datasets: [
       {
-        label: "Past 12 Months",
-        data: [1, 4, 3, 4, 2, null, null],
-        backgroundColor: '#5d5d5e',
-        borderColor: '#5d5d5e',
+        label: "Past Price",
+        data: pastPrices,
+        backgroundColor: "#5d5d5e",
+        borderColor: "#5d5d5e",
         pointBackgroundColor: "transparent"
-      }, {
-        label: "Highest Price Target",
-        data: [null, null, null, null, 2, 5, 6],
-        borderColor: '#66f',
+      },
+      {
+        label: "Lowest Price",
+        data: lowestPrices,
+        borderColor: "rgb(255, 99, 132)",
         borderDash: [20, 30],
         pointBackgroundColor: "transparent"
-      },{
-        label: "Average Price Target",
-        data: [null, null, null, null, 2, 3, 4],
-        backgroundColor: 'rgba(0,255,0,1)',
-        borderColor: 'rgb(0,255,0,1)',
+      },
+      {
+        label: "Average Price",
+        data: averagePrices,
+        borderColor: "rgb(0,255,0,1)",
         borderDash: [20, 30],
         pointBackgroundColor: "transparent"
-      },{
-        label: "Lowest Price Target",
-        data: [null, null, null, null, 2, 2, 3],
-        backgroundColor: 'rgba(255, 99, 132, 0.6)',
-        borderColor: 'rgb(255, 99, 132)',
+      },
+      {
+        label: "Highest Price",
+        data: highestPrices,
+        borderColor: "#66f",
         borderDash: [20, 30],
         pointBackgroundColor: "transparent"
       }
-      ]
+    ]
   };
-
-  var ctx = document.getElementById("stockChart1").getContext("2d");
-  var myChart = new Chart(ctx, {
+  var stockCtx   = document.getElementById("stock-chart").getContext("2d");
+  var stockChart = new Chart(stockCtx, {
     type: "line",
-    data: lineChartData,
+    data: stockChartData,
     options: {
       elements: {
         line: {
-            fill: false
+          fill: false
         }
       }, 
       plugins: {
@@ -193,28 +222,28 @@
     }
   });
 
-  var doughnutChartData = {
-    datasets: [{
-      label: 'My First Dataset',
-      data: [300, 50, 100],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)'
-      ],
-      hoverOffset: 4
-    }], 
+  var positionData = {
+    datasets: [
+      {
+        data: JSON.parse($("#positions").val()),
+        backgroundColor: [
+          "rgb(255, 99, 132)",
+          "rgb(54, 162, 235)",
+          "rgb(255, 205, 86)"
+        ],
+        hoverOffset: 4
+      }
+    ], 
     labels: [
-      'Buy',
-      'Hold',
-      'Sell'
+      "Buy",
+      "Hold",
+      "Sell"
     ]
   };
-
-  var ctx = document.getElementById("expertChart1").getContext("2d");
-  var myChart = new Chart(ctx, {
+  var positionCtx   = document.getElementById("position-chart").getContext("2d");
+  var positionChart = new Chart(positionCtx, {
     type: "doughnut",
-    data: doughnutChartData,
+    data: positionData,
     options: { 
       plugins: {
         tooltip: {

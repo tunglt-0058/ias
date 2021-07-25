@@ -1,4 +1,4 @@
-class Supports::StockOverview
+class Supports::StockOverview < Supports::Application
   attr_reader :revenue
   attr_reader :year_range
   attr_reader :eps
@@ -24,27 +24,25 @@ class Supports::StockOverview
     @beta               = attributes[:beta]
     @year_change        = attributes[:year_change]
     @shares_outstanding = attributes[:shares_outstanding]
-    @next_earnings_date = attributes[:next_earnings_date].to_s(:day_month_year)
+    @next_earnings_date = attributes[:next_earnings_date].to_s(:day_month_year) if attributes[:next_earnings_date]
   end
 
   class << self
-    def load_overview_info stock
-      stock_overview = StockOverview.find_by(stock_id: stock.id)
+    def convert_stock_overview stock_overview
       attributes = {}
-      attributes[:revenue]                = stock_overview.revenue
-      attributes[:year_range]             = stock_overview.year_range
-      attributes[:eps]                    = stock_overview.eps
-      attributes[:volume]                 = stock_overview.volume
-      attributes[:market_cap]             = stock_overview.market_cap
-      attributes[:dividend_yield]         = stock_overview.dividend_yield
-      attributes[:average_vol_3m]         = stock_overview.average_vol_3m
-      attributes[:pe_ratio]               = stock_overview.pe_ratio
-      attributes[:beta]                   = stock_overview.beta
-      attributes[:year_change]            = stock_overview.year_change
-      attributes[:shares_outstanding]     = stock_overview.shares_outstanding
-      attributes[:next_earnings_date]     = stock_overview.next_earnings_date
-
-      Supports::StockOverview.new(attributes)
+      attributes[:revenue]            = stock_overview.revenue
+      attributes[:year_range]         = stock_overview.year_range
+      attributes[:eps]                = stock_overview.eps
+      attributes[:volume]             = stock_overview.volume
+      attributes[:market_cap]         = stock_overview.market_cap
+      attributes[:dividend_yield]     = stock_overview.dividend_yield
+      attributes[:average_vol_3m]     = stock_overview.average_vol_3m
+      attributes[:pe_ratio]           = stock_overview.pe_ratio
+      attributes[:beta]               = stock_overview.beta
+      attributes[:year_change]        = stock_overview.year_change
+      attributes[:shares_outstanding] = stock_overview.shares_outstanding
+      attributes[:next_earnings_date] = stock_overview.next_earnings_date
+      self.new(attributes)
     end
   end
 end

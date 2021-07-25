@@ -1,4 +1,4 @@
-class Supports::PricePast
+class Supports::PricePast < Supports::Application
   attr_reader :time
   attr_reader :price
 
@@ -14,7 +14,7 @@ class Supports::PricePast
         price_past_attr = {}
         price_past_attr[:time]  = price_past.time
         price_past_attr[:price] = price_past.price
-        sp_price_pasts.push(Supports::PricePast.new(price_past_attr))
+        sp_price_pasts.push(self.new(price_past_attr))
       end
       sp_price_pasts
     end

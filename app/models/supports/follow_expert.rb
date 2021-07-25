@@ -1,4 +1,4 @@
-class Supports::FollowExpert
+class Supports::FollowExpert < Supports::Application
   attr_reader :user_display_id
   attr_reader :expert_display_id
   attr_reader :followed
@@ -45,7 +45,7 @@ class Supports::FollowExpert
       attributes[:user_display_id]   = (follow_expert.user || User.new).display_id
       attributes[:expert_display_id] = (follow_expert.expert || Expert.new).display_id
       attributes[:followed]          = (follow_expert.user_id == current_user_id) && !follow_expert.user_id.nil?
-      Supports::FollowExpert.new(attributes)
+      self.new(attributes)
     end
   end
 end
