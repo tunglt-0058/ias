@@ -1,18 +1,16 @@
 class Supports::FollowExpert < Supports::Application
-  attr_reader :user_display_id
   attr_reader :expert_display_id
-  attr_reader :followed
+  attr_reader :user_display_id
 
   def initialize attributes
-    @user_display_id   = attributes[:user_display_id]
     @expert_display_id = attributes[:expert_display_id]
-    @followed          = attributes[:followed]
+    @user_display_id   = attributes[:user_display_id]
   end
 
   class << self
     def create_follow_expert follow_expert_params
-      user   = User.find_by(display_id: follow_expert_params[:user_display_id])
-      expert = Expert.find_by(display_id: follow_expert_params[:expert_display_id])
+      user          = User.find_by(display_id: follow_expert_params[:user_display_id]) || User.new
+      expert        = Expert.find_by(display_id: follow_expert_params[:expert_display_id]) || Expert.new
       follow_expert = FollowExpert.find_by(user_id: user.id, expert_id: expert.id)
       if follow_expert.nil?
         return FollowExpert.create(user_id: user.id, expert_id: expert.id)
@@ -22,8 +20,8 @@ class Supports::FollowExpert < Supports::Application
     end
 
     def delete_follow_expert follow_expert_params
-      user   = User.find_by(display_id: follow_expert_params[:user_display_id])
-      expert = Expert.find_by(display_id: follow_expert_params[:expert_display_id])      
+      user          = User.find_by(display_id: follow_expert_params[:user_display_id]) || User.new
+      expert        = Expert.find_by(display_id: follow_expert_params[:expert_display_id]) || Expert.new
       follow_expert = FollowExpert.find_by(user_id: user.id, expert_id: expert.id)
       if follow_expert.nil?
         return false
@@ -32,19 +30,20 @@ class Supports::FollowExpert < Supports::Application
       end
     end
 
-    def convert_follow_experts follow_experts
+    def convert_follow_experts current_user_id=nil, follow_experts
       sp_follow_experts = []
       follow_experts.each do |follow_expert|
-        sp_follow_experts.push(self.convert_follow_expert(follow_expert))
+        sp_follow_experts.push(self.convert_follow_expert(current_user_id, follow_expert))
       end
       sp_follow_experts
     end
 
     def convert_follow_expert current_user_id=nil, follow_expert
       attributes = {}
-      attributes[:user_display_id]   = (follow_expert.user || User.new).display_id
-      attributes[:expert_display_id] = (follow_expert.expert || Expert.new).display_id
-      attributes[:followed]          = (follow_expert.user_id == current_user_id) && !follow_expert.user_id.nil?
+      if !(follow_expert.nil? or follow_expert.new_record?)
+        attributes[:expert_display_id] = follow_expert.expert.display_id
+        attributes[:user_display_id]   = follow_expert.user.display_id
+      end
       self.new(attributes)
     end
   end

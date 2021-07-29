@@ -90,25 +90,27 @@ class Supports::Stock < Supports::Application
 
     def convert_stock stock
       attributes = {}
-      attributes[:sector]            = stock.sector.name
-      attributes[:industry]          = stock.industry.name
-      attributes[:display_id]        = stock.display_id
-      attributes[:company_name]      = stock.company_name
-      attributes[:code]              = stock.code
-      attributes[:exchange_name]     = stock.exchange_name
-      attributes[:current_price]     = stock.current_price
-      attributes[:lowest_price]      = stock.lowest_forecast_price
-      attributes[:average_price]     = stock.average_forecast_price
-      attributes[:highest_price]     = stock.highest_forecast_price
-      attributes[:analyst_consensus] = self.caculate_analyst_consensus(stock)
-      attributes[:option_display_id] = "#{stock.code} | #{stock.company_name}"
-      attributes[:number_of_posts]   = stock.posts.size
+      if !(stock.nil? or stock.new_record?)
+        attributes[:sector]            = stock.sector.name
+        attributes[:industry]          = stock.industry.name
+        attributes[:display_id]        = stock.display_id
+        attributes[:company_name]      = stock.company_name
+        attributes[:code]              = stock.code
+        attributes[:exchange_name]     = stock.exchange_name
+        attributes[:current_price]     = stock.current_price
+        attributes[:lowest_price]      = stock.lowest_forecast_price
+        attributes[:average_price]     = stock.average_forecast_price
+        attributes[:highest_price]     = stock.highest_forecast_price
+        attributes[:analyst_consensus] = self.caculate_analyst_consensus(stock)
+        attributes[:option_display_id] = "#{stock.code} | #{stock.company_name}"
+        attributes[:number_of_posts]   = stock.posts.size
+      end
       self.new(attributes)
     end
 
     def caculate_forecast_price stock
-      posts       = stock.posts
-      post_prices = posts.pluck(:target_price)
+      posts           = stock.posts
+      post_prices     = posts.pluck(:target_price)
       forecast_prices = {}
       forecast_prices[:lowest_price]  = post_prices.min
       forecast_prices[:highest_price] = post_prices.max
