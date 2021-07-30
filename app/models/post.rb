@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   belongs_to :stock
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   enum position: [:buy, :hold, :sell]
 

@@ -1,7 +1,8 @@
 <div class="container posts">
   <% if current_user && current_user.expert? %>
     <div>
-      <%= link_to "Tạo mới bài đăng", new_post_path, class: "btn btn-primary new-post-btn" %>
+      <%= link_to "Tạo mới bài đăng", new_post_path, 
+        class: "btn btn-primary new-post-btn" %>
     </div>
   <% end %>
   <div class="pmd-card pmd-z-depth posts-left">

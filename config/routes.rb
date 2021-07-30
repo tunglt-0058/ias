@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :update, :destroy]
   resources :follow_experts, only: [:create, :destroy]
   resources :searches, only: :index
+  resources :votes, only: :create
 
   # Not edit
   resources :not_found, only: :index
