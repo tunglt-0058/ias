@@ -37,17 +37,14 @@ class Supports::Post < Supports::Application
       if !post.nil?
         attributes   = {}
         stock_attrs  = {}
-        expert_attrs = {}
-        current_user   = User.find_by(display_id: post_params[:user_display_id]) || User.new
-        stock          = post.stock
-        expert         = post.expert
-        comments       = post.comments.includes(:user).order(updated_at: :desc)
-        likes          = post.likes.includes(:user, :post)
-        like           = post.likes.find_by(user_id: current_user.id) || Like.new
-        follow_experts = expert.follow_experts.includes(:user, :expert)
-        follow_expert  = expert.follow_experts.find_by(user_id: current_user.id) || FollowExpert.new
-        price_pasts    = stock.price_pasts.order(time: :asc).last(Settings.post_price_pasts_size)
-        price_pasts    = price_pasts.push(PricePast.new({time: post.target_time, price: post.target_price}))
+        stock        = post.stock
+        expert       = post.expert
+        comments     = post.comments.includes(:user).order(updated_at: :desc)
+        likes        = post.likes.includes(:user, :post)
+        current_user = User.find_by(display_id: post_params[:user_display_id]) || User.new
+        like         = post.likes.find_by(user_id: current_user.id)
+        price_pasts  = stock.price_pasts.order(time: :asc).last(Settings.post_price_pasts_size)
+        price_pasts  = price_pasts.push(PricePast.new({time: post.target_time, price: post.target_price}))
         stock_attrs[:display_id]    = stock.display_id
         stock_attrs[:company_name]  = stock.company_name
         stock_attrs[:code]          = stock.code
@@ -55,13 +52,8 @@ class Supports::Post < Supports::Application
         stock_attrs[:sector]        = stock.sector.name
         stock_attrs[:industry]      = stock.industry.name
         stock_attrs[:price_pasts]   = Supports::PricePast.convert_price_pasts(price_pasts)
-        expert_attrs[:display_id]     = expert.display_id
-        expert_attrs[:expert_name]    = expert.user.name
-        expert_attrs[:expert_avatar]  = expert.user.avatar
-        expert_attrs[:follow_experts] = Supports::FollowExpert.convert_follow_experts(follow_experts)
-        expert_attrs[:follow_expert]  = Supports::FollowExpert.convert_follow_expert(current_user.id, follow_expert)
         attributes[:stock]        = Supports::Stock.new(stock_attrs)
-        attributes[:expert]       = Supports::Expert.new(expert_attrs)
+        attributes[:expert]       = Supports::Expert.convert_expert(current_user.id, expert)
         attributes[:comments]     = Supports::Comment.convert_comments(current_user.id, comments)
         attributes[:likes]        = Supports::Like.convert_likes(likes)
         attributes[:display_id]   = post.display_id
@@ -111,7 +103,7 @@ class Supports::Post < Supports::Application
       stock  = Stock.find_by(code: post_params[:stock_code]) || Stock.new
       expert = Expert.find_by(display_id: post_params[:expert_display_id]) || Expert.new
       post   = Post.find_by(display_id: post_params[:display_id])
-      if post.title != post_params[:title] && !post_params[:title].nil? && !post_params[:title].empty?
+      if !(post.title == post_params[:title] || post_params[:title].nil? || post_params[:title].empty?)
         post.title = post_params[:title]
         post.caculate_display_id
       end
@@ -137,7 +129,7 @@ class Supports::Post < Supports::Application
         target_price:   post.target_price,
         display_id:     post.display_id,
         error_messages: post.errors.full_messages
-      })      
+      })
     end
 
     def list_newest_posts
@@ -166,20 +158,11 @@ class Supports::Post < Supports::Application
     end
 
     def convert_post post
-      stock    = post.stock
-      expert   = post.expert.user
+      attributes = {}
       comments = post.comments.includes(:user)
       likes    = post.likes.includes(:user, :post)        
-      attributes   = {}
-      stock_attrs  = {}
-      expert_attrs = {}
-      stock_attrs[:display_id]   = stock.display_id
-      stock_attrs[:code]         = stock.code
-      stock_attrs[:company_name] = stock.company_name
-      expert_attrs[:expert_name]   = expert.name
-      expert_attrs[:expert_avatar] = expert.avatar
-      attributes[:stock]      = Supports::Stock.new(stock_attrs)
-      attributes[:expert]     = Supports::Expert.new(expert_attrs)
+      attributes[:stock]      = Supports::Stock.convert_stock(post.stock)
+      attributes[:expert]     = Supports::Expert.convert_expert(post.expert)
       attributes[:comments]   = Supports::Comment.convert_comments(comments)
       attributes[:likes]      = Supports::Like.convert_likes(likes)
       attributes[:display_id] = post.display_id

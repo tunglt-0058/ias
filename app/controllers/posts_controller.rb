@@ -60,7 +60,7 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params[:target_price]      = params[:target_price].to_i
+    params[:target_price]      = params[:target_price].to_i if params[:target_price]
     params[:user_display_id]   = current_user.display_id if current_user
     params[:expert_display_id] = current_user.expert.display_id if current_user && current_user.expert?
     params.permit :stock_code, :title, :content, :target_price, :position, 
