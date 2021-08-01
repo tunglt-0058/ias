@@ -16,6 +16,12 @@ class Supports::Stock < Supports::Application
   attr_reader :analyst_consensus
   attr_reader :positions
   attr_reader :number_of_posts
+  attr_reader :buy_of_posts
+  attr_reader :hold_of_posts
+  attr_reader :sell_of_posts
+  attr_reader :buy_of_votes
+  attr_reader :hold_of_votes
+  attr_reader :sell_of_votes
 
   def initialize attributes
     @sector            = attributes[:sector]
@@ -35,6 +41,12 @@ class Supports::Stock < Supports::Application
     @analyst_consensus = attributes[:analyst_consensus]
     @positions         = attributes[:positions]
     @number_of_posts   = attributes[:number_of_posts]
+    @buy_of_posts      = attributes[:buy_of_posts]
+    @hold_of_posts     = attributes[:hold_of_posts]
+    @sell_of_posts     = attributes[:sell_of_posts]
+    @buy_of_votes      = attributes[:buy_of_votes]
+    @hold_of_votes     = attributes[:hold_of_votes]
+    @sell_of_votes     = attributes[:sell_of_votes]
   end
 
   class << self
@@ -62,6 +74,12 @@ class Supports::Stock < Supports::Application
         attributes[:related_stocks]    = self.convert_stocks(related_stocks)
         attributes[:analyst_consensus] = self.caculate_analyst_consensus(stock)
         attributes[:positions]         = positions
+        attributes[:buy_of_posts]      = Supports::Post.convert_posts(stock.posts.buy)
+        attributes[:hold_of_posts]     = Supports::Post.convert_posts(stock.posts.hold)
+        attributes[:sell_of_posts]     = Supports::Post.convert_posts(stock.posts.sell)
+        attributes[:buy_of_votes]      = Supports::Vote.convert_votes(stock.votes.buy)
+        attributes[:hold_of_votes]     = Supports::Vote.convert_votes(stock.votes.hold)
+        attributes[:sell_of_votes]     = Supports::Vote.convert_votes(stock.votes.sell)
         self.new(attributes)
       else
         nil

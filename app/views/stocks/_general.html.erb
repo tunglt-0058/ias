@@ -1,5 +1,5 @@
 <div class="pmd-card-title inline-block-100">
-  <div class="inline-block-100 border-bottom">
+  <div class="inline-block-100">
     <div class="col-sm-10 border-right">
       <div class="inline-block-100">
         <div class="col-sm-4">
@@ -30,12 +30,21 @@
       <hr>
       <div class="inline-block-100">
         <div class="col-sm-4 text-center">
-          <span class="pmd-card-subtitle-text">Khuyến nghị:</span>
-          <h2 class="pmd-card-title-text"><%= stock.analyst_consensus %></h2>
+          <div>
+            <span class="pmd-card-subtitle-text">Khuyến nghị:</span>
+            <h2 class="pmd-card-title-text"><%= stock.analyst_consensus %></h2>
+          </div>
           <hr>
           <div class="pmd-card-body">
             <%= hidden_field_tag "positions", stock.positions.to_json  %>
             <canvas id="position-chart"></canvas>
+          </div>
+          <hr>
+          <div class="user-vote">
+            <h2>Ý kiến người dùng</h2>
+            <div class="user-vote-form">
+              <%= render "votes/vote", stock: stock %>
+            </div>
           </div>
         </div>
         <div class="col-sm-8">
@@ -95,9 +104,9 @@
     </div>
   </div>
 
-  <div class="inline-block-100">
-    <div class="col-sm-4">
-      <div class="inline-block-100" style="padding-bottom: 10px;">
+  <div class="related-posts inline-block-100 border-top">
+    <div class="related-posts-item">
+      <div style="padding: 10px 0;">
         <div class="inline">Phân tích MUA</div>
         <select>
           <option>Hàng đầu</option>
@@ -105,16 +114,14 @@
           <option>Mới nhất</option>
         </select>
       </div>
-      <div class="inline-block-100 border-top">
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
+      <div>
+        <% stock.buy_of_posts.each do |post| %>
+          <li><%= link_to post.title, post_path(post.display_id) %></li>
+        <% end %>
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="inline-block-100" style="padding-bottom: 10px;">
+    <div class="related-posts-item border-left">
+      <div style="padding: 10px 0;">
         <div class="inline">Phân tích GIỮ</div>
         <select>
           <option>Hàng đầu</option>
@@ -122,16 +129,14 @@
           <option>Mới nhất</option>
         </select>
       </div>
-      <div class="inline-block border-top">
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
+      <div>
+        <% stock.hold_of_posts.each do |post| %>
+          <li><%= link_to post.title, post_path(post.display_id) %></li>
+        <% end %>
       </div>      
     </div>
-    <div class="col-sm-4">
-      <div class="inline-block" style="padding-bottom: 10px;">
+    <div class="related-posts-item border-left">
+      <div style="padding: 10px 0;">
         <div class="inline">Phân tích BÁN</div>
         <select>
           <option>Hàng đầu</option>
@@ -139,12 +144,10 @@
           <option>Mới nhất</option>
         </select>
       </div>
-      <div class="inline-block border-top">
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
-        <div>Phân tích 1</div>
+      <div>
+        <% stock.sell_of_posts.each do |post| %>
+          <li><%= link_to post.title, post_path(post.display_id) %></li>
+        <% end %>
       </div>      
     </div>        
   </div>

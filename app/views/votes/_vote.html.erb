@@ -1,0 +1,20 @@
+<%= form_with url: votes_path, local: true, method: :POST, 
+  class: "vote-form" do |f| %>
+  <%= f.hidden_field :stock_display_id, value: stock.display_id %>
+  <%= f.hidden_field :vote, value: 0 %>
+  <%= f.submit "Mua(#{stock.buy_of_votes.size})", class: "btn btn-primary" %>
+<% end %>
+
+<%= form_with url: votes_path, local: true, method: :POST, 
+  class: "vote-form" do |f| %>
+  <%= f.hidden_field :stock_display_id, value: stock.display_id %>
+  <%= f.hidden_field :vote, value: 1 %>
+  <%= f.submit "Giữ(#{stock.hold_of_votes.size})", class: "btn btn-primary" %>
+<% end %>
+
+<%= form_with url: votes_path, local: true, method: :POST, 
+  class: "vote-form" do |f| %>
+  <%= f.hidden_field :stock_display_id, value: stock.display_id %>
+  <%= f.hidden_field :vote, value: 2 %>
+  <%= f.submit "Bán(#{stock.sell_of_votes.size})", class: "btn btn-primary" %>
+<% end %>
