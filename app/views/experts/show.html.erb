@@ -1,27 +1,38 @@
 <br>
 <div class="container-ed">
-  <div class="info-ed">
+  <div class="info-ed pmd-card-inverse">
     <div class="info-basic-ed">
-			<img style="border: 2px solid #757575" 
-      src=asset_path("logo.jpg") width="125px" height="100%">
+			<img style="border: 2px solid #757575" src="/assets/logo.jpg" width="125px" height="100%">
 			<div class="info-basic-1-ed">
-				<p style="font-weight: bold;font-size: 22px;">Jose Asumendi</p>
-				<p style="font-weight: bold;font-size: 16px;"><%=@expert.company_name%></p>
-				<p style="font-weight: normal;font-size: 16px; color: #9fa0a0">Ranked #971 out of 7,580 Analysts on IAS</p>
+				<p style="font-weight: bold;font-size: 22px;"><%= @expert.user.name %></p>
+				<p style="font-weight: bold;font-size: 16px;"><%= @expert.company_name%></p>
+				<p style="font-weight: normal;font-size: 16px; color: #9fa0a0">Ranked #971 out of 7,580 Analysts on StockRanks</p><br>
 			</div>
 		</div>
-    <div style="margin: 20px 0px 0px 20px;font-size: 19px; font-weight: bold">Jose Asumendi's Performance
+    <div style="margin: 20px 0px 0px 20px;font-size: 19px; font-weight: bold" class="text-center"><%= @expert.user.name %>'s Performance
     </div>
-		<div class="performance-ed">
-			<div class="success-rate-ed">
-        <div style="text-align: center; font-size: 19px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center;">Success Rate</div>   
-        <div style="text-align: center; font-size: 40px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center; color: lightgreen;"><%=@expert.success_rate%>%</div>
-      </div>
-			<div class="average-return-ed">
-        <div style="text-align: center; font-size: 19px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center;">Average Return</div>   
-        <div style="text-align: center; font-size: 40px;font-weight: bold; width: 100px; padding-top: 5px; align-self: center; color: lightgreen;"><%=@expert.average_return%>%</div>
-      </div>
-		</div>
+		<div class="col-md-6 col-sm-12">
+      <h3 class="pmd-card-title-text"><%= t "experts.index.success_rate" %></h3>
+      <figure class="success-rate animate">
+          <svg role="img" xmlns="http://www.w3.org/2000/svg">
+              <circle class="circle-background"/>
+              <circle class="circle-foreground"/>
+          </svg>
+          <figcaption>success rate percent</figcaption>
+      </figure>
+      <h4 class="pmd-card-title-text">333<%= t "experts.index.out_of" %>666<%= t "experts.index.success_rating" %></h4>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <h3 class="pmd-card-title-text"><%= t "experts.index.average_return" %></h3>
+      <figure class="average-return animate">
+          <svg role="img" xmlns="http://www.w3.org/2000/svg">
+              <circle class="circle-background"/>
+              <circle class="circle-foreground"/>
+          </svg>
+          <figcaption>average return percent</figcaption>
+      </figure>
+      <h4 class="pmd-card-title-text"><%= t "experts.index.average_description" %></h4>
+    </div>
   </div>
   <div style="display: inline-block; flex-grow: 1;">
     <div style="display: flex;  margin-bottom: 10px">
@@ -33,16 +44,13 @@
       <div class="achievements-title-ed">
         <p>Mã cổ phiếu</p>
         <p>Khuyến nghị</p>
-        <p>Gía dự đoán</p>
+        <p>Giá dự đoán</p>
         <p>Ngày</p>
       </div>
       <div style="padding: 10px;">
-        <%= render "expert_post"%>
-        <%= render "expert_post"%>
-        <%= render "expert_post"%>
-        <%= render "expert_post"%>
-        <%= render "expert_post"%>
-        <%= render "expert_post"%>
+        <% @expert.posts.each do |post| %>
+          <%= render "expert_post", post: post %>
+        <% end %>
       </div> 
     </div>
   </div>
