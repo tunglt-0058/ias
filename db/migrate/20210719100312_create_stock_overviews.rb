@@ -12,7 +12,7 @@ class CreateStockOverviews < ActiveRecord::Migration[6.1]
       t.float :pe_ratio
       t.float :beta
       t.float :year_change
-      t.integer :shares_outstanding
+      t.float :shares_outstanding
       t.datetime :next_earnings_date
 
       t.timestamps
