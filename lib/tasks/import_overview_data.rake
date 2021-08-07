@@ -30,7 +30,7 @@ namespace :overview_data do
         beta = data['beta'].gsub(",", "").to_f || 0.0
         year_change_arr = data['yearChange'].split(/%/, 2)
         year_change = year_change_arr[0].gsub(",", "").to_f || 0.0
-        shares_outstanding = data['sharesOutstanding'].gsub(",", "").to_i || 0
+        shares_outstanding = data['sharesOutstanding'].gsub(",", "").to_f || 0.0
         if data['nextEarningsDate'] == "-"
           next_earnings_date = nil
         else

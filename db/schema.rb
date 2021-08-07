@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 2021_07_19_100312) do
     t.float "pe_ratio"
     t.float "beta"
     t.float "year_change"
-    t.integer "shares_outstanding"
+    t.float "shares_outstanding"
     t.datetime "next_earnings_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
