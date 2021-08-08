@@ -9,6 +9,12 @@ npm install propellerkit
 
 ##### Using lib:
 - [Chart.js](https://www.chartjs.org/docs/latest/charts/line.html)
+- [Whenever](https://github.com/javan/whenever)
+``` sh
+whenever --update-crontab
+crontab -l
+whenever --clear-crontab
+```
 
 ##### Fake data:
 - Migrate and reset database

@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   has_many :votes, dependent: :destroy
 
   enum position: [:buy, :hold, :sell]
+  enum status: [:forecast, :hitted, :expired, :blocked]
 
   validates :expert, presence: true
   validates :stock, presence: true

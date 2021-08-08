@@ -7,6 +7,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.integer :target_price, null: false
       t.datetime :target_time, null: false
       t.boolean :hit, null: false, default: false
+      t.integer :status, null: false, default: 0
       t.text :title, null: false, length: {maximum: 256}
       t.text :content, null: false, length: {maximum: 512}
       t.string :display_id, null: false, length: {maximum: 256}

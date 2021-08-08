@@ -6,7 +6,6 @@ class ExpertsController < ApplicationController
   end
 
   def show
-  	@expert = Expert.find_by(display_id: params[:display_id])
+    @expert = Expert.find_by(display_id: params[:display_id])
   end
-
 end

@@ -19,7 +19,7 @@ class Supports::Search < Supports::Application
         stocks  = Stock.includes(:posts, :sector, :industry)
                     .where("code LIKE ? OR company_name LIKE ?", "%#{search}%", "%#{search}%")
                     .paginate(page: stock_page, per_page: Settings.search_stock_size)
-        posts   = Post.includes(:comments, :likes, :expert, :stock)
+        posts   = Post.forecast.includes(:comments, :likes, :expert, :stock)
                     .where("title LIKE ?", "%#{search}%")
                     .paginate(page: post_page, per_page: Settings.search_post_size)
         experts = User.includes(expert: [:follow_experts]).expert
