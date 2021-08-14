@@ -1,0 +1,6 @@
+<%= form_with url: follow_stock_path(0), local: true, method: :delete do |f| %>
+  <%= f.hidden_field :stock_display_id, value: stock.display_id %>
+  <button class="btn pmd-ripple-effect btn-danger">
+    Hủy theo dõi
+  </button>
+<% end %>

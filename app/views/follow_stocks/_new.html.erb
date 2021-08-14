@@ -1,0 +1,6 @@
+<%= form_with url: follow_stocks_path, local: true, method: :post do |f| %>
+  <%= f.hidden_field :stock_display_id, value: stock.display_id %>
+  <button class="btn pmd-ripple-effect btn-primary">
+    Theo dõi
+  </button>
+<% end %>

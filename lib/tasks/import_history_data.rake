@@ -22,7 +22,7 @@ namespace :history_data do
         if data['data0'].nil?
           # puts "No history data for #{data['companyName']}!!!"
         else
-          (6..11).each{ |i|
+          (0..5).each{ |i|
             # handle time
             data_i = 'data' + i.to_s
             data_time = data[data_i]['time']

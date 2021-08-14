@@ -52,7 +52,7 @@ class Supports::Post < Supports::Application
         stock_attrs[:sector]        = stock.sector.name
         stock_attrs[:industry]      = stock.industry.name
         stock_attrs[:price_pasts]   = Supports::PricePast.convert_price_pasts(price_pasts)
-        attributes[:stock]        = Supports::Stock.new(stock_attrs)
+        attributes[:stock]        = Supports::Stock.convert_stock(current_user.id, stock)
         attributes[:expert]       = Supports::Expert.convert_expert(current_user.id, expert)
         attributes[:comments]     = Supports::Comment.convert_comments(current_user.id, comments)
         attributes[:likes]        = Supports::Like.convert_likes(likes)
@@ -120,7 +120,7 @@ class Supports::Post < Supports::Application
         stock.average_forecast_price = forecast_prices[:average_price]
         stock.highest_forecast_price = forecast_prices[:highest_price]
         stock.save
-      end      
+      end
       self.new({
         stock:          Supports::Stock.convert_stock(stock),
         position:       post.position,
@@ -164,13 +164,13 @@ class Supports::Post < Supports::Application
       posts.each do |post|
         sp_posts.push(self.convert_post(post))
       end
-      sp_posts      
+      sp_posts
     end
 
     def convert_post post
       attributes = {}
       comments = post.comments.includes(:user)
-      likes    = post.likes.includes(:user, :post)        
+      likes    = post.likes.includes(:user, :post)
       attributes[:stock]      = Supports::Stock.convert_stock(post.stock)
       attributes[:expert]     = Supports::Expert.convert_expert(post.expert)
       attributes[:comments]   = Supports::Comment.convert_comments(comments)
@@ -198,7 +198,7 @@ class Supports::Post < Supports::Application
         if Time.now > post.target_time
           post.status = Post.statuses[:expired]
         end
-        
+
         #Save
         if post.changed?
           post.save
