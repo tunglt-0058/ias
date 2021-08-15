@@ -2,7 +2,7 @@ binary_flag = 1
 
 # Create users
 10.times do |n|
-  name  = Faker::Name.name
+  name  = Faker::Name.name.gsub(".", " ")
   email = "user-#{n+1}@gmail.com"
   password = "12345678"
   User.create!(name: name, email: email, account_type: 0, password: password)
@@ -11,7 +11,7 @@ puts "Create account users test"
 
 # Create experts
 10.times do |n|
-  name  = Faker::Name.name
+  name  = Faker::Name.name.gsub(".", " ")
   email = "expert-#{n+1}@gmail.com"
   password = "12345678"
   User.create!(name: name, email: email, account_type: 1, password: password)
@@ -19,7 +19,7 @@ end
 score = 1
 User.last(10).each do |user|
   Expert.create!(user_id: user.id, company_name: "Berkshire Hathaway Inc.", sector: "Financial",
-    score: score, system_rate: 4.5, success_rate: 30.6, average_return: 25.7)
+    score: score, success_rate: 30.6, average_return: 25.7)
   score = score + 1
 end
 puts "Create account experts test"

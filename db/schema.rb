@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 2021_07_19_100312) do
     t.integer "user_id", null: false
     t.string "company_name", null: false
     t.string "sector", null: false
-    t.float "system_rate", default: 0.0, null: false
     t.float "success_rate", default: 0.0, null: false
     t.float "average_return", default: 0.0, null: false
     t.float "score", default: 0.0, null: false
@@ -98,6 +97,7 @@ ActiveRecord::Schema.define(version: 2021_07_19_100312) do
     t.integer "target_price", null: false
     t.datetime "target_time", null: false
     t.boolean "hit", default: false, null: false
+    t.integer "status", default: 0, null: false
     t.text "title", null: false
     t.text "content", null: false
     t.string "display_id", null: false

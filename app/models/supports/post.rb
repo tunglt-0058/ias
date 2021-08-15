@@ -133,20 +133,30 @@ class Supports::Post < Supports::Application
     end
 
     def list_newest_posts
-      posts = Post.includes(:stock, [expert: :user], :comments, :likes)
+      posts = Post.forecast.includes(:stock, [expert: :user], :comments, :likes)
         .limit(Settings.newest_posts_size)
         .order(created_at: :desc)
       self.convert_posts(posts)
     end
 
     def list_popular_posts
-      posts = Post.includes(:stock, [expert: :user], :comments, :likes)
+      posts = Post.forecast.includes(:stock, [expert: :user], :comments, :likes)
         .left_joins(:comments)
         .group(:id)
         .order("COUNT(comments.id) DESC")
         .limit(Settings.popular_posts_size)
       popular_posts = self.convert_posts(posts)
       popular_posts.sort_by{|p| [p.comments.size, p.likes.size]}.reverse
+    end
+
+    def caculate_post post_ids
+      expert_ids = []
+      posts = Post.forecast.find(post_ids)
+      posts.each do |post|
+        expert_id = self.check_status_of_post(post)
+        expert_ids.push(expert_id) if !expert_id.nil?
+      end
+      return expert_ids.uniq
     end
 
     def convert_posts posts
@@ -169,6 +179,36 @@ class Supports::Post < Supports::Application
       attributes[:title]      = post.title
       attributes[:updated_at] = post.updated_at
       self.new(attributes)
+    end
+
+    private
+    def check_status_of_post post
+      if !(post.nil? or post.new_record?)
+        #Check hit
+        low_price = post.stock.current_price * 0.95
+        high_price = post.stock.current_price * 1.05
+        if (post.target_price >= low_price) and (post.target_price <= high_price)
+          post.hit = true
+          post.status = Post.statuses[:hitted]
+        else
+          post.hit = false
+        end
+
+        #Check expired
+        if Time.now > post.target_time
+          post.status = Post.statuses[:expired]
+        end
+        
+        #Save
+        if post.changed?
+          post.save
+          return post.expert_id
+        else
+          return nil
+        end
+      else
+        return nil
+      end
     end
   end
 end

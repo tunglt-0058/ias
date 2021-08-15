@@ -98,6 +98,18 @@ class Supports::Stock < Supports::Application
       stocks
     end
 
+    def caculate_stock stock_infos
+      post_ids = []
+      stock_infos.each do |stock_info|
+        stock = Stock.find_by(code: stock_info[0])
+        if !stock.nil? && (stock.current_price != stock_info[1])
+          stock.update(current_price: stock_info[1])
+          post_ids += stock.posts.ids
+        end
+      end
+      return post_ids.uniq
+    end
+
     def convert_stocks stocks
       sp_stocks = []
       stocks.each do |stock|
