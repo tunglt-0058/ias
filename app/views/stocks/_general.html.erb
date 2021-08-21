@@ -13,18 +13,11 @@
           </span>
         </div>
         <div class="col-sm-4 text-right">
-          <button class="btn btn-sm btn-primary" 
-            type="button" data-toggle="tooltip" data-placement="top"
-            title="Follow stock">
-            <span class="vertical-align-middle">Theo Dõi</span>
-            <i class="material-icons pmd-sm vertical-align-middle">add_circle</i>
-          </button>
-          <button class="btn btn-sm btn-primary" 
-            type="button" data-toggle="tooltip" data-placement="top"
-            title="Contact Expert">
-            <span class="vertical-align-middle">Tư Vấn</span>
-            <i class="material-icons pmd-sm vertical-align-middle">speaker_notes</i>
-          </button>
+          <% if stock.followed %>
+            <%= render "follow_stocks/delete", stock: stock %>
+          <% else %>
+            <%= render "follow_stocks/new", stock: stock %>
+          <% end %>
         </div>
       </div>
       <hr>

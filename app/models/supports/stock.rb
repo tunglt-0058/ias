@@ -22,6 +22,7 @@ class Supports::Stock < Supports::Application
   attr_reader :buy_of_votes
   attr_reader :hold_of_votes
   attr_reader :sell_of_votes
+  attr_reader :followed
 
   def initialize attributes
     @sector            = attributes[:sector]
@@ -47,10 +48,11 @@ class Supports::Stock < Supports::Application
     @buy_of_votes      = attributes[:buy_of_votes]
     @hold_of_votes     = attributes[:hold_of_votes]
     @sell_of_votes     = attributes[:sell_of_votes]
+    @followed          = attributes[:followed] || false
   end
 
   class << self
-    def get_stock code
+    def get_stock current_user_id=nil, code
       stock = Stock.find_by_display_id(code.upcase)
       if !stock.nil?
         attributes = {}
@@ -80,6 +82,7 @@ class Supports::Stock < Supports::Application
         attributes[:buy_of_votes]      = Supports::Vote.convert_votes(stock.votes.buy)
         attributes[:hold_of_votes]     = Supports::Vote.convert_votes(stock.votes.hold)
         attributes[:sell_of_votes]     = Supports::Vote.convert_votes(stock.votes.sell)
+        attributes[:followed]          = !stock.follow_stocks.find_by(user_id: current_user_id).nil?
         self.new(attributes)
       else
         nil
@@ -118,7 +121,7 @@ class Supports::Stock < Supports::Application
       sp_stocks
     end
 
-    def convert_stock stock
+    def convert_stock current_user_id=nil, stock
       attributes = {}
       if !(stock.nil? or stock.new_record?)
         attributes[:sector]            = stock.sector.name
@@ -134,6 +137,7 @@ class Supports::Stock < Supports::Application
         attributes[:analyst_consensus] = self.caculate_analyst_consensus(stock)
         attributes[:option_display_id] = "#{stock.code} | #{stock.company_name}"
         attributes[:number_of_posts]   = stock.posts.size
+        attributes[:followed]          = !stock.follow_stocks.find_by(user_id: current_user_id).nil?
       end
       self.new(attributes)
     end
