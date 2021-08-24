@@ -55,4 +55,31 @@ puts "Create likes test"
   Comment.create!(user_id: n + 1, post_id: n + 1, content: "This is test content 1!!!")
   Comment.create!(user_id: n + 1, post_id: n + 1, content: "This is test content 2!!!")
 end
-puts "Create comment test"
+puts "Create comments test"
+
+#Create follow stocks
+10.times do |n|
+  FollowStock.create!(user_id: n + 1, stock_id: n + 1)
+end
+puts "Create follow stocks test"
+
+#Create follow experts
+10.times do |n|
+  FollowExpert.create!(user_id: n + 1, expert_id: n + 1)
+end
+puts "Create follow experts test"
+
+#Create notifications
+10.times do |n|
+  user = User.find(n + 11)
+  stock = Stock.find(n + 1)
+  post = Post.find(n + 1)
+  content = "#{user.name} đã tạo bài đăng mới về cổ phiếu mã #{stock.code}"  
+  Notification.create(
+    recipient_id: user.id, 
+    stock_id: stock.id, 
+    post_id: post.id,
+    content: content
+  )  
+end
+puts "Create notifications test"

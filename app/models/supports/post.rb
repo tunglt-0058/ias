@@ -51,8 +51,9 @@ class Supports::Post < Supports::Application
         stock_attrs[:exchange_name] = stock.exchange_name
         stock_attrs[:sector]        = stock.sector.name
         stock_attrs[:industry]      = stock.industry.name
+        stock_attrs[:followed]      = !stock.follow_stocks.find_by(user_id: current_user.id).nil?        
         stock_attrs[:price_pasts]   = Supports::PricePast.convert_price_pasts(price_pasts)
-        attributes[:stock]        = Supports::Stock.convert_stock(current_user.id, stock)
+        attributes[:stock]        = Supports::Stock.new(stock_attrs)
         attributes[:expert]       = Supports::Expert.convert_expert(current_user.id, expert)
         attributes[:comments]     = Supports::Comment.convert_comments(current_user.id, comments)
         attributes[:likes]        = Supports::Like.convert_likes(likes)
@@ -87,6 +88,18 @@ class Supports::Post < Supports::Application
         stock.average_forecast_price = forecast_prices[:average_price]
         stock.highest_forecast_price = forecast_prices[:highest_price]
         stock.save
+        users = (stock.users + expert.users).uniq
+        users.each do |user|
+          notification = Supports::Notification.create_notification(
+            recipient_id: user.id,
+            stock_id: stock.id, 
+            post_id: post.id
+          )
+          SendNotificationJob.perform_now({
+            channel: user.display_id,
+            content: notification.content,
+          })
+        end
       end
       self.new({
         stock:          Supports::Stock.convert_stock(stock),

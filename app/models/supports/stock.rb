@@ -137,7 +137,7 @@ class Supports::Stock < Supports::Application
         attributes[:analyst_consensus] = self.caculate_analyst_consensus(stock)
         attributes[:option_display_id] = "#{stock.code} | #{stock.company_name}"
         attributes[:number_of_posts]   = stock.posts.size
-        attributes[:followed]          = !stock.follow_stocks.find_by(user_id: current_user_id).nil?
+        attributes[:followed]          = !stock.follow_stocks.find_by(user_id: current_user_id).nil? if !current_user_id.nil?
       end
       self.new(attributes)
     end

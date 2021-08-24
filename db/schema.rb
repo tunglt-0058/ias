@@ -84,7 +84,9 @@ ActiveRecord::Schema.define(version: 2021_07_19_100312) do
     t.integer "recipient_id", null: false
     t.boolean "read", default: false, null: false
     t.integer "stock_id", null: false
-    t.string "notiable_type", null: false
+    t.integer "post_id", null: false
+    t.string "content", null: false
+    t.string "notiable_type", default: "0", null: false
     t.integer "notiable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

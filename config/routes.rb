@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :searches, only: :index
   resources :votes, only: :create
   resources :follow_stocks, only: [:create, :destroy]
+  resources :notifications, only: :index
 
   # Not edit
   resources :not_found, only: :index

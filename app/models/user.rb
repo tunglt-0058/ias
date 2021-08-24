@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
   has_many :votes, dependent: :destroy
+  has_many :notifications, dependent: :destroy, foreign_key: :recipient_id
   has_one :expert
 
   enum account_type: [:user, :expert, :admin]

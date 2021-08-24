@@ -1,0 +1,22 @@
+<% if notifications.size > 0 %>
+  <% notifications.each do |notification| %>
+    <a href="<%= post_path notification.post_display_id %>" class="notification-item">
+      <div class="notification-avatar">
+        <img width="40" height="40" 
+          src="https://opensource.propeller.in/assets/images/avatar-icon-40x40.png">
+      </div>
+      <div class="notification-body">
+        <div class="notification-content">
+          <%= notification.content.html_safe %>
+        </div>
+        <div class="notification-time">
+          <%= notification.created_at %>
+        </div>
+      </div>
+    </a>
+  <% end %>
+<% else %>
+  <div class="notification-item">
+    Bạn không có thông báo nào
+  </div>
+<% end %>
