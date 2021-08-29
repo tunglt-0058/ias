@@ -1,0 +1,10 @@
+$("#notification-items").append("<%= j render 'notifications/index', notifications: @notifications %>")
+$("#res-notification-items").append("<%= j render 'notifications/index', notifications: @notifications %>")
+<% if @notifications.current_page + 1 > @notifications.total_pages %>
+  $("#load-more-notifications").remove()
+  $("#res-load-more-notifications").remove()
+<% else %>
+  url = "<%= notifications_path(current_page: @notifications.current_page + 1) %>"
+  $("#load-more-notifications").attr("href", url)
+  $("#res-load-more-notifications").attr("href", url)
+<% end %>

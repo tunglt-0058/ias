@@ -4,7 +4,9 @@ class CreateNotifications < ActiveRecord::Migration[5.2]
       t.integer :recipient_id, null: false
       t.boolean :read, null: false, default: false
       t.integer :stock_id, null: false
-      t.string :notiable_type, null: false
+      t.integer :post_id, null: false
+      t.string :content, null: false, length: {maximum: 256}
+      t.string :notiable_type, null: false, default: 0
       t.integer :notiable_id
 
       t.timestamps

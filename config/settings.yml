@@ -7,3 +7,4 @@ page_stocks_size: 20
 search_stock_size: 10
 search_post_size: 10
 search_expert_size: 10
+notification_size: 5

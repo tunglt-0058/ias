@@ -16,6 +16,21 @@
     </div>
     <div class="header-top-item header-top-session">  
       <% if user_signed_in? %>
+        <div class="header-top-notification">
+          <i class="fa fa-bell notification-icon" aria-hidden="true" 
+            onclick="showHideNotifications()">
+            <div class="notification-number" 
+              style="display: <%= @notification_number > 0 ? "block" : "none" %>">
+              <%= @notification_number %>
+            </div>
+          </i>
+          <div class="notification-pannel" id="notification-pannel">
+            <div id="notification-items">
+            </div>
+            <%= link_to "Xem thêm", notifications_path(current_page: 1), remote: true,
+              id: "load-more-notifications", class: "notification-item load-more" %>
+          </div>
+        </div>
         <%= link_to t("layouts.logout.title"), destroy_user_session_path,
           "data-turbolinks":"false", method: :delete, 
           class: "btn pmd-ripple-effect btn-primary logout-btn" %>
@@ -26,9 +41,28 @@
           "data-turbolinks":"false", class: "btn pmd-ripple-effect btn-primary register-btn" %>   
       <% end %>
     </div>
-    <a href="javascript:void(0);" class="nav-bar-icon" onclick="onOffMenu()">
-      <i class="fa fa-bars"></i>
-    </a>
+    <div class="header-top-option">
+      <% if user_signed_in? %>
+        <div class="header-top-notification-responsive">
+          <i class="fa fa-bell notification-icon" aria-hidden="true" 
+            onclick="showHideResNotifications()">
+            <div class="notification-number" 
+              style="display: <%= @notification_number > 0 ? "block" : "none" %>">
+              <%= @notification_number %>
+            </div>
+          </i>
+          <div class="res-notification-pannel" id="res-notification-pannel">
+            <div id="res-notification-items">
+            </div>
+            <%= link_to "Xem thêm", notifications_path(current_page: 1), remote: true,
+              id: "res-load-more-notifications", class: "notification-item load-more" %>
+          </div>        
+        </div>
+      <% end %>
+      <a href="javascript:void(0);" class="nav-bar-icon" onclick="onOffMenu()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>      
   </div>
 
   <div class="container-fluid header-down">
@@ -79,4 +113,46 @@
       }    
     }    
   }
+
+  function showHideNotifications() {
+    var pannel = document.getElementById("notification-pannel")
+    if(pannel.style.display == "flex") {
+      pannel.style.display = "none"
+    } else {
+      pannel.style.display = "flex"
+      var notificationNumberTags = document.getElementsByClassName("notification-number")
+      for (var i = 0; i < notificationNumberTags.length; i++) {
+        notificationNumberTags[i].style.display = "none"
+        notificationNumberTags[i].innerText = "0"
+      } 
+      App.notification.speak({action_type: "mark read"})
+      if (document.getElementById("notification-items").children.length == 0) {
+        var loadMore = document.getElementById("load-more-notifications")
+        if(loadMore != null) {
+          loadMore.click()
+        }
+      }
+    }
+  }
+
+  function showHideResNotifications() {
+    var pannel = document.getElementById("res-notification-pannel")
+    if(pannel.style.display == "flex") {
+      pannel.style.display = "none"
+    } else {
+      pannel.style.display = "flex"
+      var notificationNumberTags = document.getElementsByClassName("notification-number")
+      for (var i = 0; i < notificationNumberTags.length; i++) {
+        notificationNumberTags[i].style.display = "none"
+        notificationNumberTags[i].innerText = "0"
+      }      
+      App.notification.speak({action_type: "mark read"})
+      if (document.getElementById("notification-items").children.length == 0) {
+        var loadMore = document.getElementById("load-more-notifications")
+        if(loadMore != null) {
+          loadMore.click()
+        }
+      }
+    }
+  }  
 </script>
