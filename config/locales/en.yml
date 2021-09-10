@@ -111,3 +111,8 @@ en:
       contact_us: "Contact us"
       sitemap: "Site Map"
       copyright: "All rights reserved"
+  comment:
+    edit_comment: "Edit comment"
+    delete_comment: "Delete comment"
+    save_comment: "Save comment"
+    

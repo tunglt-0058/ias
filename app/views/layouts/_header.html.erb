@@ -13,6 +13,12 @@
       <% end %>
     </div>
     <div class="header-top-item header-top-language">
+      <select name="languagues" id="languagues" class="languague-select"
+        onchange="location = this.value">
+        <option value="?locale=en" <%= "selected" if @locale == "en" %>>English</option>
+        <option value="?locale=vi" <%= "selected" if @locale == "vi" %>>Tiếng Việt</option>
+        <option value="?locale=ja" <%= "selected" if @locale == "ja" %>>日本語</option>
+      </select>
     </div>
     <div class="header-top-item header-top-session">  
       <% if user_signed_in? %>

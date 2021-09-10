@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :follow_stocks, only: [:create, :destroy]
   resources :notifications, only: :index
 
-  # Not edit
+  # Do not edit
   resources :not_found, only: :index
   get "*path", controller: "application", action: "render_404"
 end
