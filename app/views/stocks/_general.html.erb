@@ -9,7 +9,7 @@
         <div class="col-sm-4">
           <h2 class="pmd-card-title-text">Giá hiện tại</h2>
           <span class="pmd-card-title-text">
-            <%= number_to_currency(stock.current_price, locale: :vn) %>
+            <%= number_to_currency(stock.current_price, locale: :vi) %>
           </span>
         </div>
         <div class="col-sm-4 text-right">
@@ -43,7 +43,7 @@
         <div class="col-sm-8">
           <span class="pmd-card-title-text">Giá dự đoán trung bình của các chuyên gia</span>
           <h1 class="pmd-card-title-text">
-            <%= number_to_currency(stock.average_price, locale: :vn) %>
+            <%= number_to_currency(stock.average_price, locale: :vi) %>
           </h1>
           <hr>
           <div class="pmd-card-body">

@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
-  before_action :get_notification_number
+  before_action :authenticate_user!, :get_notification_number, :set_locale
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from Exception, with: :render_500
 
+  private
   def render_404
     redirect_to not_found_index_path
   end
@@ -21,5 +21,11 @@ class ApplicationController < ActionController::Base
     else
       @notification_number = 0
     end
+  end
+
+  def set_locale
+    session[:locale] = params[:locale] if params[:locale]
+    I18n.locale = session[:locale] || I18n.default_locale
+    @locale = I18n.locale.to_s
   end
 end

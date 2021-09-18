@@ -4,12 +4,15 @@
     <div class="pmd-card-title">
       <div class="media-left">
         <a href="javascript:void(0);" class="avatar-list-img">
-          <img width="40" height="40" src="https://opensource.propeller.in/assets/images/avatar-icon-40x40.png">
+          <img width="40" height="40" 
+            src="https://opensource.propeller.in/assets/images/avatar-icon-40x40.png">
         </a>
       </div>
       <div class="media-body media-middle">
         <h3 class="pmd-card-title-text"><%= expert.user.name %></h3>
-        <span class="pmd-card-subtitle-text"><%= expert.company_name %> (<%= expert.sector %>) </span>
+        <span class="pmd-card-subtitle-text">
+          <%= expert.company_name %> (<%= expert.sector %>)
+        </span>
       </div>
     </div>
     <div class="pmd-card-title-text text-center">
@@ -19,25 +22,31 @@
       <div class="clip-star"></div>
       <div class="clip-star"></div>
       <div class="clip-star"></div>
-      <h4><%= t "experts.index.rank" %><%= expert.score %><%= t "experts.index.out_of" %><%= count %><%= t "experts.index.analysts" %></h4>
+      <h4>
+        <%= t "experts.index.rank" %><%= expert.score %>
+        <%= t "experts.index.out_of" %><%= count %>
+        <%= t "experts.index.analysts" %>
+      </h4>
     </div>
     <div class="col-md-6 col-sm-12">
       <h3 class="pmd-card-title-text"><%= t "experts.index.success_rate" %></h3>
-      <figure data-percentage=<%= expert.success_rate %> class="success-rate animate">
+      <figure data-percentage="<%= expert.success_rate %>" class="success-rate animate">
           <svg role="img" xmlns="http://www.w3.org/2000/svg">
-              <circle class="circle-background"/>
-              <circle class="circle-foreground"/>
+            <circle class="circle-background"/>
+             <circle class="circle-foreground"/>
           </svg>
           <figcaption>success rate percent</figcaption>
       </figure>
-      <h4 class="pmd-card-title-text">333<%= t "experts.index.out_of" %>666<%= t "experts.index.success_rating" %></h4>
+      <h4 class="pmd-card-title-text">
+        333<%= t "experts.index.out_of" %>666<%= t "experts.index.success_rating" %>
+      </h4>
     </div>
     <div class="col-md-6 col-sm-12">
       <h3 class="pmd-card-title-text"><%= t "experts.index.average_return" %></h3>
       <figure class="average-return animate">
           <svg role="img" xmlns="http://www.w3.org/2000/svg">
-              <circle class="circle-background"/>
-              <circle class="circle-foreground"/>
+            <circle class="circle-background"/>
+            <circle class="circle-foreground"/>
           </svg>
           <figcaption>average return percent</figcaption>
       </figure>
@@ -45,7 +54,8 @@
     </div>
     <div class="pmd-card-title">
       <span class="pmd-card-subtitle-text">
-        <%= link_to t("experts.index.full_profile"), expert_path(expert.display_id), "data-turbolinks":"false"%>
+        <%= link_to t("experts.index.full_profile"), expert_path(expert.display_id), 
+          "data-turbolinks":"false" %>
       </span>  
     </div>
     

@@ -14,9 +14,9 @@
           <i class="fa fa-ellipsis-h comment-setting-icon" aria-hidden="true"
             onclick="onOffCommentSetting(event)"></i>
           <div class="comment-setting-options">
-            <%= link_to "Sửa bình luận", "", id: comment.id, 
+            <%= link_to t("comment.edit_comment"), "", id: comment.id, 
               onclick: "onOffEditCommentForm(event)", class: "comment-setting-option" %>
-            <%= link_to "Xóa bình luận", "", class: "comment-setting-option", 
+            <%= link_to t("comment.delete_comment"), "", class: "comment-setting-option", 
               onclick: "submitDeleteComment(event)" %>
             <%= form_with url: comment_path(0), local: true, method: :delete do |f| %>
               <%= f.hidden_field :post_display_id, value: post.display_id %>

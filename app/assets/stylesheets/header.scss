@@ -23,6 +23,12 @@
 
 .header-top-language {
   flex-grow: 3;
+  height: 38px;
+  padding-left: 10px;
+}
+
+.languague-select {
+  height: 100%;
 }
 
 .header-top-session {
@@ -224,12 +230,12 @@
 }
 
 .wrapper {
-  padding-top: 120px;
+  padding-top: 10px;
 }
 
 @media (max-width: 650px) {
   .wrapper {
-    padding-top: 80px;
+    padding-top: 10px;
   }
 
   .header-top {   
@@ -237,6 +243,10 @@
     flex-direction: column;
     align-content: space-between;
     position: relative;
+  }
+
+  .header-top-language {
+    padding-left: 0px;
   }
 
   .header-top-notification {
