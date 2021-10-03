@@ -6,7 +6,7 @@
     <div class="header-top-item header-top-search">
       <%= form_with url: searches_path, local: true, method: :GET, class: "search-form" do |f| %>
         <input class="search-input" type="text" name="search" 
-          placeholder="Nhập mã cổ phiếu hoặc tên chuyên gia v.v" value="<%= params[:search] %>">
+          placeholder="<%= t "header.search_placeholder" %>" value="<%= params[:search] %>">
         <button class="search-button" type="submit" data-toggle="tooltip" data-placement="top">
           <i class="material-icons pmd-sm search-icon">search</i>
         </button>
@@ -41,9 +41,9 @@
           "data-turbolinks":"false", method: :delete, 
           class: "btn pmd-ripple-effect btn-primary logout-btn" %>
       <% else %>
-        <%= link_to "Đăng nhập", new_user_session_path,
+        <%= link_to t("header.login"), new_user_session_path,
           "data-turbolinks":"false", class: "btn pmd-ripple-effect btn-primary login-btn" %>
-        <%= link_to "Đăng ký", new_user_registration_path,
+        <%= link_to t("header.sign_up"), new_user_registration_path,
           "data-turbolinks":"false", class: "btn pmd-ripple-effect btn-primary register-btn" %>   
       <% end %>
     </div>
@@ -73,24 +73,24 @@
 
   <div class="container-fluid header-down">
     <div class="header-down-item">
-      <%= link_to "Cổ phiếu", stocks_path, "data-turbolinks":"false", 
+      <%= link_to t("header.stocks"), stocks_path, "data-turbolinks":"false", 
         class: "header-down-item-a" %>
     </div>
     <div class="header-down-item">
-      <%= link_to "Chuyên Gia", experts_path, "data-turbolinks":"false", 
+      <%= link_to t("header.experts"), experts_path, "data-turbolinks":"false", 
         class: "header-down-item-a" %>
     </div>
     <div class="header-down-item">
-      <a class="header-down-item-a" href="/posts">Phân Tích</a>
+      <a class="header-down-item-a" href="/posts"><%= t("header.posts")%></a>
     </div>
     <div class="header-down-item">
-      <a class="header-down-item-a" href="/">Tin Tức</a>
+      <a class="header-down-item-a" href="/"><%= t("header.news")%></a>
     </div>
     <div class="header-down-item">
-      <a class="header-down-item-a" href="/">Công Cụ Đầu Tư</a>
+      <a class="header-down-item-a" href="/"><%= t("header.investment_tool")%></a>
     </div>
     <div class="header-down-item">
-      <a class="header-down-item-a" href="/">Liên Hệ</a>
+      <a class="header-down-item-a" href="/"><%= t("header.contact")%></a>
     </div>
   </div>
 </div>

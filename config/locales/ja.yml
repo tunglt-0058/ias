@@ -1,6 +1,42 @@
 ja:
+  app:
+    title: "StockRanks"
   comment:
     edit_comment: "コメントを編集する"
     delete_comment: "コメントを削除する"
     save_comment: "コメントを保存する"    
-    
+  header:
+    search_placeholder: "株コードかつ専門名を入力"
+    login: "ログイン"
+    sign_up: "サインアップ"
+    stocks: "株一覧"
+    experts: "アナリスト一覧"
+    posts: "投稿"
+    news: "ニュース"
+    investment_tool: "資本ツール"
+    contact: "コンタクト"
+  static_page:
+    trending_stocks: "トレンド株"
+    consensus: "アナリスト評価コンセンサス"
+    current_price: "現価"
+    average_price_target: "平均価格目標"
+    follow_stock: "株フォロー"
+    contact_expert: "コンタクト"
+    detail: "詳細"
+    list_forecasts​: "アナリスト予測の詳細リスト"
+    analyst_profile: "アナリストプロフィール"
+    position: "ポジション"
+    price_target: "価格目標"
+    up_down_side: "上/下"
+    follow_expert: "アナリストをフォロー"
+    top_experts: "トップアナリスト"
+    trending_analysis: "トレンド投稿"
+    trending_news: "トレンドニュース"
+  footer:
+    app: "Investor Analysis System（IAS）- ベトナムの株式市場の専門家を分析、評価するウェブサイト"
+    about_us: "About us"
+    blog: "Blog"
+    faq: "Faq's"
+    contact_us: "Contact us"
+    sitemap: "Site Map"
+    copyright: "All rights reserved"
