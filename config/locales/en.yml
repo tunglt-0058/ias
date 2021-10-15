@@ -55,8 +55,6 @@ en:
         shares_outstanding: "Shares Outstanding"
         next_earnings_date: "Next Earnings Date"
   layouts:
-    app:
-      title: "StockRanks"
     navbar:
       experts: 
         title: "EXPERTS "
@@ -72,22 +70,6 @@ en:
         list: "Industries list"
       groups:
         title: "GROUPS "
-    home:
-      trending_stocks: "Trending Stocks"
-      top_experts: "Top Experts"
-      trending_analysis: "Trending Analysis"
-      trending_news: "Trending News"
-      list_forecasts​: "Detailed List of Analyst Forecasts​"
-      table:
-        analyst_profile: "Analyst Profile"
-        position: "Position"
-        price_target: "Price Target"
-        up_downside: "Upside/Downside"
-        follow: "Follow Expert"
-        detail: "Detail"
-      chart_stock:
-        follow: "Follow Stock"
-        contact: "Contact Expert"
     login:
       title: "Login"
       with: " with "
@@ -104,15 +86,45 @@ en:
       already_account: "Already have an account? "
     logout:
       title: "Logout"
-    footer:
-      about_us: "About us"
-      blog: "Blog"
-      faq: "Faq's"
-      contact_us: "Contact us"
-      sitemap: "Site Map"
-      copyright: "All rights reserved"
+  app:
+    title: "StockRanks"
   comment:
     edit_comment: "Edit comment"
     delete_comment: "Delete comment"
     save_comment: "Save comment"
+  header:
+    search_placeholder: "Type stock code or expert name v.v"
+    login: "Login"
+    sign_up: "Signup"
+    stocks: "Stocks"
+    experts: "Experts"
+    posts: "Posts"
+    news: "News"
+    investment_tool: "Investment tool"
+    contact: "Contact"
+  static_page:
+    trending_stocks: "Trending stocks"
+    consensus: "Analyst Rating Consensus"
+    current_price: "Current price"
+    average_price_target: "Average price target"
+    follow_stock: "Follow"
+    contact_expert: "Contact"
+    detail: "Detail"
+    list_forecasts​: "Detailed List of Analyst Forecasts"
+    analyst_profile: "Analyst Profile"
+    position: "Position"
+    price_target: "Price target"
+    up_down_side: "Up/Downside"
+    follow_expert: "Follow expert"
+    top_experts: "Top Experts"
+    trending_analysis: "Trending Analysis"
+    trending_news: "Trending News"
+  footer:
+    app: "Investor Analysis System(IAS)- Website that summarizes, analyzes and evaluates experts on the VietNam stock market"
+    about_us: "About us"
+    blog: "Blog"
+    faq: "Faq's"
+    contact_us: "Contact us"
+    sitemap: "Site Map"
+    copyright: "All rights reserved"
     

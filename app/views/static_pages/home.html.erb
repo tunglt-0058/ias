@@ -2,26 +2,26 @@
   <div class="container">
       <div class="row">
         <div class="pmd-card-title">
-            <h2 class="pmd-card-title-text"><%= t "layouts.home.trending_stocks" %></h2>
+            <h2 class="pmd-card-title-text"><%= t "static_page.trending_stocks" %></h2>
         </div>
         <%= render "static_pages/trending_stocks" %>
 
         <div class="pmd-card-title">
-            <h2 class="pmd-card-title-text"><%= t "layouts.home.top_experts" %></h2>
+            <h2 class="pmd-card-title-text"><%= t "static_page.top_experts" %></h2>
         </div>
         <%= render "static_pages/top_experts", top_experts: @top_experts, count: @experts_count %>
         <div class="row">
             <!--/.col-md-6 col-sm-12-->
             <div class="col-md-6 col-sm-12">
                 <div class="pmd-card-title">
-                    <h2 class="pmd-card-title-text"><%= t "layouts.home.trending_analysis" %></h2>
+                    <h2 class="pmd-card-title-text"><%= t "static_page.trending_analysis" %></h2>
                 </div>
                 <%= render "static_pages/trending_analysis" %>
             </div>
             <!--/.col-md-6 col-sm-12-->
             <div class="col-md-6 col-sm-12">
                 <div class="pmd-card-title">
-                    <h2 class="pmd-card-title-text"><%= t "layouts.home.trending_news" %></h2>
+                    <h2 class="pmd-card-title-text"><%= t "static_page.trending_news" %></h2>
                 </div>
                 <%= render "static_pages/trending_news" %>
             </div>

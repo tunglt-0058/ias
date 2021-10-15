@@ -7,7 +7,7 @@
           <span class="pmd-card-title-text">(<%= stock.exchange_name %>: <%= stock.code %>)</span>
         </div>
         <div class="col-sm-4">
-          <h2 class="pmd-card-title-text">Giá hiện tại</h2>
+          <h2 class="pmd-card-title-text"><%= t "static_page.current_price" %></h2>
           <span class="pmd-card-title-text">
             <%= number_to_currency(stock.current_price, locale: :vi) %>
           </span>
@@ -24,7 +24,7 @@
       <div class="inline-block-100">
         <div class="col-sm-4 text-center">
           <div>
-            <span class="pmd-card-subtitle-text">Khuyến nghị:</span>
+            <span class="pmd-card-subtitle-text"><%= t "static_page.consensus" %></span>
             <h2 class="pmd-card-title-text"><%= stock.analyst_consensus %></h2>
           </div>
           <hr>
@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="col-sm-8">
-          <span class="pmd-card-title-text">Giá dự đoán trung bình của các chuyên gia</span>
+          <span class="pmd-card-title-text"><%= t "static_page.average_price_target" %></span>
           <h1 class="pmd-card-title-text">
             <%= number_to_currency(stock.average_price, locale: :vi) %>
           </h1>
